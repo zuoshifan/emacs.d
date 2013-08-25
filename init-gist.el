@@ -1,0 +1,5 @@
+(autoload 'gist-region "gist" nil t)
+(autoload 'gist-buffer "gist" nil t)
+(autoload 'gist-list "gist" nil t)
+(eval-after-load 'gist '(load "~/.github_token.el.gpg"))
+(provide 'init-gist)
