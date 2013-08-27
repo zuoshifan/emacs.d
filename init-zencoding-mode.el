@@ -1,4 +1,4 @@
-(require 'emmet-mode)
+;;;;;(require 'emmet-mode)
 ;; @see https://github.com/rooney/zencoding for original tutorial
 ;; @see https://github.com/smihica/emmet for new tutorial
 ;; C-j or C-return to expand the line
