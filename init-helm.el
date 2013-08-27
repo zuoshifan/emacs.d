@@ -20,17 +20,28 @@
         (read-file-name . ni)
         (yas/compile-directory . ido)
         (yas-compile-directory . ido)
+        (execute-extended-command . ido)
+        (wg-load . ido)
         ))
 
-;; helm-gtags ==begin
+;; {{make helm-ls-git-ls more UI friendly
+(require 'helm-ls-git)
+(helm-attrset 'header-name
+                '(lambda (name) (concat name ", `C-]' to toggle full path"))
+                helm-source-ls-git)
+(define-key helm-map (kbd ",k") 'helm-keyboard-quit)
+;; }}
+
+;; {{helm-gtags
 ;; customize
 (setq helm-c-gtags-path-style 'relative)
 (setq helm-c-gtags-ignore-case t)
 (setq helm-c-gtags-read-only t)
-;; helm-gtags ==end
+(add-hook 'c-mode-hook (lambda () (helm-gtags-mode)))
+(add-hook 'c++-mode-hook (lambda () (helm-gtags-mode)))
+;; }}
 
 
-(add-hook 'c-mode-common-hook (lambda () (helm-gtags-mode)))
 
 ;; key bindings
 (add-hook 'helm-gtags-mode-hook

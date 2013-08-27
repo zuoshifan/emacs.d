@@ -39,6 +39,7 @@ emms/
 org-clock-save.el
 
 
+
 ido.last
 recentf
 places
@@ -46,3 +47,5 @@ places
 /url/
 /tutorial
 session.105dac67585a1fbac137234049324596000000018860040
+
+

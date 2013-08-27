@@ -7,10 +7,14 @@
   (let ((current-prefix-arg t))
     (magit-status default-directory)))
 
+;; Sometimes I want check other developer's commit
+;; show file of specific version
+(autoload 'magit-show "magit" "" t nil)
+;; show the commit
+(autoload 'magit-show-commit "magit" "" t nil)
+
 (global-set-key [(meta f12)] 'magit-status)
 (global-set-key [(shift meta f12)] 'magit-status-somedir)
-
-
 
 (eval-after-load 'magit
   '(progn
@@ -82,6 +86,9 @@
 ;; show to details to play `git blame' game
 (setq git-messenger:show-detail t)
 (add-hook 'git-messenger:after-popup-hook (lambda (msg)
+                                            ;; extract commit id and put into the kill ring
+                                            (when (string-match "\\(commit *: *\\)\\([0-9a-z]+\\)" msg)
+                                              (kill-new (match-string 2 msg)))
                                             (kill-new msg)
                                             (with-temp-buffer
                                               (insert msg)
@@ -91,8 +98,7 @@
                                                                         ((eq system-type 'darwin) "pbcopy")
                                                                         (t "xsel -ib")
                                                                         )))
-                                            (message "commit details > clipboard & kill-ring")
-                                            ))
+                                            (message "commit details > clipboard & kill-ring")))
 (global-set-key (kbd "C-x v p") 'git-messenger:popup-message)
 ;; }}
 

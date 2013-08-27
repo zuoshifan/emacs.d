@@ -2,17 +2,20 @@
 
 ; @see https://github.com/timcharper/evil-surround
 (global-surround-mode 1)
+(defun toggle-org-or-message-mode ()
+  (interactive)
+  (if (eq major-mode 'message-mode)
+    (org-mode)
+    (if (eq major-mode 'org-mode) (message-mode))
+    ))
 
 ;; (evil-set-initial-state 'org-mode 'emacs)
 ;; Remap org-mode meta keys for convenience
 (evil-declare-key 'normal org-mode-map
     "gh" 'outline-up-heading
-    "gj" 'org-forward-same-level
-    "gk" 'org-backward-same-level
     "gl" 'outline-next-visible-heading
     "H" 'org-beginning-of-line ; smarter behaviour on headlines etc.
     "L" 'org-end-of-line ; smarter behaviour on headlines etc.
-    "t" 'org-todo ; mark a TODO item as DONE
     ",c" 'org-cycle
     ",e" 'org-export-dispatch
     ",n" 'outline-next-visible-heading
@@ -28,10 +31,6 @@
 (mapc (lambda (state)
           (evil-declare-key state org-mode-map
                             (kbd "TAB") 'org-cycle
-                            (kbd "M-l") 'org-metaright
-                            (kbd "M-h") 'org-metaleft
-                            (kbd "M-k") 'org-metaup
-                            (kbd "M-j") 'org-metadown
                             (kbd "M-L") 'org-shiftmetaright
                             (kbd "M-H") 'org-shiftmetaleft
                             (kbd "M-K") 'org-shiftmetaup
@@ -50,7 +49,7 @@
         (help-mode . emacs)
         (eshell-mode . emacs)
         (shell-mode . emacs)
-        (message-mode . emacs)
+        ;;(message-mode . emacs)
         (magit-log-edit-mode . emacs)
         (fundamental-mode . emacs)
         (gtags-select-mode . emacs)
@@ -61,14 +60,37 @@
         (dired-mode . emacs)
         (compilation-mode . emacs)
         (speedbar-mode . emacs)
+        (magit-commit-mode . normal)
         )
       do (evil-set-initial-state mode state))
 
+(define-key evil-ex-completion-map (kbd "M-p") 'previous-complete-history-element)
+(define-key evil-ex-completion-map (kbd "M-n") 'next-complete-history-element)
 
 (define-key evil-normal-state-map "Y" (kbd "y$"))
 (define-key evil-normal-state-map "+" 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map "-" 'evil-numbers/dec-at-pt)
 (define-key evil-normal-state-map "go" 'goto-char)
+
+;; {{ evil-matchit
+(defun my-evil-jump-item-enhanced-for-html ()
+  (interactive)
+  (if (or (eq major-mode 'html-mode)
+          (eq major-mode 'xml-mode)
+          (eq major-mode 'nxml-mode)
+          )
+      (progn
+        (if (not (my-sp-select-next-thing 1)) (exchange-point-and-mark))
+        (deactivate-mark)
+        )
+    (progn
+      (message "hi")
+      (evil-jump-item)
+      )
+    )
+  )
+(define-key evil-normal-state-map "%" 'my-evil-jump-item-enhanced-for-html)
+;; }}
 
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
@@ -89,8 +111,16 @@
        (t (setq unread-command-events (append unread-command-events
                           (list evt))))))))
 
+
 (define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line)
 (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
+(global-set-key (kbd "M-k") 'keyboard-quit)
+(define-key evil-insert-state-map (kbd "M-k") 'evil-normal-state)
+(define-key evil-visual-state-map (kbd "M-k") 'evil-exit-visual-state)
+(define-key evil-visual-state-map (kbd ",k") 'evil-exit-visual-state)
+(define-key minibuffer-local-map (kbd "M-k") 'abort-recursive-edit)
+(define-key minibuffer-local-map (kbd ",k") 'abort-recursive-edit)
+(define-key evil-insert-state-map (kbd "M-j") 'yas-expand)
 
 (defun evilcvn-change-symbol-in-defun ()
   "mark the region in defun (definition of function) and use string replacing UI in evil-mode
@@ -103,41 +133,63 @@ to replace the symbol under cursor"
     (evil-ex (concat "'<,'>s/" (if (= 0 (length old)) "" "\\<\\(") old (if (= 0 (length old)) "" "\\)\\>/"))))
   )
 (global-set-key (kbd "C-c ; s") 'evilcvn-change-symbol-in-defun)
-
-; evil-leader config
+;; {{ evil-leader config
 (setq evil-leader/leader "," evil-leader/in-all-states t)
 (require 'evil-leader)
 (evil-leader/set-key
+  "em" 'erase-message-buffer
+  "eb" 'eval-buffer
+  "ee" 'eval-expression
   "cx" 'copy-to-x-clipboard
+  "bb" 'evil-scroll-page-up
+  "ff" 'evil-scroll-page-down
   "px" 'paste-from-x-clipboard
-  "ci" 'evilnc-comment-or-uncomment-lines
-  "cl" 'evilnc-comment-or-uncomment-to-the-line
-  "cc" 'copy-and-comment-region
+  ;; "ci" 'evilnc-comment-or-uncomment-lines
+  ;; "cl" 'evilnc-comment-or-uncomment-to-the-line
+  ;; "cc" 'evilnc-copy-and-comment-lines
+  ;; "cp" 'evilnc-comment-or-uncomment-paragraphs
   "ct" 'ctags-create-or-update-tags-table
   "cs" 'evilcvn-change-symbol-in-defun
   "t" 'ido-goto-symbol ;; same as my vim hotkey
-  "w" 'save-buffer
-  "cp" 'compile
+  "cg" 'helm-ls-git-ls
   "ud" '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer))))
   "W" 'save-some-buffers
-  "K" 'kill-buffer-and-window
-  "bm" 'pomodoro-start ; beat myself
+  "K" 'kill-buffer-and-window ;; "k" is preserved to replace "C-g"
+  "it" 'issue-tracker-increment-issue-id-under-cursor
+  "ha" 'highlight-symbol-at-point
+  "hn" 'highlight-symbol-next
+  "hp" 'highlight-symbol-prev
+  "hqr" 'highlight-symbol-query-replace
+  "bm" 'pomodoro-start ;; beat myself
   "." 'evil-ex
   ;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
   "ov" '(lambda () (interactive) (set-selective-display (if selective-display nil 1)))
+  "or" 'open-readme-in-git-root-directory
   "mq" '(lambda () (interactive) (man (concat "-k " (thing-at-point 'symbol))))
   "gg" '(lambda () (interactive) (w3m-search "g" (thing-at-point 'symbol)))
-  "q" '(lambda () (interactive) (w3m-search "q" (thing-at-point 'symbol)))
-  "so" 'delete-other-windows
-  "sh" 'split-window-below
-  "sv" 'split-window-right
+  "qq" '(lambda () (interactive) (w3m-search "q" (thing-at-point 'symbol)))
+  "s1" 'delete-other-windows
+  "s2" 'split-window-below
+  "s3" 'split-window-right
   "su" 'winner-undo
+  "sp" '(lambda (&optional NUM)
+          (interactive "p")
+          ;; move cursor
+          (if (or (eq major-mode 'html-mode)
+                  (eq major-mode 'xml-mode)
+                  (eq major-mode 'nxml-mode)
+                  )
+              (my-sp-select-next-thing NUM)
+              )
+          )
+  "ls" 'package-list-packages
   "hs" 'w3mext-hacker-search
   "gf" 'gtags-find-tag-from-here
   "gp" 'gtags-pop-stack
   "gr" 'gtags-find-rtag
+  "fb" 'flyspell-buffer
   "gy" 'gtags-find-symbol
-  "cg" 'djcb-gtags-create-or-update
+  "dg" 'djcb-gtags-create-or-update
   "bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
   "ma" 'mc/mark-all-like-this-in-defun
   "mw" 'mc/mark-all-words-like-this-in-defun
@@ -145,9 +197,34 @@ to replace the symbol under cursor"
   ;; recommended in html
   "md" 'mc/mark-all-like-this-dwim
   "rw" 'rotate-windows
-  "l" 'align-regexp
-  "x" 'er/expand-region
+  "om" 'toggle-org-or-message-mode
+  "al" 'align-regexp
+  "ww" 'save-buffer
+  "w0" 'select-window-0
+  "w1" 'select-window-1
+  "w2" 'select-window-2
+  "w3" 'select-window-3
+  "w4" 'select-window-4
+  "w5" 'select-window-5
+  "w6" 'select-window-6
+  "w7" 'select-window-7
+  "w8" 'select-window-8
+  "w9" 'select-window-9
+  "xx" 'er/expand-region
+  "xf" 'ido-find-file
+  "xb" 'ido-switch-buffer
+  "xc" 'save-buffers-kill-terminal
+  "xo" 'helm-find-files
+  "vd" 'scroll-other-window
+  "vu" '(lambda () (interactive) (scroll-other-window-down nil))
+  "jj" 'w3mext-search-js-api-mdn
+  "xk" 'ido-kill-buffer
+  "xz" 'suspend-frame
+  "xvv" 'vc-next-action
+  "xv=" 'vc-diff
+  "xvl" 'vc-print-log
   )
+;; }}
 
 ;; change mode-line color by evil state
 (lexical-let ((default-color (cons (face-background 'mode-line)
@@ -161,13 +238,6 @@ to replace the symbol under cursor"
                                  (t default-color))))
                 (set-face-background 'mode-line (car color))
                 (set-face-foreground 'mode-line (cdr color))))))
-
-;; the only purpose I use key-chord is avoid typing esc in evil-mode
-(key-chord-mode 1)
-(key-chord-define evil-normal-state-map ",," 'evil-force-normal-state)
-(key-chord-define evil-visual-state-map ",," 'evil-change-to-previous-state)
-(key-chord-define evil-insert-state-map ",," 'evil-normal-state)
-(key-chord-define evil-replace-state-map ",," 'evil-normal-state)
 
 ;; comment/uncomment lines
 (evilnc-default-hotkeys)

@@ -125,13 +125,19 @@
 ;; show trailing spaces in a programming mod
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
-;; turns on auto-fill-mode, don't use text-mode-hook becasue for some
+;; turns on auto-fill-mode, don't use text-mode-hook because for some
 ;; mode (org-mode for example), this will make the exported document
 ;; ugly!
-(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 (add-hook 'change-log-mode-hook 'turn-on-auto-fill)
 (add-hook 'cc-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
+
+;; {{ whitespace
+;; (require 'whitespace)
+;; (setq whitespace-style '(face empty tabs lines-tail trailing))
+;; (global-whitespace-mode t)
+;; }}
 
 ;; some project prefer tab, so be it
 ;; @see http://stackoverflow.com/questions/69934/set-4-space-indent-in-emacs-in-text-mode

@@ -101,8 +101,11 @@
 
 (require 'init-marmalade)
 
+;;<<<<<<< HEAD
 ;; Finally set up themes, after most possibly-customised faces have been defined
 (require 'init-themes) ; color-themes 6.6.1 has some problem
+;; =======
+;; >>>>>>> temp
 ;; Chinese inut method
 (require 'init-org2blog)
 ;;(require 'init-fill-column-indicator) ;make auto-complete dropdown wierd
@@ -112,7 +115,6 @@
 (require 'init-zencoding-mode) ;behind init-better-register to override C-j
 (require 'init-yari)
 (require 'init-cc-mode)
-;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
 (require 'init-semantic)
 (require 'init-cmake-mode)
 (require 'init-csharp-mode)
@@ -130,7 +132,7 @@
 (require 'init-moz)
 (require 'init-gtags)
 ;; use evil mode (vi key binding)
-;;;;;(if (not (boundp 'light-weight-emacs)) (require 'init-evil))
+(if (not (boundp 'light-weight-emacs)) (require 'init-evil))
 (require 'init-misc)
 (require 'init-ctags)
 (require 'init-ace-jump-mode)
@@ -148,9 +150,12 @@
 (require 'init-workgroups)
 (require 'init-move-window-buffer)
 (require 'init-term-mode)
-(require 'init-web-mode)
+;; I'm fine with nxml-mode, so web-mode is not used
+;;(require 'init-web-mode)
 (require 'init-sr-speedbar)
 (require 'init-smartparens)
+;; Choose either auto-complete or company-mode by commenting one of below two lines!
+;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
 (require 'init-company)
 (require 'init-stripe-buffer)
 (require 'init-popwin)
@@ -206,22 +211,7 @@
     (time-to-seconds (time-since emacs-load-start-time)))
    )
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(custom-safe-themes
-   (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(window-numbering-face ((t (:foreground "DeepPink" :underline "DeepPink" :weight bold))) t))
- ;;; Local Variables:
+;;; Local Variables:
 ;;; no-byte-compile: t
 ;;; End:
 (put 'erase-buffer 'disabled nil)

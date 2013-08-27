@@ -163,9 +163,30 @@
 ;; Use the system clipboard
 (setq x-select-enable-clipboard t)
 
-;; shortcut 'ctx', if smex installed
-;; you need install xsel
-;; xclip has some problem when copying
+;; you need install xsel under Linux
+;; xclip has some problem when copying under Linux
+(defun copy-yank-str (msg)
+  (kill-new msg)
+  (with-temp-buffer
+    (insert msg)
+    (shell-command-on-region (point-min) (point-max)
+                             (cond
+                              ((eq system-type 'cygwin) "putclip")
+                              ((eq system-type 'darwin) "pbcopy")
+                              (t "xsel -ib")
+                              ))))
+
+(defun copy-full-path-of-current-buffer ()
+  "copy full path into the yank ring and OS clipboard"
+  (interactive)
+  (when buffer-file-name
+    (kill-new (file-truename buffer-file-name))
+    (copy-yank-str (file-truename buffer-file-name))
+    (message "full path of current buffer => clipboard & yank ring")
+    ))
+
+(global-set-key (kbd "C-x v f") 'copy-full-path-of-current-buffer)
+
 (defun copy-to-x-clipboard ()
   (interactive)
   (if (region-active-p)
@@ -291,38 +312,6 @@ Current position is preserved."
 ;; http://emacsredux.com/blog/2013/04/21/camelcase-aware-editing/
 (add-hook 'prog-mode-hook 'subword-mode)
 
-(defun copy-and-comment-region (beg end)
-  "Insert a copy of the lines in region and comment them.
-When transient-mark-mode is enabled, if no region is active then only the
-current line is acted upon.
-
-If the region begins or ends in the middle of a line, that entire line is
-copied, even if the region is narrowed to the middle of a line.
-The copied lines are commented according to mode.
-
-Current position is preserved."
-  (interactive "r")
-  (let ((orig-pos (point-marker)))
-  (save-restriction
-    (widen)
-    (when (and transient-mark-mode (not (use-region-p)))
-      (setq beg (line-beginning-position)
-            end (line-beginning-position 2)))
-
-    (goto-char beg)
-    (setq beg (line-beginning-position))
-    (goto-char end)
-    (unless (= (point) (line-beginning-position))
-      (setq end (line-beginning-position 2)))
-
-    (goto-char beg)
-    (insert-before-markers (buffer-substring-no-properties beg end))
-    (comment-region beg end)
-    (goto-char orig-pos))))
-
-;; (global-set-key (kbd "C-c c") 'copy-and-comment-region)
-(global-set-key (kbd "C-c c") 'copy-and-comment-region)
-
 ;; { smarter navigation to the beginning of a line
 ;; http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
 (defun smarter-move-beginning-of-line (arg)
@@ -353,6 +342,23 @@ point reaches the beginning or end of the buffer, stop there."
                 'smarter-move-beginning-of-line)
 ;; }
 
+(defun open-readme-in-git-root-directory ()
+  (interactive)
+  (let (filename
+        (root-dir (locate-dominating-file (file-name-as-directory (file-name-directory buffer-file-name)) ".git"))
+        )
+    ;; (message "root-dir=%s" root-dir)
+    (and root-dir (file-name-as-directory root-dir))
+    (setq filename (concat root-dir "README.org"))
+    (if (not (file-exists-p filename))
+        (setq filename (concat root-dir "README.md"))
+      )
+    ;; (message "filename=%s" filename)
+    (if (file-exists-p filename)
+        (switch-to-buffer (find-file-noselect filename nil nil))
+      (message "NO README.org or README.md found!"))
+    ))
+(global-set-key (kbd "C-c C-q") 'open-readme-in-git-root-directory)
 
 ;; from http://emacsredux.com/blog/2013/05/04/rename-file-and-buffer/
 (defun rename-file-and-buffer ()
@@ -399,10 +405,70 @@ version control automatically"
         (find-file file))
     (message "Current buffer does not have an associated file.")))
 
+;; {{ eval and replace anywhere
+;; @see http://emacs.wordpress.com/2007/01/17/eval-and-replace-anywhere/ 
+(defun fc-eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+(global-set-key (kbd "C-c e") 'fc-eval-and-replace)
+
+(defun calc-eval-and-insert (&optional start end)
+(interactive "r")
+(let ((result (calc-eval (buffer-substring-no-properties start end))))
+(goto-char (point-at-eol))
+(insert " = " result)))
+
+(defun calc-eval-line-and-insert ()
+(interactive)
+(calc-eval-and-insert (point-at-bol) (point-at-eol)))
+(global-set-key (kbd "C-c C-e") 'calc-eval-line-and-insert)
+;; }}
+
 ;; input open source license
 (require 'legalese)
 
 ;; edit confluence wiki
 (autoload 'confluence-edit-mode "confluence-edit" "enable confluence-edit-mode" t)
+(add-to-list 'auto-mode-alist '("\\.wiki\\'" . confluence-edit-mode))
+
+;; {{ issue-tracker
+(global-set-key (kbd "C-c C-t") 'issue-tracker-increment-issue-id-under-cursor)
+;; }}
+
+;; {{ messge buffer things
+(defun erase-message-buffer (&optional num)
+  "Erase the content of the *Messages* buffer in emacs.
+    Keep the last num lines if argument num if given."
+  (interactive "p")
+  (let ((message-buffer (get-buffer "*Messages*"))
+        (old-buffer (current-buffer)))
+    (save-excursion
+      (if (buffer-live-p message-buffer)
+          (progn
+            (switch-to-buffer message-buffer)
+            (if (not (null num))
+                (progn
+                  (end-of-buffer)
+                  (dotimes (i num)
+                    (previous-line))
+                  (set-register t (buffer-substring (point) (point-max)))
+                  (erase-buffer)
+                  (insert (get-register t))
+                  (switch-to-buffer old-buffer))
+              (progn
+                (erase-buffer)
+                (switch-to-buffer old-buffer))))
+        (error "Message buffer doesn't exists!")
+        ))))
+
+;; }}
+
+(require 'highlight-symbol)
 
 (provide 'init-misc)
