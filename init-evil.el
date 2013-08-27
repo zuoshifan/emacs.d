@@ -92,6 +92,9 @@
 (define-key evil-normal-state-map "%" 'my-evil-jump-item-enhanced-for-html)
 ;; }}
 
+
+(eval-after-load "evil" '(setq expand-region-contract-fast-key "z"))
+
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
 (define-key evil-insert-state-map "k" #'cofi/maybe-exit)
@@ -112,7 +115,9 @@
                           (list evt))))))))
 
 
+(define-key evil-insert-state-map (kbd "M-a") 'move-beginning-of-line)
 (define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line)
+(define-key evil-insert-state-map (kbd "M-e") 'move-end-of-line)
 (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
 (global-set-key (kbd "M-k") 'keyboard-quit)
 (define-key evil-insert-state-map (kbd "M-k") 'evil-normal-state)
@@ -219,6 +224,7 @@ to replace the symbol under cursor"
   "vu" '(lambda () (interactive) (scroll-other-window-down nil))
   "jj" 'w3mext-search-js-api-mdn
   "xk" 'ido-kill-buffer
+  "xs" 'save-buffer
   "xz" 'suspend-frame
   "xvv" 'vc-next-action
   "xv=" 'vc-diff
