@@ -21,10 +21,11 @@
 ;; show images in the browser
 ;(setq w3m-default-display-inline-images t)
 
-(setq w3m-search-default-engine "g")
+(setq w3m-search-default-engine "gv6")
 (eval-after-load "w3m-search" '(progn
                                  ; C-u S g RET <search term> RET
 
+                                 (add-to-list 'w3m-search-engine-alist '("gv6" "http://ipv6.google.com.hk/search?hl=en&q=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("wz" "http://zh.wikipedia.org/wiki/Special:Search?search=%s" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("q" "http://www.google.com.au/search?hl=en&q=%s+site:stackoverflow.com" utf-8))
                                  (add-to-list 'w3m-search-engine-alist '("s" "http://code.ohloh.net/search?s=%s&browser=Default"  utf-8))
