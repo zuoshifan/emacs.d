@@ -26,16 +26,8 @@
     "-" 'org-ctrl-c-minus ; change bullet style
     "<" 'org-metaleft ; out-dent
     ">" 'org-metaright ; indent
+    (kbd "TAB") 'org-cycle
     )
-
-(mapc (lambda (state)
-          (evil-declare-key state org-mode-map
-                            (kbd "TAB") 'org-cycle
-                            (kbd "M-L") 'org-shiftmetaright
-                            (kbd "M-H") 'org-shiftmetaleft
-                            (kbd "M-K") 'org-shiftmetaup
-                            (kbd "M-J") 'org-shiftmetadown))
-        '(normal insert))
 
 (loop for (mode . state) in
       '(
@@ -78,13 +70,13 @@
   (if (or (eq major-mode 'html-mode)
           (eq major-mode 'xml-mode)
           (eq major-mode 'nxml-mode)
+          (eq major-mode 'web-mode)
           )
       (progn
         (if (not (my-sp-select-next-thing 1)) (exchange-point-and-mark))
         (deactivate-mark)
         )
     (progn
-      (message "hi")
       (evil-jump-item)
       )
     )
@@ -125,7 +117,7 @@
 (define-key evil-visual-state-map (kbd ",k") 'evil-exit-visual-state)
 (define-key minibuffer-local-map (kbd "M-k") 'abort-recursive-edit)
 (define-key minibuffer-local-map (kbd ",k") 'abort-recursive-edit)
-(define-key evil-insert-state-map (kbd "M-j") 'yas-expand)
+(define-key evil-insert-state-map (kbd "M-j") 'my-yas-expand)
 
 (defun evilcvn-change-symbol-in-defun ()
   "mark the region in defun (definition of function) and use string replacing UI in evil-mode
@@ -142,6 +134,10 @@ to replace the symbol under cursor"
 (setq evil-leader/leader "," evil-leader/in-all-states t)
 (require 'evil-leader)
 (evil-leader/set-key
+  "as" 'ack-same
+  "ac" 'ack
+  "aa" 'ack-find-same-file
+  "af" 'ack-find-file
   "em" 'erase-message-buffer
   "eb" 'eval-buffer
   "ee" 'eval-expression
@@ -155,36 +151,42 @@ to replace the symbol under cursor"
   ;; "cp" 'evilnc-comment-or-uncomment-paragraphs
   "ct" 'ctags-create-or-update-tags-table
   "cs" 'evilcvn-change-symbol-in-defun
-  "t" 'ido-goto-symbol ;; same as my vim hotkey
+  "tt" 'ido-goto-symbol ;; same as my vim hotkey
   "cg" 'helm-ls-git-ls
   "ud" '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer))))
   "W" 'save-some-buffers
   "K" 'kill-buffer-and-window ;; "k" is preserved to replace "C-g"
   "it" 'issue-tracker-increment-issue-id-under-cursor
-  "ha" 'highlight-symbol-at-point
+  "hh" 'highlight-symbol-at-point
   "hn" 'highlight-symbol-next
   "hp" 'highlight-symbol-prev
-  "hqr" 'highlight-symbol-query-replace
+  "hq" 'highlight-symbol-query-replace
   "bm" 'pomodoro-start ;; beat myself
   "." 'evil-ex
   ;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
+  "oo" 'switch-window
   "ov" '(lambda () (interactive) (set-selective-display (if selective-display nil 1)))
   "or" 'open-readme-in-git-root-directory
   "mq" '(lambda () (interactive) (man (concat "-k " (thing-at-point 'symbol))))
   "gg" '(lambda () (interactive) (w3m-search "g" (thing-at-point 'symbol)))
   "qq" '(lambda () (interactive) (w3m-search "q" (thing-at-point 'symbol)))
-  "s1" 'delete-other-windows
-  "s2" 'split-window-below
-  "s3" 'split-window-right
-  "su" 'winner-undo
+  "hr" 'helm-recentf
+  "sr" 'steve-ido-choose-from-recentf
+  "x0" 'delete-window
+  "x1" 'delete-other-windows
+  "x2" 'split-window-below
+  "x3" 'split-window-right
+  "xu" 'winner-undo
   "sp" '(lambda (&optional NUM)
           (interactive "p")
           ;; move cursor
           (if (or (eq major-mode 'html-mode)
                   (eq major-mode 'xml-mode)
                   (eq major-mode 'nxml-mode)
+                  (eq major-mode 'web-mode)
                   )
               (my-sp-select-next-thing NUM)
+            (sp-select-next-thing)
               )
           )
   "ls" 'package-list-packages
@@ -202,19 +204,26 @@ to replace the symbol under cursor"
   ;; recommended in html
   "md" 'mc/mark-all-like-this-dwim
   "rw" 'rotate-windows
+  "oc" 'occur
   "om" 'toggle-org-or-message-mode
+  "ops" 'my-org2blog-post-subtree
   "al" 'align-regexp
   "ww" 'save-buffer
-  "w0" 'select-window-0
-  "w1" 'select-window-1
-  "w2" 'select-window-2
-  "w3" 'select-window-3
-  "w4" 'select-window-4
-  "w5" 'select-window-5
-  "w6" 'select-window-6
-  "w7" 'select-window-7
-  "w8" 'select-window-8
-  "w9" 'select-window-9
+  "bk" 'buf-move-up
+  "bj" 'buf-move-down
+  "bh" 'buf-move-left
+  "bl" 'buf-move-right
+  "0" 'select-window-0
+  "1" 'select-window-1
+  "2" 'select-window-2
+  "3" 'select-window-3
+  "4" 'select-window-4
+  "5" 'select-window-5
+  "6" 'select-window-6
+  "7" 'select-window-7
+  "8" 'select-window-8
+  "9" 'select-window-9
+  "xm" 'smex
   "xx" 'er/expand-region
   "xf" 'ido-find-file
   "xb" 'ido-switch-buffer
@@ -229,6 +238,7 @@ to replace the symbol under cursor"
   "xvv" 'vc-next-action
   "xv=" 'vc-diff
   "xvl" 'vc-print-log
+  "xvp" 'git-messenger:popup-message
   )
 ;; }}
 
