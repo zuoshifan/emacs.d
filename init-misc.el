@@ -176,6 +176,17 @@
                               (t "xsel -ib")
                               ))))
 
+(defun copy-filename-of-current-buffer ()
+  "copy file name (NOT full path) into the yank ring and OS clipboard"
+  (interactive)
+  (let ((filename))
+    (when buffer-file-name
+      (setq filename (file-name-nondirectory buffer-file-name))
+      (kill-new filename)
+      (copy-yank-str filename)
+      (message "filename %s => clipboard & yank ring" filename)
+      )))
+
 (defun copy-full-path-of-current-buffer ()
   "copy full path into the yank ring and OS clipboard"
   (interactive)
@@ -486,5 +497,14 @@ version control automatically"
 (setq gnus-article-patch-conditions
       '( "^@@ -[0-9]+,[0-9]+ \\+[0-9]+,[0-9]+ @@" ))
 ;; }}
+
+(defun toggle-full-window()
+  "Toggle the full view of selected window"
+  (interactive)
+  ;; @see http://www.gnu.org/software/emacs/manual/html_node/elisp/Splitting-Windows.html
+  (if (window-parent)
+      (delete-other-windows)
+    (winner-undo)
+    ))
 
 (provide 'init-misc)

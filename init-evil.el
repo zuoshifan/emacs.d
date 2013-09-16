@@ -142,8 +142,11 @@ to replace the symbol under cursor"
   "eb" 'eval-buffer
   "ee" 'eval-expression
   "cx" 'copy-to-x-clipboard
-  "bb" 'evil-scroll-page-up
-  "ff" 'evil-scroll-page-down
+  "cfn" 'copy-filename-of-current-buffer
+  "cfp" 'copy-full-path-of-current-buffer
+  "pp" 'evil-scroll-page-up
+  "nn" 'evil-scroll-page-down
+  "ff" 'toggle-full-window ;; I use WIN+F in i3
   "px" 'paste-from-x-clipboard
   ;; "ci" 'evilnc-comment-or-uncomment-lines
   ;; "cl" 'evilnc-comment-or-uncomment-to-the-line
@@ -171,12 +174,11 @@ to replace the symbol under cursor"
   "gg" '(lambda () (interactive) (w3m-search "g" (thing-at-point 'symbol)))
   "qq" '(lambda () (interactive) (w3m-search "q" (thing-at-point 'symbol)))
   "hr" 'helm-recentf
-  "sr" 'steve-ido-choose-from-recentf
-  "x0" 'delete-window
-  "x1" 'delete-other-windows
-  "x2" 'split-window-below
-  "x3" 'split-window-right
-  "xu" 'winner-undo
+  "s0" 'delete-window
+  "s1" 'delete-other-windows
+  "s2" 'split-window-below
+  "s3" 'split-window-right
+  "su" 'winner-undo
   "sp" '(lambda (&optional NUM)
           (interactive "p")
           ;; move cursor
