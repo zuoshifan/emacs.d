@@ -108,6 +108,7 @@ ARCHIVE is the string name of the package archive.")
      ctags
      fakir
      erlang
+     cdlatex
      )
   "Don't install any Melpa packages except these packages")
 
