@@ -103,7 +103,7 @@
 
 ;;<<<<<<< HEAD
 ;; Finally set up themes, after most possibly-customised faces have been defined
-(require 'init-themes) ; color-themes 6.6.1 has some problem
+;;;;;;(require 'init-themes) ; color-themes 6.6.1 has some problem
 ;; =======
 ;; >>>>>>> temp
 ;; Chinese inut method
