@@ -6,7 +6,7 @@
 (let ((package-el-site-lisp-dir (expand-file-name "~/.emacs.d/site-lisp/package")))
   (when (and (file-directory-p package-el-site-lisp-dir)
              (> emacs-major-version 23))
-    (message "Removing local package.el from load-path to avoid shadowing bundled version")
+    (message "Removing local %s package.el from load-path to avoid shadowing bundled version" package-el-site-lisp-dir)
     (setq load-path (remove package-el-site-lisp-dir load-path))))
 
 (require 'package)
@@ -56,7 +56,9 @@ ARCHIVE is the string name of the package archive.")
 ;;------------------------------------------------------------------------------
 
 (defun require-package (package &optional min-version no-refresh)
-  "Ask elpa to install given PACKAGE."
+  "Ask elpa to install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
   (if (package-installed-p package min-version)
       t
     (if (or (assoc package package-archive-contents) no-refresh)
