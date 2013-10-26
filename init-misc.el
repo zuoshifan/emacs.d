@@ -507,4 +507,70 @@ version control automatically"
     (winner-undo)
     ))
 
+;; {{ copy the file-name/full-path in dired buffer into clipboard
+;; `w` => copy file name
+;; `C-u 0 w` => copy full path
+(defadvice dired-copy-filename-as-kill (after dired-filename-to-clipboard activate)
+  (with-temp-buffer
+    (insert (current-kill 0))
+    (shell-command-on-region (point-min) (point-max)
+                             (cond
+                              ((eq system-type 'cygwin) "putclip")
+                              ((eq system-type 'darwin) "pbcopy")
+                              (t "xsel -ib")
+                              )))
+  (message "%s => clipboard" (current-kill 0))
+  )
+
+;; }}
+
+(defun insert-file-link-from-clipboard ()
+  "Make sure the full path of file exist in clipboard. This command will convert
+The full path into relative path insert it as a local file link in org-mode"
+  (interactive)
+  (let (str)
+    (with-temp-buffer
+      (shell-command
+       (cond
+        (*cygwin* "getclip")
+        (*is-a-mac* "pbpaste")
+        (t "xsel -ob")
+        )
+       1)
+      (setq str (buffer-string))
+      )
+
+    ;; convert to relative path (relative to current buffer) if possible
+    (let ((m (string-match (file-name-directory (buffer-file-name)) str) ))
+      (when m
+        (if (= 0 m )
+            (setq str (substring str (length (file-name-directory (buffer-file-name)))))
+          )
+        )
+        (insert (format "[[file:%s]]" str))
+      )
+    ))
+
+(defun convert-image-to-css-code ()
+  "convert a image into css code (base64 encode)"
+  (interactive)
+  (let (str
+        rlt
+        (file (read-file-name "The path of image:"))
+        )
+    (with-temp-buffer
+      (shell-command (concat "cat " file "|base64") 1)
+      (setq str (replace-regexp-in-string "\n" "" (buffer-string)))
+      )
+    (setq rlt (concat "background:url(data:image/"
+                      (car (last (split-string file "\\.")))
+                      ";base64,"
+                      str
+                      ") no-repeat 0 0;}"
+                      ))
+    (kill-new rlt)
+    (copy-yank-str rlt)
+    (message "css code => clipboard & yank ring")
+    ))
+
 (provide 'init-misc)
