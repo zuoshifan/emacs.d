@@ -160,6 +160,7 @@
 (require 'init-popwin)
 (require 'init-elnode)
 (require 'init-tramp)
+(require 'init-full-screen)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
