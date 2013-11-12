@@ -1,37 +1,37 @@
 # Warning
-* I'm using [Vim](http://www.vim.org) key binding. Please see "Tips" section for restoring the Emacs key binding.
+* I'm using [Vim](http://www.vim.org) key binding. Please see "Tips" section if you prefer the Emacs key binding.
 * People in Mainland China may need [goagent](http://code.google.com/p/goagent/) to download packages from ELPA. Run command "http_proxy=http://127.0.0.1:8087 emacs -nw" after starting goagent server.
 * C++/C developers, you need tell Emacs where to search headers to make auto-complete work. See section `clang` for details.
-
+* For Windows users, I would suggest [Cygwin](http://www.cygwin.com/) Emacs instead of native one to avoid some overhead on set up third party tools. But this configuration is still usable even with native windows Emacs.
 
 # General
 
-I based my emacs.d on [Steve Purcell's emacs.d](http://github.com/purcell/emacs.d).
+This configuration is originally cloned from [Steve Purcell's emacs.d](http://github.com/purcell/emacs.d).
 
-My first priority is stable. So I use few cutting-edge packages from [melpa](http://melpa.milkbox.net).
+My first priority is *stable*. So I use fewer cutting-edge packages from [melpa](http://melpa.milkbox.net) than average geeks. Average geeks use 500 packages, I have only installed 200 packages. ;)
 
-To install, Download [this zip file](https://github.com/redguardtoo/emacs.d/archive/master.zip) and extract its content into ~/.emacs.d. Ensure that the 'init.el' contained in this repo ends up at ~/.emacs.d/init.el and old ~/.emacs does NOT exist.
+To install, Download [this zip file](https://github.com/redguardtoo/emacs.d/archive/master.zip) and extract its content into ~/.emacs.d. Ensure that the 'init.el' contained in this repo ends up at ~/.emacs.d/init.el and old *~/.emacs does NOT exist*.
 
 Thanks to Purcell, this emacs.d has [fancy features](http://github.com/purcell/emacs.d) for most script languages like Clojure, Python, Lisp, PHP, Javascript, Ruby etc. Purcell is basically a web geek who use all the modern web technologies.
 
-I will support all the languages a desktop developer may use, like C++, Java, Lua, Objective-C etc.
+I will support all the languages a desktop application developer use, like C++, Java, Lua, Objective-C etc.
 
 ## Features
 
-* git or subversion is NOT needed. I removed all the 'git submodule update' stuff.
-* enhance major/minor modes for C/C++ developers
+* Real time HTML syntax checker enabled (you need install tidy)
+* git or subversion is *NOT* needed. I removed all the 'git submodule update' stuff.
 * optimized for cross-platform C++ development with CMake and wxWidgets
 * emacs-w3m (console browser)
 * eim (Chinese pinyin input method)
-* org2blog (write wordpress blog with org-mode)
-* make the configuration work under Linux and Cygwin
-* The configuration will work with Emacs version >=24
+* org2blog (post wordpress blog with org-mode)
+* make the configuration work on *ALL* platforms (Linux/Cygwin/Mac). BTW, when I say Linux, I mean all the popular distributions (Debian, Ubuntu, Mint, Centos, ArchLinux, Gentoo ...).
+* The configuration will work with Emacs version >=24 but still usable with Emacs version 23.
 * evil-mode and its plugins (Vim key binding)
-* yasnippet and my customized snippets
+* yasnippet and my customized snippets (insert code snippet by typing less keys)
 
-## Third party command line tools Emacs uses
+## Third party tools Emacs uses
 
-You need to install some command line tools to use some features in Emacs. All those command line tools are *optional*. Your Emacs will not crash if some tools are not installed.
+They are *OPTIONAL*. Your Emacs will NOT crash if they are not installed.
 
 ### w3m (web browser in console) 
 * needed by `w3m` (w3m is emacs package name written in elisp)
@@ -41,22 +41,18 @@ You need to install some command line tools to use some features in Emacs. All t
 * required by `flymake-lua`
 * install by OS way
 
-### aspell, and corresponding dictionary (aspell-en, for example)
+### aspell or hunspell (RECOMMENDED), and corresponding dictionary (aspell-en, for example)
 * needed by `flyspell`
+* hunspell is the alternative of `aspell`. So you need only install either aspell or hunspell.
 * install by OS way
-* I force the dictionary to "en_US" in init-spelling.el
-
-### hunspel
-* alternative of `aspell`
-* install by OS way
-* I force the dictionary to "en_US" in init-spelling.el
+* I force the dictionary to "en_US" in init-spelling.el. You can modify it in init-spelling.el.
 
 ### sbcl (lisp environment)
 * needed by lisp `slime`
 * install by OS way
 
 ### tidy (html tidy program)
-* needed by `nxml-mode`
+* needed by `web-mode` for real time HTML syntax check
 * install by OS way
 
 ### csslint
@@ -77,8 +73,12 @@ You need to install some command line tools to use some features in Emacs. All t
 * If you prefer `auto-complete-clang` instead, add `(setq ac-clang-flags ("-I/example1/dir" "-I/example2/dir"))` into ~/.emacs.d/init.el
 * If you use `cpputils-cmake` and `cmake`, `cpputils-cmake` will do all the set up for you.
 
+### MozRepl firefox addon (https://addons.mozilla.org/en-us/firefox/addon/mozrepl/)
+* needed by [MozRepl](http://www.emacswiki.org/emacs/MozRepl)
+* install using firefox
+
 ### ctags (http://ctags.sourceforge.net)
-* needed by many tags related plugin
+* needed by many tags related plugins
 * install by OS way
 
 ### GNU Global (http://www.gnu.org/software/global)
@@ -92,7 +92,7 @@ You need to install some command line tools to use some features in Emacs. All t
 * On cygwin you need install `setuptool` in order to install `pip`.
 
 ### libreoffice
-* Its binary `soffice` is actually needed
+* Only one of its binary `soffice` is needed
 * needed when converting odt file into doc (Microsoft Word 97)
 * conversion will happen automatically when exporting org-mode to odt
 * The conversion command is stored in variable `org-export-odt-convert-processes`
@@ -102,8 +102,8 @@ You need to install some command line tools to use some features in Emacs. All t
 I don't use them now.
 
 ## How to install by OS way
-* `apt-cyg` at Cygwin
-* `homebrew` at OS X
+* [apt-cyg](https://github.com/cfg/apt-cyg) at Cygwin
+* [homebrew](https://github.com/mxcl/homebrew) at Mac
 * any package manager at Linux
 
 ## Report bug
@@ -122,12 +122,12 @@ You need manually `M-x list-packages` and install it.
   ```sh
   alias e=emacs -q --no-splash --eval="(setq light-weight-emacs t)" -l "$HOME/.emacs.d/init.el"
   ```
-* If you use `gnus` for email thing (Gmail, for example). Most set up is already except privacy stuff. Please check `init-gnus.el` for my set up. There is also [a tutorial at my blog](http://blog.binchen.org/?p=403).
+* If you use `gnus` for email thing (Gmail, for example). Check ~/.emacs.d/init-gnus.el which includes my most settings except my private stuff. There is also [a tutorial at my blog](http://blog.binchen.org/?p=403) on how to use gnus effectively.
 
 * To toggle Chinese input method (eim, for example), press `C-\` or run command `M-x toggle-input-method`.
 
-## My personal custom.el
-It's publicized at http://blog.binchen.org/?p=430 .
+## My personal custom.el (OPTIONAL)
+It's publicized at http://blog.binchen.org/?p=430. It contains my personal stuff like color-theme and time locale.
 
 <hr>
 

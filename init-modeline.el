@@ -42,6 +42,8 @@
                              'help-echo "Buffer is read-only"))))
     "] "
 
+    '(-3 . "%P")
+    " "
     ;;global-mode-string, org-timer-set-timer in org-mode need this
     (propertize "%M" 'face 'font-lock-type-face)
 

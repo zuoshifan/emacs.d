@@ -6,7 +6,7 @@
 (let ((package-el-site-lisp-dir (expand-file-name "~/.emacs.d/site-lisp/package")))
   (when (and (file-directory-p package-el-site-lisp-dir)
              (> emacs-major-version 23))
-    (message "Removing local package.el from load-path to avoid shadowing bundled version")
+    (message "Removing local %s package.el from load-path to avoid shadowing bundled version" package-el-site-lisp-dir)
     (setq load-path (remove package-el-site-lisp-dir load-path))))
 
 (require 'package)
@@ -56,7 +56,9 @@ ARCHIVE is the string name of the package archive.")
 ;;------------------------------------------------------------------------------
 
 (defun require-package (package &optional min-version no-refresh)
-  "Ask elpa to install given PACKAGE."
+  "Ask elpa to install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
   (if (package-installed-p package min-version)
       t
     (if (or (assoc package package-archive-contents) no-refresh)
@@ -108,6 +110,7 @@ ARCHIVE is the string name of the package archive.")
      ctags
      fakir
      erlang
+     cdlatex
      )
   "Don't install any Melpa packages except these packages")
 
@@ -287,7 +290,6 @@ ARCHIVE is the string name of the package archive.")
 (require-package 'pomodoro '(20130114 1543 0) nil)
 (require-package 'flymake-lua)
 (require-package 'evil-nerd-commenter '(1 2 3) nil)
-(require-package 'surround)
 (require-package 'dropdown-list)
 (require-package 'yasnippet '(0 8 0) nil)
 (require-package 'workgroups)
@@ -297,16 +299,16 @@ ARCHIVE is the string name of the package archive.")
 (require-package 'bookmark+)
 (require-package 'json-mode)
 (require-package 'tagedit)
-(require-package 'web-mode)
 (require-package 'sr-speedbar)
 (require-package 'requirejs-mode)
 (require-package 'smartparens)
-(require-package 'company '(0 6 10) nil)
+(require-package 'company '(0 6 12) nil)
 (require-package 'legalese)
 (require-package 'string-edit)
 (require-package 'dired-details)
 (require-package 'popwin)
 (require-package 'elnode)
+(require-package 'evil-matchit '(0 0 4) nil)
 ;;(require-package 'git-messenger '(20130613 1222 0) nil)
 ;;;;;(require-package 'issue-tracker '(0 0 1) nil)
 

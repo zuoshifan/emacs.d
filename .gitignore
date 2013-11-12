@@ -34,7 +34,7 @@ TAGS
 GTAGS
 GPATH
 GRTAGS
-emms/
+.emacs.d/emms/
 /var
 org-clock-save.el
 

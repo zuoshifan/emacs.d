@@ -30,6 +30,7 @@
 ;----------------------------------------------------------------------------
 ; Load configs for specific features and modes
 ;----------------------------------------------------------------------------
+(require 'init-coding-system)
 (require 'init-modeline)
 
 ;;----------------------------------------------------------------------------
@@ -82,7 +83,6 @@
 (require 'init-php)
 (require 'init-org)
 (require 'init-org-mime)
-(require 'init-nxml)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
@@ -103,7 +103,7 @@
 
 ;;<<<<<<< HEAD
 ;; Finally set up themes, after most possibly-customised faces have been defined
-(require 'init-themes) ; color-themes 6.6.1 has some problem
+;;;;;;(require 'init-themes) ; color-themes 6.6.1 has some problem
 ;; =======
 ;; >>>>>>> temp
 ;; Chinese inut method
@@ -150,8 +150,7 @@
 (require 'init-workgroups)
 (require 'init-move-window-buffer)
 (require 'init-term-mode)
-;; I'm fine with nxml-mode, so web-mode is not used
-;;(require 'init-web-mode)
+(require 'init-web-mode)
 (require 'init-sr-speedbar)
 (require 'init-smartparens)
 ;; Choose either auto-complete or company-mode by commenting one of below two lines!
@@ -160,6 +159,7 @@
 (require 'init-stripe-buffer)
 (require 'init-popwin)
 (require 'init-elnode)
+(require 'init-tramp)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
@@ -194,6 +194,10 @@
      (load-file (expand-file-name "~/.emacs.d/custom.el"))
        nil)
 
+;; load email configuration explicitly
+(if (file-readable-p (expand-file-name "~/.gnus.el"))
+     (load-file (expand-file-name "~/.gnus.el"))
+       nil)
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-local" containing personal settings
 ;;----------------------------------------------------------------------------
@@ -216,10 +220,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
  '(custom-safe-themes
    (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))))
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+ '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
