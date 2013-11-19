@@ -161,6 +161,7 @@
 (require 'init-elnode)
 (require 'init-tramp)
 (require 'init-full-screen)
+;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
@@ -191,8 +192,12 @@
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
+;; (if (file-readable-p (expand-file-name "~/.emacs.d/custom.el"))
+;;      (load-file (expand-file-name "~/.emacs.d/custom.el"))
+;;        nil)
 (if (file-readable-p (expand-file-name "~/.emacs.d/custom.el"))
-     (load-file (expand-file-name "~/.emacs.d/custom.el"))
+    (progn (setq custom-file "~/.emacs.d/custom.el")
+           (load-file (expand-file-name "~/.emacs.d/custom.el")))
        nil)
 
 ;; load email configuration explicitly
@@ -209,12 +214,6 @@
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
 ;(require 'init-locales) ;does not work in cygwin
-
-
-(when (require 'time-date nil t)
-   (message "Emacs startup time: %d seconds."
-    (time-to-seconds (time-since emacs-load-start-time)))
-   )
 
 
 ;;; Local Variables:
