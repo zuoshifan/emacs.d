@@ -445,6 +445,10 @@ version control automatically"
 (autoload 'confluence-edit-mode "confluence-edit" "enable confluence-edit-mode" t)
 (add-to-list 'auto-mode-alist '("\\.wiki\\'" . confluence-edit-mode))
 
+;; {{string-edit.el
+(autoload 'string-edit-at-point "string-edit" "enable string-edit-mode" t)
+;; }}
+
 ;; {{ issue-tracker
 (global-set-key (kbd "C-c C-t") 'issue-tracker-increment-issue-id-under-cursor)
 ;; }}
@@ -570,5 +574,26 @@ The full path into relative path insert it as a local file link in org-mode"
     (copy-yank-str rlt)
     (message "css code => clipboard & yank ring")
     ))
+
+(defun current-font-face ()
+  "get the font face under cursor"
+  (interactive)
+  (let ((rlt (format "%S" (get-text-property (- (point) 1) 'face))))
+    (kill-new rlt)
+    (copy-yank-str rlt)
+    (message "%s => clipboard & yank ring" rlt)
+      ))
+
+(when (< emacs-major-version 24)
+  (require 'color-theme)
+  (setq color-theme-is-global t)
+  (color-theme-lethe)
+  )
+
+;o; {{ projectile
+(projectile-global-mode)
+;; }}
+
+(setq system-time-locale "C")
 
 (provide 'init-misc)

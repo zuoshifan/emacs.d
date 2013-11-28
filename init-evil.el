@@ -1,3 +1,6 @@
+;; load undo-tree and ert
+(add-to-list 'load-path "~/.emacs.d/site-lisp/evil/lib")
+(require 'evil)
 (evil-mode 1)
 
 ;; {{@see https://github.com/timcharper/evil-surround
@@ -29,6 +32,7 @@
 
 (loop for (mode . state) in
       '(
+        (minibuffer-inactive-mode . emacs)
         (Info-mode . emacs)
         (term-mode . emacs)
         (log-edit-mode . emacs)
@@ -91,9 +95,7 @@
 (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
 (define-key evil-insert-state-map (kbd "M-k") 'evil-normal-state)
 (define-key evil-visual-state-map (kbd "M-k") 'evil-exit-visual-state)
-(define-key evil-visual-state-map (kbd ",k") 'evil-exit-visual-state)
 (define-key minibuffer-local-map (kbd "M-k") 'abort-recursive-edit)
-(define-key minibuffer-local-map (kbd ",k") 'abort-recursive-edit)
 (define-key evil-insert-state-map (kbd "M-j") 'my-yas-expand)
 (global-set-key (kbd "M-k") 'keyboard-quit)
 
@@ -105,20 +107,32 @@
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
+(defun evilcvn--change-symbol(fn)
+  (let ((old (thing-at-point 'symbol)))
+    (funcall fn)
+    (unless (evil-visual-state-p)
+      (evil-visual-state))
+    (evil-ex (concat "'<,'>s/" (if (= 0 (length old)) "" "\\<\\(") old (if (= 0 (length old)) "" "\\)\\>/"))))
+  )
+
+(defun evilcvn-change-symbol-in-whole-buffer()
+  "mark the region in whole buffer and use string replacing UI in evil-mode
+to replace the symbol under cursor"
+  (interactive)
+  (evilcvn--change-symbol 'mark-whole-buffer)
+  )
 
 (defun evilcvn-change-symbol-in-defun ()
   "mark the region in defun (definition of function) and use string replacing UI in evil-mode
 to replace the symbol under cursor"
   (interactive)
-  (let ((old (thing-at-point 'symbol)))
-    (mark-defun)
-    (unless (evil-visual-state-p)
-      (evil-visual-state))
-    (evil-ex (concat "'<,'>s/" (if (= 0 (length old)) "" "\\<\\(") old (if (= 0 (length old)) "" "\\)\\>/"))))
+  (evilcvn--change-symbol 'mark-defun)
   )
 (global-set-key (kbd "C-c ; s") 'evilcvn-change-symbol-in-defun)
+
 ;; {{ evil-leader config
-(setq evil-leader/leader "," evil-leader/in-all-states t)
+(setq evil-leader/leader ",")
+
 (require 'evil-leader)
 (evil-leader/set-key
   "as" 'ack-same
@@ -129,17 +143,36 @@ to replace the symbol under cursor"
   "eb" 'eval-buffer
   "ee" 'eval-expression
   "cx" 'copy-to-x-clipboard
+  "cff" 'current-font-face
   "cfn" 'copy-filename-of-current-buffer
   "cfp" 'copy-full-path-of-current-buffer
   "dj" 'dired-jump ;; open the dired from current file
   "ff" 'toggle-full-window ;; I use WIN+F in i3
   "px" 'paste-from-x-clipboard
+  "pf" 'projectile-find-file
+  "pd" 'projectile-find-dir
+  "pT" 'projectile-toggle-between-implemenation-and-test
+  "pg" 'projectile-grep
+  "pb" 'projectile-switch-to-buffer
+  "po" 'projectile-multi-occur
+  "pr" 'projectile-replace
+  "pi" 'projectile-invalidate-cache
+  "pR" 'projectile-regenerate-tags
+  "pk" 'projectile-kill-buffers
+  "pD" 'projectile-dired
+  "pe" 'projectile-recentf
+  "pa" 'projectile-ack
+  "pc" 'projectile-compile-project
+  "pp" 'projectile-test-project
+  "pz" 'projectile-cache-current-file
+  "ps" 'projectile-switch-project
   ;; "ci" 'evilnc-comment-or-uncomment-lines
   ;; "cl" 'evilnc-comment-or-uncomment-to-the-line
   ;; "cc" 'evilnc-copy-and-comment-lines
   ;; "cp" 'evilnc-comment-or-uncomment-paragraphs
   "ct" 'ctags-create-or-update-tags-table
-  "cs" 'evilcvn-change-symbol-in-defun
+  "cd" 'evilcvn-change-symbol-in-defun
+  "cb" 'evilcvn-change-symbol-in-whole-buffer
   "tt" 'ido-goto-symbol ;; same as my vim hotkey
   "cg" 'helm-ls-git-ls
   "ud" '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer))))
@@ -160,18 +193,21 @@ to replace the symbol under cursor"
   "gg" '(lambda () (interactive) (w3m-search "g" (thing-at-point 'symbol)))
   "qq" '(lambda () (interactive) (w3m-search "q" (thing-at-point 'symbol)))
   "hr" 'helm-recentf
+  "se" 'string-edit-at-point
   "s0" 'delete-window
   "s1" 'delete-other-windows
-  "s2" 'split-window-below
-  "s3" 'split-window-right
+  "s2" '(lambda () (interactive) (if *emacs23* (split-window-vertically) (split-window-right)))
+  "s3" '(lambda () (interactive) (if *emacs23* (split-window-horizontally) (split-window-below)))
   "su" 'winner-undo
   "x0" 'delete-window
   "x1" 'delete-other-windows
-  "x2" 'split-window-below
-  "x3" 'split-window-right
+  "x2" '(lambda () (interactive) (if *emacs23* (split-window-vertically) (split-window-right)))
+  "x3" '(lambda () (interactive) (if *emacs23* (split-window-horizontally) (split-window-below)))
   "xu" 'winner-undo
   "ls" 'package-list-packages
-  "hs" 'w3mext-hacker-search
+  "ws" 'w3mext-hacker-search
+  "hs" 'helm-swoop
+  "hb" 'helm-back-to-last-point
   "gf" 'gtags-find-tag-from-here
   "gp" 'gtags-pop-stack
   "gr" 'gtags-find-rtag
@@ -189,6 +225,7 @@ to replace the symbol under cursor"
   "oc" 'occur
   "om" 'toggle-org-or-message-mode
   "ops" 'my-org2blog-post-subtree
+  "ut" 'undo-tree-visualize
   "al" 'align-regexp
   "ww" 'save-buffer
   "bk" 'buf-move-up
@@ -214,6 +251,7 @@ to replace the symbol under cursor"
   "vd" 'scroll-other-window
   "vu" '(lambda () (interactive) (scroll-other-window-down nil))
   "jj" 'w3mext-search-js-api-mdn
+  "xh" 'mark-whole-buffer
   "xk" 'ido-kill-buffer
   "xs" 'save-buffer
   "xz" 'suspend-frame
@@ -227,6 +265,27 @@ to replace the symbol under cursor"
   "xn" 'narrow-to-region
   "xw" 'widen
   "xd" 'narrow-to-defun
+  "zc" 'wg-create-workgroup
+  "zk" 'wg-kill-workgroup
+  "zv" 'wg-switch-to-workgroup
+  "zj" 'wg-switch-to-workgroup-at-index
+  "z0" 'wg-switch-to-workgroup-at-index-0
+  "z1" 'wg-switch-to-workgroup-at-index-1
+  "z2" 'wg-switch-to-workgroup-at-index-2
+  "z3" 'wg-switch-to-workgroup-at-index-3
+  "z4" 'wg-switch-to-workgroup-at-index-4
+  "z5" 'wg-switch-to-workgroup-at-index-5
+  "z6" 'wg-switch-to-workgroup-at-index-6
+  "z7" 'wg-switch-to-workgroup-at-index-7
+  "z8" 'wg-switch-to-workgroup-at-index-8
+  "z9" 'wg-switch-to-workgroup-at-index-9
+  "zs" 'wg-save-session
+  "zb" 'wg-switch-to-buffer
+  "zp" 'wg-switch-to-workgroup-left
+  "zn" 'wg-switch-to-workgroup-right
+  "zu" 'wg-undo-wconfig-change
+  "zr" 'wg-redo-wconfig-change
+  "zs" 'wg-save-wconfig
   )
 ;; }}
 

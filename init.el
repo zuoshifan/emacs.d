@@ -69,7 +69,6 @@
 (require 'init-windows)
 (require 'init-sessions)
 (require 'init-fonts)
-(require 'init-mmm)
 ;(require 'init-growl)
 (require 'init-editing-utils)
 (require 'init-git)
@@ -88,13 +87,9 @@
 (require 'init-python-mode)
 (require 'init-haskell)
 (require 'init-ruby-mode)
-(if (not (boundp 'light-weight-emacs)) (require 'init-rails))
 ;(require 'init-rcirc)
 
 (require 'init-lisp)
-(require 'init-slime)
-(require 'init-clojure)
-(require 'init-common-lisp)
 
 (when *spell-check-support-enabled*
   (require 'init-spelling))
@@ -128,7 +123,6 @@
 ;; (require 'init-gist)
 (require 'init-emacspeak)
 (require 'init-pomodoro)
-(require 'init-undo-tree)
 (require 'init-moz)
 (require 'init-gtags)
 ;; use evil mode (vi key binding)
@@ -144,18 +138,21 @@
 (require 'init-twittering-mode)
 (require 'init-weibo)
 ;; itune cannot play flac, so I use mplayer+emms instead (updated, use mpd!)
-(if (not (boundp 'light-weight-emacs)) (if *is-a-mac* (require 'init-emms)) )
+(require 'init-emms)
 (require 'init-lua-mode)
 (require 'init-doxygen)
-(require 'init-workgroups)
+(require 'init-workgroups2)
 (require 'init-move-window-buffer)
 (require 'init-term-mode)
 (require 'init-web-mode)
 (require 'init-sr-speedbar)
 (require 'init-smartparens)
-;; Choose either auto-complete or company-mode by commenting one of below two lines!
-;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
-(require 'init-company)
+(require 'init-slime)
+(when *emacs24*
+    (require 'init-company)
+  ;; Choose either auto-complete or company-mode by commenting one of below two lines!
+  ;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
+  )
 (require 'init-stripe-buffer)
 (require 'init-popwin)
 (require 'init-elnode)

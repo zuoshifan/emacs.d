@@ -89,7 +89,7 @@ re-downloaded in order to locate PACKAGE."
 (defvar melpa-include-packages
   '(bbdb
      lua-mode
-     mmm-mode
+     emms
      pomodoro
      helm
      helm-ls-git
@@ -135,6 +135,7 @@ re-downloaded in order to locate PACKAGE."
 
 (package-initialize)
 
+(require-package 'popup)
 (require-package 'all)
 (require-package 'xml-rpc)
 (require-package 'dash)
@@ -154,12 +155,8 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 (require-package 'wgrep)
-(require-package 'flymake-cursor)
 (require-package 'csv-mode)
 (require-package 'json)
-(when (and (>= emacs-major-version 24) (>= emacs-minor-version 1))
-  (require-package 'js2-mode)
-  )
 (require-package 'lua-mode)
 (require-package 'project-local-variables)
 (require-package 'ruby-mode)
@@ -171,13 +168,11 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'eldoc-eval)
 (require-package 'erlang '(20120612 0 0) nil)
 (require-package 'slime)
-(require-package 'slime-fuzzy)
-(require-package 'slime-repl)
 (require-package 'browse-kill-ring)
 (require-package 'findr)
 (require-package 'jump '(2 3 0) nil)
 (require-package 'anything)
-;;;;;(require-package 'gist)
+;;;;;; (require-package 'gist)
 (require-package 'haml-mode)
 (require-package 'sass-mode)
 (require-package 'scss-mode)
@@ -197,15 +192,12 @@ re-downloaded in order to locate PACKAGE."
 ;;  (require-package 'org-mac-link-grabber)
 ;;  (require-package 'org-mac-iCal))
 (require-package 'htmlize)
-;;<<<<<<< HEAD
-(require-package 'org2blog '(20130115 2217 0) nil)
-;;=======
-;;>>>>>>> temp
-(require-package 'clojure-mode)
-(require-package 'clojure-test-mode)
-(require-package 'cljsbuild-mode)
-(require-package 'nrepl)
-(require-package 'slamhound)
+;;;;;; (require-package 'org2blog '(20130115 2217 0) nil)
+;;;;;; (require-package 'clojure-mode)
+;;;;;; (require-package 'clojure-test-mode)
+;;;;;; (require-package 'cljsbuild-mode)
+;;;;;; (require-package 'nrepl)
+;;;;;; (require-package 'slamhound)
 (require-package 'diminish)
 (require-package 'js-comint)
 (require-package 'php-mode)
@@ -219,15 +211,12 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'pretty-mode)
 
 ;; I maintain this chunk:
-(require-package 'ac-slime)
-(require-package 'ac-nrepl)
 (require-package 'coffee-mode)
-(require-package 'color-theme-sanityinc-solarized)
-(require-package 'color-theme-sanityinc-tomorrow)
-;;;;;(require-package 'zenburn-theme)
+;;;;;; (require-package 'color-theme-sanityinc-solarized)
+;;;;;; (require-package 'color-theme-sanityinc-tomorrow)
+(if *emacs24* (require-package 'zenburn-theme))
 (require-package 'crontab-mode)
 (require-package 'dsvn)
-(require-package 'elisp-slime-nav)
 (require-package 'exec-path-from-shell)
 (require-package 'flymake-coffee)
 (require-package 'flymake-css)
@@ -238,12 +227,10 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'flymake-ruby)
 (require-package 'flymake-sass)
 (require-package 'flymake-shell)
-(require-package 'hippie-expand-slime)
 (require-package 'hl-sexp)
 (require-package 'ibuffer-vc)
 (require-package 'less-css-mode)
 (require-package 'lively)
-(require-package 'mmm-mode '(20130210 133 0) nil)
 (require-package 'move-text)
 (require-package 'mwe-log-commands)
 (require-package 'page-break-lines)
@@ -254,24 +241,20 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'iy-go-to-char)
 (require-package 'csharp-mode)
 (require-package 'cmake-mode)
-(require-package 'fuzzy)
-(require-package 'auto-complete) ;auto-complete is dependent on fuzzy
-(require-package 'auto-complete-clang)
-;;;;;(require-package 'emmet-mode)
+;;;;;; (require-package 'fuzzy)
+;;;;;; (require-package 'auto-complete) ;auto-complete is dependent on fuzzy
+;;;;;; (require-package 'auto-complete-clang)
+(require-package 'emmet-mode)
 (require-package 'session)
 (require-package 'tidy)
 (require-package 'unfill)
 (require-package 'whole-line-or-region)
-(require-package 'undo-tree '(0 6 3) nil)
 (require-package 'auctex)
 (require-package 'etags-select '(1 13 0) nil) ;; evil may need it
 ;;evil-20120725 requires ert
-(require-package 'evil '(1 0 3) nil)
-;;<<<<<<< HEAD
-(require-package 'evil-leader '(20130316 1414 0) nil)
-(require-package 'evil-numbers '(20120712 1933 0) nil)
-;; =======
-;; >>>>>>> temp
+;;;;;;; (require-package 'evil '(1 0 3) nil)
+;;;;;;; (require-package 'evil-leader '(20130316 1414 0) nil)
+;;;;;;; (require-package 'evil-numbers '(20120712 1933 0) nil)
 (require-package 'w3m)
 (require-package 'idomenu)
 (require-package 'ctags)
@@ -286,18 +269,19 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'twittering-mode)
 (require-package 'iedit)
 (require-package 'wxwidgets-help '(0 0 3) nil)
-(if *is-a-mac* (require-package 'emms))
+(require-package 'emms)
 (require-package 'pomodoro '(20130114 1543 0) nil)
 (require-package 'flymake-lua)
 (require-package 'evil-nerd-commenter '(1 2 3) nil)
 (require-package 'dropdown-list)
 (require-package 'yasnippet '(0 8 0) nil)
-(require-package 'workgroups)
+(require-package 'workgroups2)
 ;; rvm-open-gem to get gem's code
 (require-package 'rvm)
 ;; C-x r l to list bookmarks
 (require-package 'bookmark+)
 (require-package 'json-mode)
+(require-package 'js2-mode)
 (require-package 'tagedit)
 (require-package 'sr-speedbar)
 (require-package 'requirejs-mode)
@@ -307,8 +291,9 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'string-edit)
 (require-package 'dired-details)
 (require-package 'popwin)
+(require-package 'projectile)
 (require-package 'elnode)
-(require-package 'evil-matchit '(0 0 4) nil)
+(require-package 'evil-matchit '(0 0 7) nil)
 ;;(require-package 'git-messenger '(20130613 1222 0) nil)
 ;;;;;(require-package 'issue-tracker '(0 0 1) nil)
 
