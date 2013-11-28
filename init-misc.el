@@ -399,7 +399,9 @@ version control automatically"
         (when (vc-backend filename)
           (vc-register)
          )))))
-(global-set-key (kbd "C-c c")  'copy-file-and-rename-buffer)
+;; Use C-c c for org-capture
+;; (global-set-key (kbd "C-c c")  'copy-file-and-rename-buffer)
+(global-set-key (kbd "M-c c")  'copy-file-and-rename-buffer)
 
 ;; @see http://wenshanren.org/?p=298
 (defun wenshan-edit-current-file-as-root ()

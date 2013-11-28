@@ -110,7 +110,7 @@ re-downloaded in order to locate PACKAGE."
      ctags
      fakir
      erlang
-     cdlatex
+     workgroups2
      )
   "Don't install any Melpa packages except these packages")
 
@@ -319,5 +319,6 @@ re-downloaded in order to locate PACKAGE."
   (require-package 'helm-c-yasnippet)
   )
 ;; (require-package 'command-frequency)
+(require-package 'cdlatex)
 
 (provide 'init-elpa)

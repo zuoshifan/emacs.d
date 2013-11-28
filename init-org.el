@@ -1,4 +1,5 @@
 (define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-ca" 'org-agenda)
 
 ;; {{ export org-mode in Chinese into PDF
@@ -28,7 +29,8 @@
       org-agenda-window-setup 'current-window
       org-fast-tag-selection-single-key 'expert
       org-export-kill-product-buffer-when-displayed t
-      org-export-odt-preferred-output-format "doc"
+      ;; org-export-odt-preferred-output-format "doc"
+      org-odt-preferred-output-format "doc"
       org-tags-column 80
       ;org-startup-indented t
       )
@@ -133,5 +135,13 @@
                 (lambda (url &optional new)
                   (w3m-browse-url url t))))))
     ad-do-it))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Previewing LATEX fragments
+;; Use C-c C-x C-l to produce a preview image of the LATEX fragment, C-c C-c to remove the overlay preview images
+;; original value is dvipng
+(setq org-latex-create-formula-image-program 'imagemagick)
+;; Turn on org-cdlatex-mode minor mode for Org mode
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
 (provide 'init-org)

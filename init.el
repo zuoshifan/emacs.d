@@ -161,6 +161,7 @@
 (require 'init-elnode)
 (require 'init-tramp)
 (require 'init-full-screen)
+(require 'init-cdlatex)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------
@@ -192,9 +193,6 @@
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
-;; (if (file-readable-p (expand-file-name "~/.emacs.d/custom.el"))
-;;      (load-file (expand-file-name "~/.emacs.d/custom.el"))
-;;        nil)
 (if (file-readable-p (expand-file-name "~/.emacs.d/custom.el"))
     (progn (setq custom-file "~/.emacs.d/custom.el")
            (load-file (expand-file-name "~/.emacs.d/custom.el")))
@@ -215,6 +213,11 @@
 ;;----------------------------------------------------------------------------
 ;(require 'init-locales) ;does not work in cygwin
 
+
+(when (require 'time-date nil t)
+   (message "Emacs startup time: %d seconds."
+    (time-to-seconds (time-since emacs-load-start-time)))
+   )
 
 ;;; Local Variables:
 ;;; no-byte-compile: t
