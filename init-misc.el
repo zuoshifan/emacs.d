@@ -142,7 +142,8 @@
 ;KEYBOARD SECTION
 ;global keyb maps
 (global-set-key "\C-xc" 'clipboard-kill-ring-save)
-(global-set-key "\C-cc" 'copy-region-as-kill)
+;;;;;; (global-set-key "\C-cc" 'copy-region-as-kill)
+(global-set-key "\C-cw" 'copy-region-as-kill)
 
 ;; @see http://www.emacswiki.org/emacs/BetterRegisters
 ;; This is used in the function below to make marked points visible

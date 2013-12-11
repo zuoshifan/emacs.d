@@ -141,7 +141,7 @@
 (require 'init-emms)
 (require 'init-lua-mode)
 (require 'init-doxygen)
-(require 'init-workgroups2)
+;;;;;; (require 'init-workgroups2)
 (require 'init-move-window-buffer)
 (require 'init-term-mode)
 (require 'init-web-mode)
@@ -157,8 +157,8 @@
 (require 'init-popwin)
 (require 'init-elnode)
 (require 'init-tramp)
-(require 'init-full-screen)
 (require 'init-cdlatex)
+(require 'init-full-screen)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------

@@ -50,8 +50,8 @@ places
 macros
 .mc-lists.el
 /url/
-/tutorial
-/games
+games/
+org/
 session.105dac67585a1fbac137234049324596000000018860040
 %backup%~
 
