@@ -3,7 +3,7 @@
 (require 'imenu)
 
 (defun create-scratch-buffer nil
-  "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
+  "Create a new scratch buffer to work in. (Could be *scratch*, *scratch1* - *scratchN*)"
   (interactive)
   (let ((n 0)
         bufname)
@@ -18,6 +18,7 @@
     ))
 
 (defun toggle-window-split ()
+  "Change windows split configuration for two windows. If the two windows was split horizontally, split them vertically, and vice versa. Only for two window."
   (interactive)
   (if (= (count-windows) 2)
       (let* ((this-win-buffer (window-buffer))
@@ -40,12 +41,13 @@
           (set-window-buffer (selected-window) this-win-buffer)
           (set-window-buffer (next-window) next-win-buffer)
           (select-window first-win)
-          (if this-win-2nd (other-window 1))))))
+          (if this-win-2nd (other-window 1))))
+    (message "Function toggle-window-split apply only for two windows.")))
 
 (defun rotate-windows ()
-  "Rotate your windows"
+  "Rotate your windows configuration."
   (interactive)
-  (cond ((not (> (count-windows)1))
+  (cond ((not (> (count-windows) 1))
          (message "You can't rotate a single window!"))
         (t
          (setq i 1)
@@ -142,10 +144,12 @@ Symbols matching the text at point are put first in the completion list."
 (add-hook 'coding-hook 'turn-on-hl-line-mode)
 
 (defun untabify-buffer ()
+  "Convert all tabs in buffer to multiple spaces, preserving columns."
   (interactive)
   (untabify (point-min) (point-max)))
 
 (defun indent-buffer ()
+  "Indent each nonblank line in the buffer."
   (interactive)
   (indent-region (point-min) (point-max)))
 

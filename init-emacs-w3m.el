@@ -76,15 +76,41 @@
                                 "\"&browser=Default&mp=1&ml=1&me=1&md=1&filterChecked=true" ))
     ))
 
+;; the default url to use when there is no link
+(setq default-url "http://ipv6.google.com.hk/")
 (defun w3mext-open-link-or-image-or-url ()
-  "Opens the current link or image or current page's uri or any url-like text under cursor in firefox."
+  "Opens the current link or image or current page's url or any url-like text under cursor in firefox."
   (interactive)
   (let (url)
     (if (or (string= major-mode "w3m-mode") (string= major-mode "gnus-article-mode"))
         (setq url (or (w3m-anchor) (w3m-image) w3m-current-url)))
-    (browse-url-generic (if url url (car (browse-url-interactive-arg "URL: "))))
+    (browse-url-generic (if url url (car (sfz/browse-url-interactive-arg "URL: " default-url))))
     ))
 (global-set-key (kbd "C-c b") 'w3mext-open-link-or-image-or-url)
+
+(defun sfz/browse-url-interactive-arg (prompt default-url)
+  "Read a URL from the minibuffer, prompting with PROMPT.
+If `transient-mark-mode' is non-nil and the mark is active,
+it defaults to the current region, else to the URL at or before
+point if exist, else to the value DEFAULT-URL.  If invoked with a mouse button, it moves point to the
+position clicked before acting.
+
+This function returns a list (URL NEW-WINDOW-FLAG)
+for use in `interactive'.
+
+This is the modified version of `brouse-url-interactive-arg' in `browse-url.el'."
+  (let ((event (elt (this-command-keys) 0)))
+    (and (listp event) (mouse-set-point event)))
+  (list (read-string prompt (or (and transient-mark-mode mark-active
+				     ;; rfc2396 Appendix E.
+				     (replace-regexp-in-string
+				      "[\t\r\f\n ]+" ""
+				      (buffer-substring-no-properties
+				       (region-beginning) (region-end))))
+				(browse-url-url-at-point)
+                default-url))
+	(not (eq (null browse-url-new-window-flag)
+		 (null current-prefix-arg)))))
 
 (defun w3mext-search-js-api-mdn ()
   "search current symbol under cursor in Mozilla Developer Network (MDN)"

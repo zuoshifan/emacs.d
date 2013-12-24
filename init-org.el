@@ -137,6 +137,12 @@
                   (w3m-browse-url url t))))))
     ad-do-it))
 
+(defun choose-browser (url &rest args)
+  (interactive "sURL: ")
+  (if (y-or-n-p "Use external browser? ")
+      (browse-url-generic url)
+    (w3m-browse-url url)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 ;; Previewing LATEX fragments
