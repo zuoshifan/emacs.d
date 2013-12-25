@@ -305,5 +305,6 @@ re-downloaded in order to locate PACKAGE."
   )
 ;; (require-package 'command-frequency)
 (require-package 'cdlatex)
+(require-package 'pymacs)
 
 (provide 'init-elpa)
