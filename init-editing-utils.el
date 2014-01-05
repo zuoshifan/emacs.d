@@ -28,6 +28,9 @@
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
+;; shrink minibuffer window automatically when remove some lines of text from the minibuffer
+(setq resize-mini-windows t)
+
 ;; But don't show trailing whitespace in SQLi, inf-ruby etc.
 (add-hook 'comint-mode-hook
           (lambda () (setq show-trailing-whitespace nil)))
