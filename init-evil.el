@@ -8,6 +8,9 @@
 (global-surround-mode 1)
 ;; }}
 
+;; the cursor color
+(setq evil-default-cursor '("IndianRed" t))
+
 (defun toggle-org-or-message-mode ()
   (interactive)
   (if (eq major-mode 'message-mode)
@@ -289,9 +292,25 @@ to replace the symbol under cursor"
   )
 ;; }}
 
+(add-hook 'evil-normal-state-entry-hook (lambda ()
+                                      (set-face-foreground 'mode-line "#00ff00")
+                                      (set-face-background 'mode-line "#0000ee")))
+
 ;; change mode-line color by evil state
-(lexical-let ((default-color (cons (face-background 'mode-line)
-                                   (face-foreground 'mode-line))))
+;; (lexical-let ((default-color (cons (face-background 'mode-line)
+;;                           (face-foreground 'mode-line))))
+;;   (add-hook 'post-command-hook
+;;             (lambda ()
+;;               (let ((color (cond ((minibufferp) default-color)
+;;                                 ;; ((evil-normal-state-p) '("#0000ee" . "#00ff00"))
+;;                                  ((evil-insert-state-p) '("#e80000" . "#ffffff"))
+;;                                  ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+;;                                  ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+;;                                  (t default-color))))
+;;                 (set-face-background 'mode-line (car color))
+;;                 (set-face-foreground 'mode-line (cdr color))))))
+
+(lexical-let ((default-color (cons "#0000ee" "#00ff00")))
   (add-hook 'post-command-hook
             (lambda ()
               (let ((color (cond ((minibufferp) default-color)
