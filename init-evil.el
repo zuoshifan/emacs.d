@@ -8,8 +8,10 @@
 (global-surround-mode 1)
 ;; }}
 
+;; don't move back the cursor when exit insert state
+(setq evil-move-cursor-back nil)
 ;; the cursor color
-(setq evil-default-cursor '("IndianRed" t))
+(setq evil-default-cursor '("OrangeRed" t))
 
 (defun toggle-org-or-message-mode ()
   (interactive)
