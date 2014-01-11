@@ -1,7 +1,7 @@
 (require 'thing-edit)
 ;@see http://blog.siteshen.com/2011/02/copy-and-paste-in-emacs.html
 (define-prefix-command 'thing-edit-map)
-(global-set-key (kbd "M-c") 'thing-edit-map)
+(global-set-key (kbd "M-g") 'thing-edit-map)
 (define-key 'thing-edit-map (kbd "w") 'thing-paste-word)
 (define-key 'thing-edit-map (kbd "l") 'thing-paste-line)
 (define-key 'thing-edit-map (kbd "x") 'thing-paste-sexp)
