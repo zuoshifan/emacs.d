@@ -47,6 +47,12 @@
 (global-set-key (kbd "M-Z") 'zap-to-char)
 
 ;;----------------------------------------------------------------------------
+;; use ispell-complete-word
+;;----------------------------------------------------------------------------
+;; (global-set-key (kbd "M-g i") 'ispell-complete-word)  ;; prefix "M-g" is used by init-thing-edit.el, which is loaded after this file
+(global-set-key (kbd "M-n") 'ispell-complete-word)
+
+;;----------------------------------------------------------------------------
 ;; Don't disable narrowing commands
 ;;----------------------------------------------------------------------------
 (put 'narrow-to-region 'disabled nil)

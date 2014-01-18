@@ -14,13 +14,13 @@
           (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups ))
           )
 
-(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials "~/.authinfo.gpg"
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587
-      smtpmail-local-domain "homepc")
+;; (setq message-send-mail-function 'smtpmail-send-it
+;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+;;       smtpmail-auth-credentials "~/.authinfo.gpg"
+;;       smtpmail-default-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-service 587
+;;       smtpmail-local-domain "homepc")
 
 ;; @see http://www.fnal.gov/docs/products/emacs/emacs/gnus_3.html#SEC60
 ;; QUOTED: If you are using an unthreaded display for some strange reason ...
