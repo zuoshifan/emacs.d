@@ -159,6 +159,7 @@
 (require 'init-tramp)
 (require 'init-cdlatex)
 (require 'init-full-screen)
+(require 'init-chinese-calendar)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------
