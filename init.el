@@ -160,6 +160,7 @@
 (require 'init-cdlatex)
 (require 'init-full-screen)
 (require 'init-chinese-calendar)
+(require 'init-eimp)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------

@@ -59,6 +59,7 @@
         (compilation-mode . emacs)
         (speedbar-mode . emacs)
         (magit-commit-mode . normal)
+        (image-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
