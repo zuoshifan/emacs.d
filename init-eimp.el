@@ -46,7 +46,9 @@ replacing the current Image mode buffer."
       (push file files))
     (sort files 'string-lessp)))
 
-(define-key eimp-minor-mode-map (kbd "n") 'image-next-file)
-(define-key eimp-minor-mode-map (kbd "p") 'image-previous-file)
+(eval-after-load "eimp"
+  '(progn
+     (define-key eimp-minor-mode-map (kbd "n") 'image-next-file)
+     (define-key eimp-minor-mode-map (kbd "p") 'image-previous-file)     ))
 
 (provide 'init-eimp)
