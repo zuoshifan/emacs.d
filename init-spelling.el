@@ -72,6 +72,7 @@
 
 ;; you can also use "M-x ispell-word" or hotkey "M-$". It pop up a multiple choice
 ;; @see http://frequal.com/Perspectives/EmacsTip03-FlyspellAutoCorrectWord.html
+(setq flyspell-use-meta-tab nil) ;; don't use M-TAB and C-M-i to do `flyspell-auto-correct-word'
 (global-set-key (kbd "C-c s") 'flyspell-auto-correct-word)
 
 (provide 'init-spelling)
