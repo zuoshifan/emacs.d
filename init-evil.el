@@ -62,6 +62,7 @@
         (image-mode . emacs)
         (calculator-mode . emacs)
         (calendar-mode . emacs)
+        (grep-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
