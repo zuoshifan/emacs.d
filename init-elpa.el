@@ -93,10 +93,8 @@ re-downloaded in order to locate PACKAGE."
      pomodoro
      helm
      helm-ls-git
-     helm-c-yasnippet
      auto-compile
      packed
-     cl-lib
      gitconfig-mode
      project-local-variables
      org-fstree
@@ -110,7 +108,6 @@ re-downloaded in order to locate PACKAGE."
      ctags
      fakir
      erlang
-     workgroups2
      )
   "Don't install any Melpa packages except these packages")
 
@@ -135,21 +132,18 @@ re-downloaded in order to locate PACKAGE."
 
 (package-initialize)
 
-(require-package 'popup)
 (require-package 'all)
 (require-package 'xml-rpc)
 (require-package 'dash)
 ; color-theme 6.6.1 in elpa is buggy
-(when (< emacs-major-version 24)
-  (require-package 'color-theme))
+(require-package 'color-theme)
+(require-package 'color-theme-molokai)
 (require-package 'auto-compile)
 (require-package 'ace-jump-mode)
-(require-package 'multiple-cursors)
 (require-package 'expand-region '(0 8 0) nil)
 (require-package 'fringe-helper)
 (require-package 'gnuplot)
 (require-package 'haskell-mode '(13 7 0) nil)
-(require-package 'cl-lib '(0 3 0) nil)
 (require-package 'magit '(1 2 0) nil)
 (require-package 'git-commit-mode)
 (require-package 'gitignore-mode)
@@ -178,7 +172,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'scss-mode)
 (require-package 'elein)
 (require-package 'markdown-mode)
-(require-package 'smex '(2 1 0) nil)
 (require-package 'dired+)
 (require-package 'rainbow-mode '(0 6 0) nil)
 (require-package 'maxframe)
@@ -262,7 +255,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'go-mode)
 (require-package 'switch-window)
 (require-package 'maxframe)
-(require-package 'cpputils-cmake '(0 3 4) t)
+(require-package 'cpputils-cmake '(0 4 3) t)
 (require-package 'flyspell-lazy)
 (require-package 'gtags)
 (require-package 'bbdb '(20130421 1145 0) nil)
@@ -272,36 +265,38 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'emms)
 (require-package 'pomodoro '(20130114 1543 0) nil)
 (require-package 'flymake-lua)
-(require-package 'evil-nerd-commenter '(1 2 3) nil)
+(require-package 'evil-nerd-commenter '(1 2 7) nil)
 (require-package 'dropdown-list)
 (require-package 'yasnippet '(0 8 0) nil)
-(require-package 'workgroups2)
 ;; rvm-open-gem to get gem's code
 (require-package 'rvm)
 ;; C-x r l to list bookmarks
 (require-package 'bookmark+)
+(require-package 'multi-term)
 (require-package 'json-mode)
-(require-package 'js2-mode)
+(if (and (>= emacs-major-version 24) (>= emacs-minor-version 1))
+    (require-package 'js2-mode '(20140114 0 0) nil)
+  )
 (require-package 'tagedit)
 (require-package 'sr-speedbar)
 (require-package 'requirejs-mode)
 (require-package 'smartparens)
-(require-package 'company '(0 6 12) nil)
+(require-package 'company '(0 6 13) nil)
 (require-package 'legalese)
 (require-package 'string-edit)
 (require-package 'dired-details)
+(require-package 'git-gutter)
 (require-package 'popwin)
-(require-package 'projectile)
 (require-package 'elnode)
-(require-package 'evil-matchit '(0 0 7) nil)
+(require-package 'evil-matchit '(1 2 7) nil)
+(require-package 'quack) ;; for scheme
 ;;(require-package 'git-messenger '(20130613 1222 0) nil)
 ;;;;;(require-package 'issue-tracker '(0 0 1) nil)
 
 (when *emacs24*
-  (require-package 'helm '(20130409 1040 0) nil)
+  (require-package 'helm '(20140205 2333 0) nil)
   (require-package 'helm-ls-git '(20130310 1401 0) nil)
   (require-package 'helm-gtags)
-  (require-package 'helm-c-yasnippet)
   )
 ;; (require-package 'command-frequency)
 (require-package 'cdlatex)

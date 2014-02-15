@@ -44,6 +44,26 @@
      (require 'magit-svn)
      ))
 
+;; {{ git-gutter
+(require 'git-gutter)
+
+;; If you enable global minor mode
+(global-git-gutter-mode t)
+
+(global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+(global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
+
+;; Jump to next/previous hunk
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+
+;; Stage current hunk
+(global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
+
+;; Revert current hunk
+(global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
+;; }}
+
 ;;----------------------------------------------------------------------------
 ;; git-svn conveniences
 ;;----------------------------------------------------------------------------
@@ -68,6 +88,33 @@
     (compile (concat "git svn "
                      (ido-completing-read "git-svn command: " git-svn--available-commands nil t)))))
 
+(defun git-reset-current-file ()
+  "git reset file of current buffer"
+  (interactive)
+  (let ((filename))
+    (when buffer-file-name
+      (setq filename (file-truename buffer-file-name))
+      (shell-command (concat "git reset " filename))
+      (message "DONE! git reset %s" filename)
+      )))
+
+(defun git-add-current-file ()
+  "git add file of current buffer"
+  (interactive)
+  (let ((filename))
+    (when buffer-file-name
+      (setq filename (file-truename buffer-file-name))
+      (shell-command (concat "git add " filename))
+      (message "DONE! git add %s" filename)
+      )))
+
+(defun git-add-option-update ()
+  "git add only tracked files of default directory"
+  (interactive)
+  (when buffer-file-name
+    (shell-command "git add -u")
+    (message "DONE! git add -u %s" default-directory)
+    ))
 
 ;; {{ git-messenger
 (require 'git-messenger)
@@ -90,5 +137,59 @@
 (global-set-key (kbd "C-x v p") 'git-messenger:popup-message)
 ;; }}
 
+;; {{ goto next/previous hunk/section
+(defun my-goto-next-section (arg)
+  "wrap magit and other diff plugins next/previous command"
+  (interactive "p")
+  (cond
+   ((string= major-mode "magit-commit-mode")
+    (setq arg (abs arg))
+    (while (> arg 0)
+      (condition-case nil
+          ;; buggy when start from first line
+          (magit-goto-next-sibling-section)
+        (error
+         (magit-goto-next-section)))
+      (setq arg (1- arg))))
+   (t (git-gutter:next-hunk arg))
+   ))
+
+(defun my-goto-previous-section (arg)
+  "wrap magit and other diff plugins next/previous command"
+  (interactive "p")
+  (cond
+   ((string= major-mode "magit-commit-mode")
+    (setq arg (abs arg))
+    (while (> arg 0)
+      (condition-case nil
+          ;; buggy when start from first line
+          (magit-goto-previous-sibling-section)
+        (error
+         (magit-goto-previous-section)))
+      (setq arg (1- arg))))
+   (t (git-gutter:previous-hunk arg))
+   ))
+
+(defun my-goto-next-hunk (arg)
+  "wrap magit and other diff plugins next/previous command"
+  (interactive "p")
+  (cond
+   ((string= major-mode "magit-commit-mode")
+    (diff-hunk-next arg))
+   (t (git-gutter:next-hunk arg))
+   ))
+
+(defun my-goto-previous-hunk (arg)
+  "wrap magit and other diff plugins next/previous command"
+  (interactive "p")
+  (cond
+   ((string= major-mode "magit-commit-mode")
+    (diff-hunk-prev arg))
+   (t (git-gutter:previous-hunk arg))
+   ))
+
+;; turn off the overlay, I do NOT want to lose original syntax highlight!
+(setq magit-highlight-overlay t)
+;; }}
 (provide 'init-git)
 

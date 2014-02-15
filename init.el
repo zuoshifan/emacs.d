@@ -36,17 +36,24 @@
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
+(require 'cl-lib)
 (require 'init-compat)
 (require 'init-utils)
 (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
 
 ;; win32 auto configuration, assuming that cygwin is installed at "c:/cygwin"
-(if *win32*
-	(progn
-		(setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
-		(require 'setup-cygwin)
-		;(setenv "HOME" "c:/cygwin/home/someuser") ;; better to set HOME env in GUI
-		))
+(condition-case nil
+    (when *win32*
+      (setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
+      (require 'setup-cygwin)
+      ;; better to set HOME env in GUI
+      ;; (setenv "HOME" "c:/cygwin/home/someuser")
+      )
+  (error
+   (message "setup-cygwin failed, continue anyway")
+   )
+  )
+
 
 (require 'init-elpa)
 (require 'init-exec-path) ;; Set up $PATH
@@ -64,6 +71,7 @@
 (require 'init-artbollocks-mode)
 (require 'init-recentf)
 (require 'init-ido)
+(require 'init-smex)
 (if *emacs24* (require 'init-helm))
 (require 'init-hippie-expand)
 (require 'init-windows)
@@ -90,6 +98,7 @@
 ;(require 'init-rcirc)
 
 (require 'init-lisp)
+(require 'init-elisp)
 
 (when *spell-check-support-enabled*
   (require 'init-spelling))
@@ -130,8 +139,6 @@
 (require 'init-misc)
 (require 'init-ctags)
 (require 'init-ace-jump-mode)
-(require 'init-multiple-cursors)
-;; (require 'init-uml)
 (require 'init-sunrise-commander)
 (require 'init-bbdb)
 (require 'init-gnus)
@@ -218,6 +225,19 @@
     (time-to-seconds (time-since emacs-load-start-time)))
    )
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.bmk")
+ '(safe-local-variable-values (quote ((emacs-lisp-docstring-fill-column . 75) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(window-numbering-face ((t (:foreground "DeepPink" :underline "DeepPink" :weight bold))) t))
 ;;; Local Variables:
 ;;; no-byte-compile: t
 ;;; End:

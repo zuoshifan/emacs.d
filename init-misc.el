@@ -1,11 +1,13 @@
 ;;----------------------------------------------------------------------------
 ;; Misc config - yet to be placed in separate files
 ;;----------------------------------------------------------------------------
+;; {{ shell and conf
+(add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.[a-zA-Z]+rc$" . conf-mode))
+;; }}
+
 (add-auto-mode 'tcl-mode "Portfile\\'")
 (fset 'yes-or-no-p 'y-or-n-p)
-(add-hook 'find-file-hooks 'goto-address-prog-mode)
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-(setq goto-address-mail-face 'link)
 
 (column-number-mode 1)
 
@@ -313,7 +315,6 @@ Current position is preserved."
     (kill-new str)
     (goto-char orig-pos)))
   )
-(global-set-key (kbd "C-c C-y") 'strip-convert-lines-into-one-big-string)
 
 ;; enable for all programming modes
 ;; http://emacsredux.com/blog/2013/04/21/camelcase-aware-editing/
@@ -569,7 +570,7 @@ The full path into relative path insert it as a local file link in org-mode"
                       (car (last (split-string file "\\.")))
                       ";base64,"
                       str
-                      ") no-repeat 0 0;}"
+                      ") no-repeat 0 0;"
                       ))
     (kill-new rlt)
     (copy-yank-str rlt)
@@ -591,10 +592,85 @@ The full path into relative path insert it as a local file link in org-mode"
   (color-theme-lethe)
   )
 
-;o; {{ projectile
-(projectile-global-mode)
+(defun add-pwd-into-load-path ()
+  "add current directory into load-path, useful for elisp developers"
+  (interactive)
+  (let ((dir (expand-file-name default-directory)))
+    (if (not (memq dir load-path))
+        (add-to-list 'load-path dir)
+        )
+    (message "Directory added into load-path:%s" dir)
+    )
+  )
+
+;; {{ save history
+(setq history-length 8000)
+(setq savehist-additional-variables '(search-ring regexp-search-ring kill-ring))
+(savehist-mode 1)
 ;; }}
 
 (setq system-time-locale "C")
+
+;; {{ unique lines
+(defun uniquify-all-lines-region (start end)
+  "Find duplicate lines in region START to END keeping first occurrence."
+  (interactive "*r")
+  (save-excursion
+    (let ((end (copy-marker end)))
+      (while
+          (progn
+            (goto-char start)
+            (re-search-forward "^\\(.*\\)\n\\(\\(.*\n\\)*\\)\\1\n" end t))
+        (replace-match "\\1\n\\2")))))
+
+(defun uniquify-all-lines-buffer ()
+  "Delete duplicate lines in buffer and keep first occurrence."
+  (interactive "*")
+  (uniquify-all-lines-region (point-min) (point-max)))
+;; }}
+
+;; {{start dictionary lookup
+;; use below commands to create dicitonary
+;; mkdir -p ~/.stardict/dic
+;; # wordnet English => English
+;; curl http://abloz.com/huzheng/stardict-dic/dict.org/stardict-dictd_www.dict.org_wn-2.4.2.tar.bz2 | tar jx -C ~/.stardict/dic
+;; # Langdao Chinese => English
+;; curl http://abloz.com/huzheng/stardict-dic/zh_CN/stardict-langdao-ec-gb-2.4.2.tar.bz2 | tar jx -C ~/.stardict/dic
+;;
+(setq sdcv-dictionary-simple-list '("朗道英汉字典5.0"))
+(setq sdcv-dictionary-complete-list '("WordNet"))
+(autoload 'sdcv-search-pointer "sdcv" "show word explanation in buffer" t)
+(autoload 'sdcv-search-input+ "sdcv" "show word explanation in tooltip" t)
+(global-set-key (kbd "C-c ; b") 'sdcv-search-pointer)
+(global-set-key (kbd "C-c ; t") 'sdcv-search-input+)
+;; }}
+
+(defun evil-toggle-input-method ()
+  "when toggle on input method, switch to evil-insert-state if possible.
+when toggle off input method, switch to evil-normal-state if current state is evil-insert-state"
+  (interactive)
+  (if (not current-input-method)
+      (if (not (string= evil-state "insert"))
+          (evil-insert-state))
+    (if (string= evil-state "insert")
+        (evil-normal-state)
+        ))
+  (toggle-input-method))
+
+(global-set-key (kbd "C-\\") 'evil-toggle-input-method)
+
+;; color theme
+(require 'color-theme)
+(color-theme-molokai)
+
+;; {{smart-compile: http://www.emacswiki.org/emacs/SmartCompile
+(require 'smart-compile)
+;; }}
+
+(setq web-mode-imenu-regexp-list
+  '(;; ("<\\(h[1-9]\\)\\([^>]*\\)>\\([^<]*\\)" 1 3 ">" nil)
+    ("^[ \t]*<\\([@a-z]+\\)[^>]*>? *$" 1 " id=\"\\([a-zA-Z0-9_]+\\)\"" "#" ">")
+    ("^[ \t]*<\\(@[a-z.]+\\)[^>]*>? *$" 1 " contentId=\"\\([a-zA-Z0-9_]+\\)\"" "=" ">")
+    ))
 
 (provide 'init-misc)

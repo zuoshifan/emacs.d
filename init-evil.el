@@ -40,6 +40,7 @@
         (minibuffer-inactive-mode . emacs)
         (Info-mode . emacs)
         (term-mode . emacs)
+        (sdcv-mode . emacs)
         (log-edit-mode . emacs)
         (inf-ruby-mode . emacs)
         (yari-mode . emacs)
@@ -63,6 +64,7 @@
         (calculator-mode . emacs)
         (calendar-mode . emacs)
         (grep-mode . emacs)
+        (js2-error-buffer-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
@@ -120,6 +122,7 @@
   (let ((old (thing-at-point 'symbol)))
     (funcall fn)
     (unless (evil-visual-state-p)
+      (kill-new old)
       (evil-visual-state))
     (evil-ex (concat "'<,'>s/" (if (= 0 (length old)) "" "\\<\\(") old (if (= 0 (length old)) "" "\\)\\>/"))))
   )
@@ -148,33 +151,23 @@ to replace the symbol under cursor"
   "ac" 'ack
   "aa" 'ack-find-same-file
   "af" 'ack-find-file
+  "bf" 'beginning-of-defun
+  "ef" 'end-of-defun
+  "db" 'sdcv-search-pointer ;; in another buffer
+  "dt" 'sdcv-search-input+ ;; in tip
+  "mf" 'mark-defun
   "em" 'erase-message-buffer
   "eb" 'eval-buffer
   "ee" 'eval-expression
   "cx" 'copy-to-x-clipboard
+  "cy" 'strip-convert-lines-into-one-big-string
   "cff" 'current-font-face
-  "cfn" 'copy-filename-of-current-buffer
-  "cfp" 'copy-full-path-of-current-buffer
+  "fn" 'copy-filename-of-current-buffer
+  "fp" 'copy-full-path-of-current-buffer
   "dj" 'dired-jump ;; open the dired from current file
   "ff" 'toggle-full-window ;; I use WIN+F in i3
+  "gt" 'get-term
   "px" 'paste-from-x-clipboard
-  "pf" 'projectile-find-file
-  "pd" 'projectile-find-dir
-  "pT" 'projectile-toggle-between-implemenation-and-test
-  "pg" 'projectile-grep
-  "pb" 'projectile-switch-to-buffer
-  "po" 'projectile-multi-occur
-  "pr" 'projectile-replace
-  "pi" 'projectile-invalidate-cache
-  "pR" 'projectile-regenerate-tags
-  "pk" 'projectile-kill-buffers
-  "pD" 'projectile-dired
-  "pe" 'projectile-recentf
-  "pa" 'projectile-ack
-  "pc" 'projectile-compile-project
-  "pp" 'projectile-test-project
-  "pz" 'projectile-cache-current-file
-  "ps" 'projectile-switch-project
   ;; "ci" 'evilnc-comment-or-uncomment-lines
   ;; "cl" 'evilnc-comment-or-uncomment-to-the-line
   ;; "cc" 'evilnc-copy-and-comment-lines
@@ -192,7 +185,10 @@ to replace the symbol under cursor"
   "hn" 'highlight-symbol-next
   "hp" 'highlight-symbol-prev
   "hq" 'highlight-symbol-query-replace
-  "bm" 'pomodoro-start ;; beat myself
+  "
+
+bm" 'pomodoro-start ;; beat myself
+  "im" 'helm-imenu
   "." 'evil-ex
   ;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
   "oo" 'switch-window
@@ -213,7 +209,12 @@ to replace the symbol under cursor"
   "x2" '(lambda () (interactive) (if *emacs23* (split-window-vertically) (split-window-right)))
   "x3" '(lambda () (interactive) (if *emacs23* (split-window-horizontally) (split-window-below)))
   "xu" 'winner-undo
+  "sl" 'sort-lines
+  "ur" 'uniquify-all-lines-region
+  "ub" 'uniquify-all-lines-buffer
   "ls" 'package-list-packages
+  "lo" 'moz-console-log-var
+  "lj" 'moz-load-js-file-and-send-it
   "ws" 'w3mext-hacker-search
   "hs" 'helm-swoop
   "hb" 'helm-back-to-last-point
@@ -221,7 +222,9 @@ to replace the symbol under cursor"
   "gp" 'gtags-pop-stack
   "gr" 'gtags-find-rtag
   "fb" 'flyspell-buffer
-  "fg" 'flyspell-goto-next-error
+  "fe" 'flyspell-goto-next-error
+  "fa" 'flyspell-auto-correct-word
+  "fw" 'ispell-word
   "gy" 'gtags-find-symbol
   "dg" 'djcb-gtags-create-or-update
   "bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
@@ -259,19 +262,32 @@ to replace the symbol under cursor"
   "xo" 'helm-find-files
   "vd" 'scroll-other-window
   "vu" '(lambda () (interactive) (scroll-other-window-down nil))
-  "jj" 'w3mext-search-js-api-mdn
+  "js" 'w3mext-search-js-api-mdn
+  "je" 'js2-display-error-list
+  "te" 'js2-mode-toggle-element
+  "tf" 'js2-mode-toggle-hide-functions
   "xh" 'mark-whole-buffer
   "xk" 'ido-kill-buffer
   "xs" 'save-buffer
   "xz" 'suspend-frame
   "xvv" 'vc-next-action
-  "xv=" 'vc-diff
+  "xva" 'git-add-current-file
+  "xrf" 'git-reset-current-file
+  "xvu" 'git-add-option-update
+  "xvg" 'vc-annotate
+  "xv=" 'git-gutter:popup-hunk
+  "ps" 'my-goto-previous-section
+  "ns" 'my-goto-next-section
+  "pp" 'my-goto-previous-hunk
+  "nn" 'my-goto-next-hunk
+  "xvs" 'git-gutter:stage-hunk
+  "xvr" 'git-gutter:revert-hunk
   "xvl" 'vc-print-log
   "xvp" 'git-messenger:popup-message
   "xnn" 'narrow-to-region
   "xnw" 'widen
   "xnd" 'narrow-to-defun
-  "xn" 'narrow-to-region
+  "xr" 'narrow-to-region
   "xw" 'widen
   "xd" 'narrow-to-defun
   "zc" 'wg-create-workgroup
@@ -292,9 +308,9 @@ to replace the symbol under cursor"
   "zb" 'wg-switch-to-buffer
   "zp" 'wg-switch-to-workgroup-left
   "zn" 'wg-switch-to-workgroup-right
-  "zu" 'wg-undo-wconfig-change
-  "zr" 'wg-redo-wconfig-change
-  "zs" 'wg-save-wconfig
+  "zwu" 'wg-undo-wconfig-change
+  "zwr" 'wg-redo-wconfig-change
+  "zws" 'wg-save-wconfig
   )
 ;; }}
 

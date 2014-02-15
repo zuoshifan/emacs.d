@@ -5,6 +5,7 @@
 ;; ---------------------------------------------------------------------------
 (setq inferior-js-program-command "js")
 (defun add-inferior-js-keys ()
+  (moz-minor-mode 1)
   (local-set-key "\C-x\C-e" 'js-send-last-sexp)
   (local-set-key "\C-\M-x" 'js-send-last-sexp-and-go)
   (local-set-key "\C-cb" 'js-send-buffer)
@@ -24,6 +25,7 @@
       (setq auto-mode-alist (cons '("\\.js\\(\\.erb\\)?\\'" . js2-mode) auto-mode-alist))
       (autoload 'js2-mode "js2-mode" nil t)
       (add-hook 'js2-mode-hook '(lambda ()
+                                  (js2-imenu-extras-mode)
                                   (setq mode-name "JS2")
                                   (require 'requirejs-mode)
                                   (requirejs-mode)
@@ -37,13 +39,9 @@
             js2-mode-must-byte-compile nil
             js2-basic-offset preferred-javascript-indent-level
             js2-indent-on-enter-key t
+            js2-skip-preprocessor-directives t
             js2-auto-indent-p t
             js2-bounce-indent-p t)
-
-      (eval-after-load 'js2-mode
-        '(progn
-           (require 'js2-imenu-extras)
-           (js2-imenu-extras-setup)))
 
       (add-to-list 'interpreter-mode-alist (cons "node" 'js2-mode))
 
