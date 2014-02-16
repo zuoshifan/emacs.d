@@ -281,7 +281,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'sr-speedbar)
 (require-package 'requirejs-mode)
 (require-package 'smartparens)
-(require-package 'company '(0 6 13) nil)
+(require-package 'company '(0 6 14) nil)
 (require-package 'legalese)
 (require-package 'string-edit)
 (require-package 'dired-details)
