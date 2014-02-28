@@ -216,6 +216,7 @@ to replace the symbol under cursor"
   "x2" '(lambda () (interactive) (if *emacs23* (split-window-vertically) (split-window-right)))
   "x3" '(lambda () (interactive) (if *emacs23* (split-window-horizontally) (split-window-below)))
   "xu" 'winner-undo
+  "to" 'toggle-web-js-offset
   "sl" 'sort-lines
   "ur" 'uniquify-all-lines-region
   "ub" 'uniquify-all-lines-buffer
