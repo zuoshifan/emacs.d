@@ -205,6 +205,7 @@ to replace the symbol under cursor"
   "gg" '(lambda () (interactive) (w3m-search "g" (thing-at-point 'symbol)))
   "qq" '(lambda () (interactive) (w3m-search "q" (thing-at-point 'symbol)))
   "hr" 'helm-recentf
+  "jb" 'js-beautify
   "se" 'string-edit-at-point
   "s0" 'delete-window
   "s1" 'delete-other-windows
