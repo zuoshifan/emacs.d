@@ -203,13 +203,8 @@
 ;;----------------------------------------------------------------------------
 (if (file-readable-p (expand-file-name "~/.emacs.d/custom.el"))
     (progn (setq custom-file "~/.emacs.d/custom.el")
-           (load-file (expand-file-name "~/.emacs.d/custom.el")))
-       nil)
+           (load-file (expand-file-name "~/.emacs.d/custom.el"))))
 
-;; load email configuration explicitly
-(if (file-readable-p (expand-file-name "~/.gnus.el"))
-     (load-file (expand-file-name "~/.gnus.el"))
-       nil)
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-local" containing personal settings
 ;;----------------------------------------------------------------------------
