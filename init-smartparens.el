@@ -1,4 +1,5 @@
 (defun my-smartparens-config ()
+  (smartparens-global-mode t)
   (setq sp-navigate-consider-sgml-tags '(html-mode
                                           nxml-mode
                                           web-mode

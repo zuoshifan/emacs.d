@@ -185,9 +185,7 @@ to replace the symbol under cursor"
   "hn" 'highlight-symbol-next
   "hp" 'highlight-symbol-prev
   "hq" 'highlight-symbol-query-replace
-  "
-
-bm" 'pomodoro-start ;; beat myself
+  "bm" 'pomodoro-start ;; beat myself
   "im" 'helm-imenu
   "." 'evil-ex
   ;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
