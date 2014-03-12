@@ -90,6 +90,12 @@
 (global-page-break-lines-mode)
 
 ;;----------------------------------------------------------------------------
+;; Use the printing package. This replaces the usual printing commands in the menu bar with a 'Pinting' submenu that contains various printing options.
+;;----------------------------------------------------------------------------
+(require 'printing)
+(pr-update-menus)
+
+;;----------------------------------------------------------------------------
 ;; Shift lines up and down with M-up and M-down
 ;;----------------------------------------------------------------------------
 (move-text-default-bindings)
