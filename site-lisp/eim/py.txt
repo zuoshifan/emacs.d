@@ -12958,7 +12958,7 @@ jiao-zhun 校准
 jiao-zi 饺子
 jiao-zong 骄纵
 jiao-zuo 焦作 叫做
-jie 捷 皆 接 戒 洁 结 解 节 姐 杰 借 界 介 价 截 阶 街 劫 嗟 揭 藉 竭 絜 届 诫 桔 偈 偕 袺 褯 鲒 蚧 蛣 羯 疖 碣 湝 桀 婕 榤 椄 楬 孑 疥 芥 睫 拮 喈 幯 诘 讦 岊 玠 劼 倢 秸 颉 骱
+jie 节 捷 皆 接 戒 洁 结 解 姐 杰 借 界 介 价 截 阶 街 劫 嗟 揭 藉 竭 絜 届 诫 桔 偈 偕 袺 褯 鲒 蚧 蛣 羯 疖 碣 湝 桀 婕 榤 椄 楬 孑 疥 芥 睫 拮 喈 幯 诘 讦 岊 玠 劼 倢 秸 颉 骱
 jie-bai 洁白
 jie-ban 接班
 jie-ban-ren 接班人
@@ -21766,7 +21766,7 @@ shou-zu 手足
 shou-zu-kou-bing 手足口病
 shou-zu-qin-qing 手足亲情
 shou-zu-wu-cuo 手足无措
-shu 数 书 输 术 述 属 殊 树 鼠 束 熟 庶 叔 竖 倏 舒 曙 墅 蜀 疏 襡 裋 恕 藷 漱 戍 黍 署 暑 薯 孰 赎 抒 梳 枢 蔬 秫 殳 毹 钃 翛 纾 姝 鉥 澍 沭 綀 摴 杸 塾 摅 癙 儵 淑 俞 疋 菽 丨 腧
+shu 树 数 书 输 术 述 属 殊 鼠 束 熟 庶 叔 竖 倏 舒 曙 墅 蜀 疏 襡 裋 恕 藷 漱 戍 黍 署 暑 薯 孰 赎 抒 梳 枢 蔬 秫 殳 毹 钃 翛 纾 姝 鉥 澍 沭 綀 摴 杸 塾 摅 癙 儵 淑 俞 疋 菽 丨 腧
 shu-bai 数百
 shu-bai-wan 数百万
 shu-ban 书板
@@ -29014,7 +29014,7 @@ zh-sh-f-z 知识份子 知识分子
 zh-sh-g-ch-sh 知识工程师
 zh-sh-h-j 指手画脚
 zh-sh-h-w-q 战术核武器
-zh-sh-j 直升机 中世纪
+zh-sh-j 植树节 直升机 中世纪
 zh-sh-j-j 指数基金 终身监禁
 zh-sh-j-j-q 专属经济区
 zh-sh-k 知识库
@@ -29586,7 +29586,7 @@ zheng-zi-fa-gui-ze 正字法规则
 zheng-zi-fa-jie-duan 正字法阶段
 zheng-zi-fa-kong-jian 正字法空间
 zheng-zi-fa-mo-shi 正字法模式
-zhi 志 指 之 值 只 置 知 制 直 识 至 纸 职 质 致 支 智 执 治 止 枝 址 植 织 掷 稚 旨 侄 徵 窒 蛰 秩 帜 挚 脂 肢 蜘 鳷 觯 袟 酯 豸 踯 猘 踬 絷 跖 鸷 騺 蘵 蛭 痣 雉 黹 阯 祗 祉 膣 鑕 沚 轾 胝 轵 贽 桎 栀 枳 鋕 骘 咫 柣 彘 樴 搘 紩 銍 忮 帙 秷 懥 秪 恉 摭 陟 芷 稙 寘 跱 郅 埴 蹠 庤 卮 滞 痔 炙 峙 畤 趾 殖 汁 芝 疧 疐 厔 厎 偫 吱 栉
+zhi 植 志 指 之 值 只 置 知 制 直 识 至 纸 职 质 致 支 智 执 治 止 枝 址 织 掷 稚 旨 侄 徵 窒 蛰 秩 帜 挚 脂 肢 蜘 鳷 觯 袟 酯 豸 踯 猘 踬 絷 跖 鸷 騺 蘵 蛭 痣 雉 黹 阯 祗 祉 膣 鑕 沚 轾 胝 轵 贽 桎 栀 枳 鋕 骘 咫 柣 彘 樴 搘 紩 銍 忮 帙 秷 懥 秪 恉 摭 陟 芷 稙 寘 跱 郅 埴 蹠 庤 卮 滞 痔 炙 峙 畤 趾 殖 汁 芝 疧 疐 厔 厎 偫 吱 栉
 zhi-ai 致癌
 zhi-ai-wu 致癌物
 zhi-ai-wu-zhi 致癌物质
@@ -29709,6 +29709,7 @@ zhi-shi-zi 指事字
 zhi-shou-hua-jiao 指手画脚
 zhi-shu 指数
 zhi-shu-ji-jin 指数基金
+zhi-shu-jie 植树节
 zhi-shu-qi-quan 指数期权
 zhi-shu-tao-li 指数套利
 zhi-shuai 直率
