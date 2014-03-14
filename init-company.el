@@ -16,9 +16,30 @@
   '(progn
      (add-to-list 'company-backends 'company-cmake)
      ;; I donot like the downcase code in company-dabbrev
+     ;; More convinent to use hippie-expand (M-/)
      (setq company-backends (delete 'company-dabbrev company-backends))
+     (setq company-backends (delete 'company-ropemacs company-backends)) ; can't work with TRAMP
      (setq company-begin-commands '(self-insert-command))
      (setq company-idle-delay 0.2)
      ))
+
+
+;;; Can't work with TRAM
+;; (eval-after-load "python"
+;;   '(progn
+;;      ;; Initialize Pymacs
+;;      (autoload 'pymacs-apply "pymacs")
+;;      (autoload 'pymacs-call "pymacs")
+;;      (autoload 'pymacs-eval "pymacs" nil t)
+;;      (autoload 'pymacs-exec "pymacs" nil t)
+;;      (autoload 'pymacs-load "pymacs" nil t)
+;;      ;; (require 'pycomplete)  ; can only be used in python-mode.el, not python.el carried by emacs
+;;      ;; (message "loading repomacs")
+
+;;      ;; Initialize Rope
+;;      (setq ropemacs-global-prefix "C-x /")
+;;      (pymacs-load "ropemacs" "rope-")
+;;      (setq ropemacs-enable-autoimport t)))
+
 
 (provide 'init-company)
