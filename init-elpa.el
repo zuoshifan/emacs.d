@@ -192,7 +192,6 @@ re-downloaded in order to locate PACKAGE."
 ;;;;;; (require-package 'nrepl)
 ;;;;;; (require-package 'slamhound)
 (require-package 'diminish)
-(require-package 'js-comint)
 (require-package 'php-mode)
 (require-package 'smarty-mode)
 (require-package 'scratch)
