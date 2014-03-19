@@ -162,7 +162,6 @@
   ;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
   )
 (require 'init-stripe-buffer)
-(require 'init-popwin)
 (require 'init-elnode)
 (require 'init-tramp)
 (require 'init-cdlatex)

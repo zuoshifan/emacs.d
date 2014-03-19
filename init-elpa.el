@@ -285,7 +285,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'string-edit)
 (require-package 'dired-details)
 (require-package 'git-gutter)
-(require-package 'popwin)
 (require-package 'elnode)
 (require-package 'evil-matchit '(1 2 7) nil)
 (require-package 'quack) ;; for scheme
