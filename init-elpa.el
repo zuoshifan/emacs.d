@@ -250,6 +250,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'w3m)
 (require-package 'idomenu)
 (require-package 'ctags)
+(require-package 'ggtags)
 (require-package 'buffer-move)
 (require-package 'go-mode)
 (require-package 'switch-window)
