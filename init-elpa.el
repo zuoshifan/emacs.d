@@ -255,7 +255,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'go-mode)
 (require-package 'switch-window)
 (require-package 'maxframe)
-(require-package 'cpputils-cmake '(0 4 3) t)
+(require-package 'cpputils-cmake '(0 4 6) nil)
 (require-package 'flyspell-lazy)
 (require-package 'bbdb '(20130421 1145 0) nil)
 (require-package 'twittering-mode)
@@ -264,7 +264,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'emms)
 (require-package 'pomodoro '(20130114 1543 0) nil)
 (require-package 'flymake-lua)
-(require-package 'evil-nerd-commenter '(1 2 7) nil)
+(require-package 'evil-nerd-commenter '(1 2 8) nil)
 (require-package 'dropdown-list)
 (require-package 'yasnippet '(0 8 0) nil)
 ;; rvm-open-gem to get gem's code
@@ -286,7 +286,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'dired-details)
 (require-package 'git-gutter)
 (require-package 'elnode)
-(require-package 'evil-matchit '(1 2 7) nil)
+(require-package 'evil-matchit '(1 2 9) nil)
 (require-package 'quack) ;; for scheme
 ;;(require-package 'git-messenger '(20130613 1222 0) nil)
 ;;;;;(require-package 'issue-tracker '(0 0 1) nil)
