@@ -20,18 +20,19 @@
 
 ;; See: http://stackoverflow.com/questions/15493342/have-emacs-edit-python-docstrings-using-rst-mode
 ;; Note that this will switch to rst-mode for every triple-quoted string, not just the ones at the start of a function definition. You could probably restrict it to just the ones at the start of a function definition with a more complex front regex, but I'm not completely sure how to handle it since I think mmm-mode definitions by default match a line at a time.
-(require 'mmm-mode)
-(setq mmm-global-mode 'maybe)
-(mmm-add-classes
- '((python-rst
-    :submode rst-mode
-    ;; :front "^ *[ru]?\"\"\"[^\"]*$"
-    :front "^ *[ru]?\"\"\"[^\"]*"
-    ;; :back "^ *\"\"\""
-    :back "\"\"\"$"
-    :include-front t
-    :include-back t
-    :end-not-begin t)))
-(mmm-add-mode-ext-class 'python-mode nil 'python-rst)
+;; (require 'mmm-mode)
+;; (setq mmm-global-mode 'maybe)
+;; (mmm-add-classes
+;;  '((python-rst
+;;     :submode rst-mode
+;;     :front "^ *[ru]?\"\"\"[^\"]*$"
+;;     ;; :front "^ *[ru]?\"\"\"[^\"]*"
+;;     :back "^ *\"\"\""
+;;     ;; :back "\"\"\"$"
+;;     :include-front t
+;;     :include-back t
+;;     :end-not-begin t)))
+;; (mmm-add-mode-ext-class 'python-mode nil 'python-rst)
+
 
 (provide 'init-python-mode)

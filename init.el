@@ -169,6 +169,7 @@
 (require 'init-chinese-calendar)
 (require 'init-eimp)
 (require 'init-screenshot)
+(require 'init-epa)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------
