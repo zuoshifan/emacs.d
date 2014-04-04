@@ -65,6 +65,7 @@
         (calendar-mode . emacs)
         (grep-mode . emacs)
         (js2-error-buffer-mode . emacs)
+        (magit-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
