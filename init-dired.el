@@ -1,6 +1,37 @@
 (require 'dired-details)
 (dired-details-install)
 
+(defun dired-nautilus ()
+  "Load current directory with nautilus."
+  (interactive)
+  (shell-command
+   (concat "nautilus " (dired-current-directory))))
+(define-key dired-mode-map "\C-d" 'dired-nautilus)
+
+(defun sof/dired-sort ()
+  "Dired sort hook to list directories first."
+  (save-excursion
+    (let (buffer-read-only)
+      (forward-line 2) ;; beyond dir. header
+      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
+  (and (featurep 'xemacs)
+       (fboundp 'dired-insert-set-properties)
+       (dired-insert-set-properties (point-min) (point-max)))
+  (set-buffer-modified-p nil))
+(add-hook 'dired-after-readin-hook 'sof/dired-sort)
+
+(defun dired-get-size ()
+  "Get total size of marked files with `du' command.
+If not marked any files, default is current file or directory."
+  (interactive)
+  (let ((files (dired-get-marked-files)))
+    (with-temp-buffer
+      (apply 'call-process "/usr/bin/du" nil t nil "-sch" files)
+      (message "Size of all marked files: %s"
+               (progn
+                 (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*\\(total\\|总用量\\)$")
+                 (match-string 1))))))
+
 (defun diredext-exec-git-command-in-shell (command &optional arg file-list)
   "Run a shell command `git COMMAND`' on the marked files.
 if no files marked, always operate on current line in dired-mode
