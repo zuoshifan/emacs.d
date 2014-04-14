@@ -1,24 +1,16 @@
 (require 'dired-details)
 (dired-details-install)
 
+;; Sort Directories First
+(setq dired-listing-switches "-aBhl  --group-directories-first")
+
 (defun dired-nautilus ()
   "Load current directory with nautilus."
   (interactive)
   (shell-command
    (concat "nautilus " (dired-current-directory))))
-(define-key dired-mode-map "\C-d" 'dired-nautilus)
-
-(defun sof/dired-sort ()
-  "Dired sort hook to list directories first."
-  (save-excursion
-    (let (buffer-read-only)
-      (forward-line 2) ;; beyond dir. header
-      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
-  (and (featurep 'xemacs)
-       (fboundp 'dired-insert-set-properties)
-       (dired-insert-set-properties (point-min) (point-max)))
-  (set-buffer-modified-p nil))
-(add-hook 'dired-after-readin-hook 'sof/dired-sort)
+(eval-after-load "dired"
+  '(define-key dired-mode-map "\C-d" 'dired-nautilus))
 
 (defun dired-get-size ()
   "Get total size of marked files with `du' command.
