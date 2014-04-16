@@ -192,7 +192,7 @@ to replace the symbol under cursor"
   "cb" 'evilcvn-change-symbol-in-whole-buffer
   "tt" 'ido-goto-symbol ;; same as my vim hotkey
   "ht" 'helm-etags-select
-  "cg" 'helm-ls-git-ls
+  "cg" 'fiplr-find-file
   "ud" '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer))))
   "ur" 'gud-remove
   "ub" 'gud-break
