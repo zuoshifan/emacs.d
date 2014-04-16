@@ -258,7 +258,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'cpputils-cmake '(0 4 6) nil)
 (require-package 'flyspell-lazy)
 (require-package 'bbdb '(20130421 1145 0) nil)
-(require-package 'twittering-mode)
 (require-package 'iedit)
 (require-package 'wxwidgets-help '(0 0 3) nil)
 (require-package 'emms)
