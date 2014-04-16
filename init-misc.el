@@ -744,7 +744,12 @@ when toggle off input method, switch to evil-normal-state if current state is ev
 ;; }}
 
 ;; {{
-(setq fiplr-ignored-globs '((directories (".git" ".svn" ".bzr"))
+(setq fiplr-ignored-globs '((directories (".git"
+                                          ".svn"
+                                          ".bzr"
+                                          ".hg"
+                                          ".config"
+                                          ".sass-cache"))
                             (files ("*.jpg"
                                     "*.jpeg"
                                     "*.png"
