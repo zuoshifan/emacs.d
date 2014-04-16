@@ -115,8 +115,7 @@
 ;;(require 'init-fill-column-indicator) ;make auto-complete dropdown wierd
 (if (not (boundp 'light-weight-emacs)) (require 'init-yasnippet))
 ;; Use bookmark instead
-;; (require 'init-better-registers) ; C-x j - jump to register
-(require 'init-zencoding-mode) ;behind init-better-register to override C-j
+(require 'init-zencoding-mode)
 (require 'init-yari)
 (require 'init-cc-mode)
 (require 'init-gud)
