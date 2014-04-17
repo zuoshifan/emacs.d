@@ -5,7 +5,6 @@
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
 ;;----------------------------------------------------------------------------
-(setq *spell-check-support-enabled* t)
 (setq *macbook-pro-support-enabled* t)
 (setq *is-a-mac* (eq system-type 'darwin))
 (setq *is-carbon-emacs* (and *is-a-mac* (eq window-system 'mac)))
@@ -98,10 +97,7 @@
 
 (require 'init-lisp)
 (require 'init-elisp)
-
-(when *spell-check-support-enabled*
-  (require 'init-spelling))
-
+(require 'init-spelling)
 (require 'init-marmalade)
 
 ;;<<<<<<< HEAD
@@ -112,7 +108,7 @@
 ;; Chinese inut method
 (require 'init-org2blog)
 ;;(require 'init-fill-column-indicator) ;make auto-complete dropdown wierd
-(if (not (boundp 'light-weight-emacs)) (require 'init-yasnippet))
+(require 'init-yasnippet)
 ;; Use bookmark instead
 (require 'init-zencoding-mode)
 (require 'init-yari)
@@ -124,7 +120,7 @@
 (require 'init-linum-mode)
 ;(require 'init-delicious) ;make startup slow, I don't use delicious in w3m
 (require 'init-emacs-w3m)
-(if (not (boundp 'light-weight-emacs)) (require 'init-eim))
+(require 'init-eim)
 (require 'init-thing-edit)
 (require 'init-which-func)
 (require 'init-keyfreq)
@@ -134,7 +130,7 @@
 (require 'init-moz)
 (require 'init-gtags)
 ;; use evil mode (vi key binding)
-(if (not (boundp 'light-weight-emacs)) (require 'init-evil))
+(require 'init-evil)
 (require 'init-misc)
 (require 'init-ctags)
 (require 'init-ace-jump-mode)
