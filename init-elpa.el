@@ -100,7 +100,6 @@ re-downloaded in order to locate PACKAGE."
     todochiku
     textile-mode
     pretty-mode
-    lively
     auto-complete-clang
     w3m
     ctags
@@ -220,7 +219,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'hl-sexp)
 (require-package 'ibuffer-vc)
 (require-package 'less-css-mode)
-(require-package 'lively)
 (require-package 'move-text)
 (require-package 'mwe-log-commands)
 (require-package 'page-break-lines)
