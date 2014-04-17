@@ -97,7 +97,6 @@ re-downloaded in order to locate PACKAGE."
     gitconfig-mode
     project-local-variables
     org-fstree
-    smarty-mode
     todochiku
     textile-mode
     pretty-mode
@@ -192,8 +191,8 @@ re-downloaded in order to locate PACKAGE."
 ;;;;;; (require-package 'nrepl)
 ;;;;;; (require-package 'slamhound)
 (require-package 'diminish)
-(require-package 'php-mode)
-(require-package 'smarty-mode)
+;;;;;; (require-package 'php-mode)
+;;;;;; (require-package 'smarty-mode)
 (require-package 'scratch)
 (require-package 'mic-paren)
 (require-package 'rainbow-delimiters)
@@ -214,7 +213,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'flymake-css)
 (require-package 'flymake-haml)
 (require-package 'flymake-jslint)
-(require-package 'flymake-php)
 (require-package 'flymake-python-pyflakes)
 (require-package 'flymake-ruby)
 (require-package 'flymake-sass)

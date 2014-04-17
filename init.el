@@ -87,7 +87,6 @@
 (require 'init-erlang)
 (require 'init-javascript)
 (require 'init-sh)
-(require 'init-php)
 (require 'init-org)
 (require 'init-org-mime)
 (require 'init-css)
