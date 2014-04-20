@@ -6,12 +6,10 @@
 (setq password-cache-expiry nil)
 ;; Start bash shell on the remote host
 (setq explicit-shell-file-name "/bin/bash")
-;; (add-to-list 'tramp-default-proxies-alist
-;;              '("\\`storage2\\'"
-;;                nil
-;;                "/ssh:%u@%h:"))
-
-
+;; Put auto-save files in this directory
+(setq tramp-auto-save-directory "~/.backups/tramp/")
+;; Chunksize for sending input to local process
+(setq tramp-chunksize 8192)
 ;; Running remote programs that shall connect to the local X11 server
 (add-to-list 'tramp-remote-process-environment
              (format "DISPLAY=%s" (getenv "DISPLAY")))
