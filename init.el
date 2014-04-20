@@ -49,14 +49,14 @@
       ;; (setenv "HOME" "c:/cygwin/home/someuser")
       )
   (error
-   (message "setup-cygwin failed, continue anyway")
-   )
-  )
-
+   (message "setup-cygwin failed, continue anyway")))
 
 (require 'init-elpa)
 (require 'init-exec-path) ;; Set up $PATH
 (require 'init-frame-hooks)
+;; any file use flyspell should be initialized after init-spelling.el
+;; actually, I don't know which major-mode use flyspell.
+(require 'init-spelling)
 (require 'init-xterm)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
@@ -71,7 +71,7 @@
 (require 'init-recentf)
 (require 'init-ido)
 (require 'init-smex)
-(if *emacs24* (require 'init-helm))
+(require 'init-helm)
 (require 'init-hippie-expand)
 (require 'init-windows)
 (require 'init-sessions)
@@ -93,11 +93,9 @@
 (require 'init-python-mode)
 (require 'init-haskell)
 (require 'init-ruby-mode)
-;(require 'init-rcirc)
 
 (require 'init-lisp)
 (require 'init-elisp)
-(require 'init-spelling)
 (require 'init-marmalade)
 
 ;; Finally set up themes, after most possibly-customised faces have been defined
