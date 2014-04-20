@@ -148,7 +148,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 (require-package 'wgrep)
-(require-package 'csv-mode)
 (require-package 'json)
 (require-package 'lua-mode)
 (require-package 'project-local-variables)
