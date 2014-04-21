@@ -109,6 +109,13 @@
                   (w3m-browse-url url t))))))
     ad-do-it))
 
+(setq org2nikola-sourcecode-unsupported-language
+      '(elisp "clojure"
+              emacs-lisp "clojure"
+              lisp "clojure"
+              c++ "cpp"))
+
+
 (defun choose-browser (url &rest args)
   (interactive "sURL: ")
   (if (y-or-n-p "Use external browser? ")
