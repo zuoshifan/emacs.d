@@ -270,7 +270,7 @@ re-downloaded in order to locate PACKAGE."
 (if (and (>= emacs-major-version 24) (>= emacs-minor-version 1))
     (require-package 'js2-mode '(20140114 0 0) nil)
   )
-(require-package 'org2nikola '(0 0 6) nil)
+(require-package 'org2nikola '(0 0 7) nil)
 (require-package 'tagedit)
 (require-package 'fancy-narrow)
 (require-package 'sr-speedbar)
