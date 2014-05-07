@@ -2,6 +2,15 @@
 
 ;; Use the minibuffer to enter passphrase
 (setenv "GPG_AGENT_INFO" nil)
+;; @see http://www.emacswiki.org/emacs/EasyPG#toc4
+;; besides, use gnupg 1.4.9 instead of 2.0
+(defadvice epg--start (around advice-epg-disable-agent disable)
+  "Make epg--start not able to find a gpg-agent"
+  (let ((agent (getenv "GPG_AGENT_INFO")))
+    (setenv "GPG_AGENT_INFO" nil)
+    ad-do-it
+    (setenv "GPG_AGENT_INFO" agent)))
+
 
 ;; (require 'epa-file)
 ;; (epa-file-enable)
