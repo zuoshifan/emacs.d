@@ -20,7 +20,9 @@
                                          gnus-group-mode
                                          inf-ruby-mode
                                          gud-mode
-					 term-mode
+                                         org-mode
+                                         vc-git-log-edit-mode
+                                         term-mode
                                          w3m-mode
                                          speedbar-mode
                                          gnus-summary-mode
