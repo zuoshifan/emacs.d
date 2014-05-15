@@ -17,7 +17,8 @@
      (add-to-list 'company-backends 'company-cmake)
      ;; I donot like the downcase code in company-dabbrev
      ;; More convinent to use hippie-expand (M-/)
-     (setq company-backends (delete 'company-dabbrev company-backends))
+     ;; (setq company-backends (delete 'company-dabbrev company-backends))
+     (setq company-dabbrev-downcase nil)
      (setq company-backends (delete 'company-ropemacs company-backends)) ; can't work with TRAMP
      (setq company-backends (delete 'company-capf company-backends)) ;New version company-mode always include company-capf in the backends, see https://github.com/company-mode/company-mode/commit/66d8567a78a9eb86a5fd549fbbb1d90faf692a17 and https://github.com/company-mode/company-mode/issues/84
      (setq company-begin-commands '(self-insert-command))
