@@ -338,10 +338,6 @@ Current position is preserved."
     (goto-char orig-pos)))
   )
 
-;; enable for all programming modes
-;; http://emacsredux.com/blog/2013/04/21/camelcase-aware-editing/
-(add-hook 'prog-mode-hook 'subword-mode)
-
 ;; { smarter navigation to the beginning of a line
 ;; http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
 (defun smarter-move-beginning-of-line (arg)
