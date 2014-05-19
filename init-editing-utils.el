@@ -53,6 +53,19 @@
 (global-set-key (kbd "M-n") 'ispell-complete-word)
 
 ;;----------------------------------------------------------------------------
+;; transpose shortcuts
+;;----------------------------------------------------------------------------
+(global-set-key (kbd "M-t") nil) ;; Remove the old keybinding
+(global-set-key (kbd "M-t c") 'transpose-chars)
+(global-set-key (kbd "M-t l") 'transpose-lines)
+(global-set-key (kbd "M-t w") 'transpose-words)
+(global-set-key (kbd "M-t t") 'transpose-words)
+(global-set-key (kbd "M-t M-t") 'transpose-words)
+(global-set-key (kbd "M-t x") 'transpose-sexps)
+(global-set-key (kbd "M-t s") 'transpose-sentences)
+(global-set-key (kbd "M-t p") 'transpose-paragraphs)
+
+;;----------------------------------------------------------------------------
 ;; Don't disable narrowing commands
 ;;----------------------------------------------------------------------------
 (put 'narrow-to-region 'disabled nil)
