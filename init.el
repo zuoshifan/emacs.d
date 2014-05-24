@@ -158,6 +158,7 @@
 (require 'init-epa)
 (require 'ace-jump-buffer)
 (require 'init-asymptote)
+(require 'init-vcard)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------
