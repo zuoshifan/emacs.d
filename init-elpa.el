@@ -262,7 +262,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'ctags)
 (require-package 'ggtags)
 (require-package 'buffer-move)
-(require-package 'go-mode)
 (require-package 'switch-window)
 (require-package 'maxframe)
 (require-package 'cpputils-cmake '(0 4 8) nil)

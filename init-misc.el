@@ -846,4 +846,8 @@ when toggle off input method, switch to evil-normal-state if current state is ev
 ;; if you use multiple-cursors, this is for you:
 (autoload 'vr/mc-mark "visual-regexp")
 
+;; {{go-mode
+(require 'go-mode-load)
+;; }}
+
 (provide 'init-misc)
