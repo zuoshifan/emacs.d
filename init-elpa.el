@@ -314,5 +314,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'cdlatex)
 ;; (require-package 'pymacs)
 (require-package 'eimp)
+(require-package 'vcard)
 
 (provide 'init-elpa)
