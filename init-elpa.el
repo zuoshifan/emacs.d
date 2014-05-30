@@ -288,7 +288,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'tagedit)
 (require-package 'fancy-narrow)
 (require-package 'sr-speedbar)
-(require-package 'requirejs-mode)
 (require-package 'smartparens)
 ;; company-mode drop emacs 23 support
 (if (and (>= emacs-major-version 24)) (require-package 'company '(0 8 0) nil))
