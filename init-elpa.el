@@ -112,7 +112,6 @@ re-downloaded in order to locate PACKAGE."
     pretty-mode
     auto-complete-clang
     w3m
-    fiplr
     fakir
     erlang
     fancy-narrow)
@@ -292,7 +291,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'fakir)
 (require-package 'elnode)
 (require-package 'evil-matchit '(1 2 9) nil)
-(require-package 'fiplr)
 (require-package 'elpa-mirror '(1 1 2) nil)
 (if *emacs24* (require-package 'anaconda-mode))
 (require-package 'quack) ;; for scheme
