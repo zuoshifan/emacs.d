@@ -94,6 +94,11 @@ re-downloaded in order to locate PACKAGE."
 
 (defvar melpa-include-packages
   '(bbdb
+    bookmark+
+    dired+
+    whole-line-or-region
+    inflections
+    dropdown-list
     lua-mode
     anaconda-mode
     emms
