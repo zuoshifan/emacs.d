@@ -237,7 +237,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'regex-tool)
 (require-package 'rinari)
 (require-package 'ruby-compilation)
-(require-package 'iy-go-to-char)
 (require-package 'csharp-mode)
 (require-package 'cmake-mode)
 ;;;;;; (require-package 'fuzzy)
