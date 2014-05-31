@@ -112,7 +112,6 @@ re-downloaded in order to locate PACKAGE."
     pretty-mode
     auto-complete-clang
     w3m
-    ctags
     fiplr
     fakir
     erlang
