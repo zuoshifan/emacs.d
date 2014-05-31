@@ -101,7 +101,6 @@ re-downloaded in order to locate PACKAGE."
     dropdown-list
     lua-mode
     anaconda-mode
-    emms
     pomodoro
     helm
     auto-compile
@@ -182,8 +181,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'browse-kill-ring)
 (require-package 'findr)
 (require-package 'jump '(2 3 0) nil)
-(require-package 'anything)
-;;;;;; (require-package 'gist)
 (require-package 'haml-mode)
 (require-package 'sass-mode)
 (require-package 'scss-mode)
@@ -221,9 +218,6 @@ re-downloaded in order to locate PACKAGE."
 
 ;; I maintain this chunk:
 (require-package 'coffee-mode)
-;;;;;; (require-package 'color-theme-sanityinc-solarized)
-;;;;;; (require-package 'color-theme-sanityinc-tomorrow)
-(if *emacs24* (require-package 'zenburn-theme))
 (require-package 'crontab-mode)
 (require-package 'dsvn)
 (require-package 'exec-path-from-shell)
@@ -274,7 +268,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'bbdb '(20130421 1145 0) nil)
 (require-package 'iedit)
 (require-package 'wxwidgets-help '(0 0 3) nil)
-(require-package 'emms)
 (require-package 'pomodoro '(20130114 1543 0) nil)
 (require-package 'flymake-lua)
 (require-package 'evil-nerd-commenter '(1 3 1) nil)
