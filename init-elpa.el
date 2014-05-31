@@ -96,7 +96,6 @@ re-downloaded in order to locate PACKAGE."
   '(bbdb
     bookmark+
     dired+
-    whole-line-or-region
     inflections
     dropdown-list
     lua-mode
@@ -249,7 +248,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'session)
 (require-package 'tidy)
 (require-package 'unfill)
-(require-package 'whole-line-or-region)
 (require-package 'auctex)
 (require-package 'etags-select '(1 13 0) nil) ;; evil may need it
 ;;evil-20120725 requires ert
