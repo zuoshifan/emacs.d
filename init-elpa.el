@@ -145,6 +145,7 @@ re-downloaded in order to locate PACKAGE."
 (package-initialize)
 
 (require-package 'all)
+(require-package 'cl-lib '(0 0 5) nil)
 (require-package 'xml-rpc)
 (require-package 'kv '(0 0 19) nil)
 (require-package 'dash '(2 5 0) nil)
