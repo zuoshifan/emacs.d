@@ -191,10 +191,6 @@ re-downloaded in order to locate PACKAGE."
 ;; (require-package 'org '(20130506 0 0) t)
 (require-package 'org-mime)
 (require-package 'org-fstree)
-;; I don't care mac
-;;(when *is-a-mac*
-;;  (require-package 'org-mac-link-grabber)
-;;  (require-package 'org-mac-iCal))
 (require-package 'htmlize)
 ;;;;;; (require-package 'org2blog '(20130115 2217 0) nil)
 ;;;;;; (require-package 'clojure-mode)
@@ -212,8 +208,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'marmalade)
 (require-package 'textile-mode)
 (require-package 'pretty-mode)
-
-;; I maintain this chunk:
 (require-package 'coffee-mode)
 (require-package 'crontab-mode)
 (require-package 'dsvn)
