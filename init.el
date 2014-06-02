@@ -150,7 +150,6 @@
 (require 'init-stripe-buffer)
 (require 'init-elnode)
 (require 'init-tramp)
-(require 'init-cdlatex)
 (require 'init-full-screen)
 (require 'init-chinese-calendar)
 (require 'init-eimp)
@@ -159,6 +158,8 @@
 (require 'ace-jump-buffer)
 (require 'init-asymptote)
 (require 'init-vcard)
+(require 'init-auctex)
+(require 'init-cdlatex)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------
