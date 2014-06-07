@@ -164,6 +164,8 @@ re-downloaded in order to locate PACKAGE."
              (not (string-equal archive "melpa")))
          )))
 
+;; un-comment below code if you prefer use all the package on melpa (unstable) without limitation
+;; (setq package-filter-function nil)
 
 ;;------------------------------------------------------------------------------
 ;; Fire up package.el and ensure the following packages are installed.
