@@ -77,6 +77,7 @@
         (newsticker-treeview-mode . emacs)
         (newsticker-treeview-list-mode . emacs)
         (newsticker-treeview-item-mode . emacs)
+        (apropos-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
