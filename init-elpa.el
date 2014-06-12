@@ -201,7 +201,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'yari)
 (require-package 'yaml-mode)
 (require-package 'paredit)
-(require-package 'eldoc-eval)
 (require-package 'erlang '(20120612 0 0) nil)
 (require-package 'browse-kill-ring)
 (require-package 'findr)
