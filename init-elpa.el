@@ -93,6 +93,7 @@ re-downloaded in order to locate PACKAGE."
 (defvar melpa-include-packages
   '(bbdb
     xml-rpc
+    json-rpc
     kv
     color-theme
     wgrep
@@ -211,7 +212,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'elein)
 (require-package 'markdown-mode)
 (require-package 'dired+)
-(require-package 'rainbow-mode '(0 6 0) nil)
 (require-package 'maxframe)
 (require-package 'org-fstree)
 (require-package 'htmlize)
