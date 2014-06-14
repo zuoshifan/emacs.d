@@ -164,6 +164,7 @@
 (require 'init-vcard)
 (require 'init-auctex)
 (require 'init-cdlatex)
+(require 'init-google-this)
 ;;;;;; (require 'init-ibus)
 
 ;;----------------------------------------------------------------------------

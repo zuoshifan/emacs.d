@@ -316,6 +316,7 @@ re-downloaded in order to locate PACKAGE."
 ;; (require-package 'pymacs)
 (require-package 'eimp)
 (require-package 'vcard)
+(require-package 'google-this)
 ;; (require-package 'predictive)
 
 (provide 'init-elpa)
