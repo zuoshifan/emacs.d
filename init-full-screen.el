@@ -8,25 +8,26 @@
 ;; shortcut for toggle fullscreen
 (global-set-key [f11] 'my-fullscreen)
 
-;; (defun fullscreen-split-horizontally ()
-;;   "Make emacs full screen and horizontally spit the window."
-;;   (interactive)
-;; ;;;;;; (toggle-frame-fullscreen) ;; not available in version z4.3.1
-;;   (my-fullscreen)
-;;   ;;;;;; (split-window-horizontally-instead)
-;;   )
+
+(defun open-goagent-proxy ()
+  "Open goagent proxy."
+  (shell-command "python ~/program/google_appengine/goagent/local/proxy.py > /dev/null 2>&1 &"))
+
+(defun goagent-proxy-setup ()
+  "setup for goagent proxy."
+  (open-goagent-proxy)
+  (delete-window (get-buffer-window "*Async Shell Command*")))
 
 ;; First maximize the frame, then make it full screen and split the window horizontally. [F11] can toggle between maximized-frame and full screen state.
 ;; max frame, @see https://github.com/rmm5t/maxframe.el
 (require 'maxframe)
 ;; (setq mf-max-width 1600) ;; Pixel width of main monitor. for dual-lcd only
 (add-hook 'window-setup-hook 'maximize-frame t)
-;;;;;; (add-hook 'window-setup-hook 'fullscreen-split-horizontally t)
 ;; full screen
 (add-hook 'window-setup-hook 'my-fullscreen t)
 ;; display the org agenda when set up
 (add-hook 'window-setup-hook 'org-agenda-list t)
-;; split the windows horizontally
-(add-hook 'window-setup-hook 'toggle-window-split t)
+;; goagent proxy setup
+(add-hook 'window-setup-hook 'goagent-proxy-setup t)
 
 (provide 'init-full-screen)
