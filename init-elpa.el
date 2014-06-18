@@ -108,6 +108,8 @@ re-downloaded in order to locate PACKAGE."
     yaml-mode
     noflet
     db
+    undo-tree
+    goto-last-change
     evil-matchit
     creole
     web
@@ -280,7 +282,9 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'iedit)
 (require-package 'pomodoro '(20130114 1543 0) nil)
 (require-package 'flymake-lua)
+(require-package 'evil) ;; evil dependent on undo-tree, goto-last-change
 (require-package 'evil-nerd-commenter '(1 4 0) nil)
+(require-package 'evil-matchit '(1 2 9) nil)
 (require-package 'dropdown-list)
 (require-package 'yasnippet '(0 8 0) nil)
 ;; rvm-open-gem to get gem's code
@@ -304,7 +308,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'git-gutter)
 (require-package 'fakir)
 (require-package 'elnode)
-(require-package 'evil-matchit '(1 2 9) nil)
 (if *emacs24* (require-package 'anaconda-mode))
 (require-package 'quack) ;; for scheme
 ;; (require-package 'git-messenger '(20130613 1222 0) nil)
