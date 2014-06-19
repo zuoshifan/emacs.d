@@ -113,7 +113,6 @@ re-downloaded in order to locate PACKAGE."
     elnode
     sass-mode
     idomenu
-    elein
     pointback
     buffer-move
     regex-tool
@@ -208,7 +207,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'haml-mode)
 (require-package 'sass-mode)
 (require-package 'scss-mode)
-(require-package 'elein)
 (require-package 'markdown-mode)
 (require-package 'dired+)
 (require-package 'maxframe)
