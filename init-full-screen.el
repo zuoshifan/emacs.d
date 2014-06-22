@@ -9,14 +9,20 @@
 (global-set-key [f11] 'my-fullscreen)
 
 
+(defvar goagent-proxy-py "~/program/google_appengine/goagent/local/proxy.py" "Goagent proxy.py file.")
+(defvar goagent-proxy-buffer "*Goagent Proxy*" "The buffer associated with goagent proxy process.")
+
 (defun open-goagent-proxy ()
   "Open goagent proxy."
-  (shell-command "python ~/program/google_appengine/goagent/local/proxy.py > /dev/null 2>&1 &"))
+  (if (file-exists-p goagent-proxy-py)
+      (let ((shell-command-string (format "python %s 2>/dev/null" goagent-proxy-py)))
+        (async-shell-command shell-command-string goagent-proxy-buffer))
+    (error (format "File %s doesn't exits." goagent-proxy-py))))
 
 (defun goagent-proxy-setup ()
   "setup for goagent proxy."
   (open-goagent-proxy)
-  (delete-window (get-buffer-window "*Async Shell Command*")))
+  (delete-window (get-buffer-window goagent-proxy-buffer)))
 
 ;; First maximize the frame, then make it full screen and split the window horizontally. [F11] can toggle between maximized-frame and full screen state.
 ;; max frame, @see https://github.com/rmm5t/maxframe.el
