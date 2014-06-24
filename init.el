@@ -200,22 +200,10 @@
     (progn (setq custom-file "~/.emacs.d/custom.el")
            (load-file (expand-file-name "~/.emacs.d/custom.el"))))
 
-;;----------------------------------------------------------------------------
-;; Allow users to provide an optional "init-local" containing personal settings
-;;----------------------------------------------------------------------------
-(require 'init-local nil t)
-
-
-;;----------------------------------------------------------------------------
-;; Locales (setting them earlier in this file doesn't work in X)
-;;----------------------------------------------------------------------------
-;(require 'init-locales) ;does not work in cygwin
-
-
 (when (require 'time-date nil t)
-   (message "Emacs startup time: %d seconds."
-    (time-to-seconds (time-since emacs-load-start-time)))
-   )
+  (message "Emacs startup time: %d seconds."
+           (time-to-seconds (time-since emacs-load-start-time)))
+  )
 
 
 ;;; Local Variables:
