@@ -96,6 +96,7 @@ re-downloaded in order to locate PACKAGE."
     json-rpc
     kv
     color-theme
+    anaconda-mode
     wgrep
     robe
     inf-ruby
@@ -300,7 +301,8 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'git-gutter)
 (require-package 'fakir)
 (require-package 'elnode)
-(if *emacs24* (require-package 'anaconda-mode))
+(when *emacs24*
+  (require-package 'anaconda-mode))
 (require-package 'quack) ;; for scheme
 ;; (require-package 'git-messenger '(20130613 1222 0) nil)
 ;; (require-package 'issue-tracker '(0 0 1) nil)
