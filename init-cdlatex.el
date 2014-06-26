@@ -27,5 +27,6 @@
 (yas/advise-indent-function 'cdlatex-tab)
 (yas/advise-indent-function 'org-cycle)
 (yas/advise-indent-function 'org-try-cdlatex-tab)
+(yas/advise-indent-function 'completion-at-point)
 
 (provide 'init-cdlatex)
