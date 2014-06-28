@@ -45,7 +45,6 @@
         (Info-mode . emacs)
         (term-mode . emacs)
         (sdcv-mode . emacs)
-        (anaconda-nav-mode . emacs)
         (log-edit-mode . emacs)
         (inf-ruby-mode . emacs)
         (direx:direx-mode . emacs)
