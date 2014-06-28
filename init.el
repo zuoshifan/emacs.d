@@ -57,6 +57,8 @@
   (error
    (message "setup-cygwin failed, continue anyway")))
 
+(require 'idle-require)
+
 (require 'init-elpa)
 (require 'init-exec-path) ;; Set up $PATH
 (require 'init-frame-hooks)
@@ -73,9 +75,7 @@
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flymake)
-(require 'init-artbollocks-mode)
 (require 'init-recentf)
-(require 'init-ido)
 (require 'init-smex)
 (require 'init-helm)
 (require 'init-hippie-expand)
@@ -98,8 +98,6 @@
 (require 'init-python-mode)
 (require 'init-haskell)
 (require 'init-ruby-mode)
-
-(require 'init-lisp)
 (require 'init-elisp)
 (require 'init-marmalade)
 
@@ -112,24 +110,24 @@
 (require 'init-yari)
 (require 'init-cc-mode)
 (require 'init-gud)
-(require 'init-semantic)
 (require 'init-cmake-mode)
 (require 'init-csharp-mode)
 (require 'init-linum-mode)
+<<<<<<< variant A
 ;(require 'init-delicious) ;make startup slow, I don't use delicious in w3m
+(require 'init-thing-edit)
+>>>>>>> variant B
+####### Ancestor
 (require 'init-emacs-w3m)
 (require 'init-eim)
-(require 'init-thing-edit)
+======= end
 (require 'init-which-func)
 (require 'init-keyfreq)
 ;; (require 'init-gist)
-(require 'init-emacspeak)
-(require 'init-pomodoro)
 (require 'init-moz)
 (require 'init-gtags)
 ;; use evil mode (vi key binding)
 (require 'init-evil)
-(require 'init-misc)
 (require 'init-sh)
 (require 'init-ctags)
 (require 'init-ace-jump-mode)
@@ -138,9 +136,15 @@
 ;; (require 'init-gnus)
 (require 'init-weibo)
 (require 'init-lua-mode)
-(require 'init-doxygen)
+<<<<<<< variant A
 ;;;;;; (require 'init-workgroups2)
+>>>>>>> variant B
+(require 'init-workgroups2)
+####### Ancestor
+(require 'init-doxygen)
+(require 'init-workgroups2)
 (require 'init-move-window-buffer)
+======= end
 (require 'init-term-mode)
 (require 'init-web-mode)
 (require 'init-sr-speedbar)
@@ -152,46 +156,26 @@
   ;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
   )
 (require 'init-stripe-buffer)
-(require 'init-elnode)
-(require 'init-tramp)
-(require 'init-full-screen)
-(require 'init-chinese-calendar)
-(require 'init-eimp)
-(require 'init-screenshot)
-(require 'init-epa)
-(require 'ace-jump-buffer)
-(require 'init-asymptote)
-(require 'init-vcard)
-(require 'init-auctex)
-(require 'init-cdlatex)
-(require 'init-google-this)
-;;;;;; (require 'init-ibus)
 
-;;----------------------------------------------------------------------------
-;; Allow access from emacsclient
-;;----------------------------------------------------------------------------
-;; Don't use emacsclient, and this code make emacs start up slow
-;;(defconst --batch-mode (member "--batch-mode" command-line-args)
-;;          "True when running in batch-mode (--batch-mode command-line switch set).")
-;;
-;;(unless --batch-mode
-;;  (require 'server)
-;;  (when (and (= emacs-major-version 23)
-;;             (= emacs-minor-version 1)
-;;             (equal window-system 'w32))
-;;    ;; Suppress error "directory ~/.emacs.d/server is unsafe" on Windows.
-;;    (defun server-ensure-safe-dir (dir) "Noop" t))
-;;  (condition-case nil
-;;      (unless (server-running-p) (server-start))
-;;    (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
-;;    (error
-;;     (let* ((server-dir (if server-use-tcp server-auth-dir server-socket-dir)))
-;;       (when (and server-use-tcp
-;;                  (not (file-accessible-directory-p server-dir)))
-;;         (display-warning
-;;          'server (format "Creating %S" server-dir) :warning)
-;;         (make-directory server-dir t)
-;;         (server-start))))))
+;; color theme
+(require 'color-theme)
+;; (require 'color-theme-molokai)
+;; (color-theme-molokai)
+
+(setq idle-require-idle-delay 3)
+(setq idle-require-symbols '(init-misc
+                             init-lisp
+                             init-eim
+                             init-ido
+                             init-move-window-buffer
+                             init-elnode
+                             init-doxygen
+                             init-pomodoro
+                             init-emacspeak
+                             init-artbollocks-mode
+                             init-emacs-w3m
+                             init-semantic))
+(idle-require-mode 1) ;; starts loading
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
