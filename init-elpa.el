@@ -228,7 +228,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'marmalade)
 (require-package 'textile-mode)
 (require-package 'pretty-mode)
-(require-package 'coffee-mode)
+(if *emacs24* (require-package 'coffee-mode))
 (require-package 'crontab-mode)
 (require-package 'dsvn)
 (require-package 'exec-path-from-shell)
