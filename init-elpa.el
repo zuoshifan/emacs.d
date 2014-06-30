@@ -297,7 +297,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'legalese)
 (require-package 'string-edit)
 (require-package 'dired-details)
-(require-package 'git-gutter '(0 63) nil)
+;; (require-package 'git-gutter '(0 63) nil)
 (require-package 'fakir)
 (require-package 'elnode)
 (if *emacs24* (require-package 'anaconda-mode))
