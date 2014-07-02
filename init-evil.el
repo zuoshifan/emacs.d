@@ -244,6 +244,7 @@ to replace the symbol under cursor"
   "ls" 'package-list-packages
   "lo" 'moz-console-log-var
   "lj" 'moz-load-js-file-and-send-it
+  "lk" 'latest-kill-to-clipboard
   "rr" 'moz-console-clear
   "ws" 'w3mext-hacker-search
   "hs" 'helm-swoop

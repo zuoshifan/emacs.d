@@ -189,8 +189,8 @@
 
 ;; you need install xsel under Linux
 ;; xclip has some problem when copying under Linux
-(defun copy-yank-str (msg)
-  (kill-new msg)
+(defun copy-yank-str (msg &optional clipboard-only)
+  (unless clipboard-only (kill-new msg))
   (cond
    ;; display-graphic-p need windows 23.3.1
    ((and (display-graphic-p) x-select-enable-clipboard)
@@ -764,6 +764,10 @@ when toggle off input method, switch to evil-normal-state if current state is ev
     (copy-yank-str msg)
     ))
 ;; }}
+
+(defun latest-kill-to-clipboard ()
+  (interactive)
+  (copy-yank-str (current-kill 1) t))
 
 (autoload 'vr/replace "visual-regexp")
 (autoload 'vr/query-replace "visual-regexp")
