@@ -54,7 +54,7 @@
 (display-time)
 
 (global-set-key [f12] 'list-bookmarks)
-(global-set-key (kbd "M-o") 'switch-window)
+(global-set-key (kbd "C-x o") 'switch-window)
 
 (when *win32*
   ;; resize frame
@@ -289,6 +289,11 @@
  )
 )
 ;; }}
+
+;; change-inner and change-outer
+(require 'change-inner)
+(global-set-key (kbd "M-i") 'change-inner)
+(global-set-key (kbd "M-o") 'change-outer)
 
 ;;iedit-mode
 (global-set-key (kbd "C-c ; i") 'iedit-mode-toggle-on-function)
