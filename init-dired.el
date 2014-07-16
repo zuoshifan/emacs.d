@@ -8,7 +8,7 @@
   "Load current directory with nautilus."
   (interactive)
   (shell-command
-   (concat "nautilus " (dired-current-directory))))
+   (concat "nautilus \"" (dired-current-directory) "\"")))
 (eval-after-load "dired"
   '(define-key dired-mode-map "\C-d" 'dired-nautilus))
 
