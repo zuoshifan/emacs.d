@@ -78,4 +78,19 @@
     candidate))
 
 
+;;;;;; (Try?) Uncomment the following to use xelatex as the default engine for latex-mode
+;; (defun auc ()
+;;   (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
+;;                                    TeX-run-TeX nil t))
+;;   ;; (auto-complete-mode 1)
+;;   (setq TeX-command-default "XeLaTeX")
+;;   (setq TeX-save-query  nil )
+;;   (setq TeX-show-compilation nil )
+;;   (setq-default Tex-engine "xetex") ;; Use Xetex Engine
+;;   (TeX-PDF-mode t)
+;;   )
+;; (add-hook 'LaTeX-mode-hook 'auc)
+
+
+
 (provide 'init-auctex)
