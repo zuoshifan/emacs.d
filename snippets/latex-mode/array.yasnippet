@@ -1,9 +1,14 @@
 # -*- mode: snippet -*-
-# contributor : Peter Urbak <peter@dragonwasrobot.com>
 # key : arr
 # group: environments
 # name : \begin{array} ... \end{array}
+# expand-env: ((yas/indent-line 'fixed))
 # --
-\begin{array}{$1}
-  $0
-\end{array}
+\begin{array}{${1:cc}}$0
+${1:$
+(let ((row "") (allrows ""))
+  (dotimes (i (- (string-width yas/text) 1))
+    (setq row (concat row "& ")))
+  (dotimes (i (string-width yas/text) allrows)
+    (setq allrows (concat allrows row "\\\\\\\\\n"))))
+}\end{array}
