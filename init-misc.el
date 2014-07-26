@@ -8,6 +8,12 @@
 ;; }}
 
 
+;; {{ yasnippet
+(add-to-list 'auto-mode-alist '("\\.yasnippet\\'" . snippet-mode))
+;; }}
+
+
+
 ;; midnight mode purges buffers which haven't been displayed in 3 days
 (require 'midnight)
 (setq midnight-mode t)
