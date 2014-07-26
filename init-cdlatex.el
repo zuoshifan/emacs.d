@@ -11,6 +11,10 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
 
+
+(setq cdlatex-simplify-sub-super-scripts nil)
+(setq cdlatex-paired-parens "$([{")
+
 ;; when cdlatex-mode or org-cdlatex-mode are loaded, we need to change
 ;; the behaviour of yas/fallback to call cdlatex-tab
 ;; See http://spw.sdf.org/oldnotes/2010/12/making-yasnippet-and-cdlatex-mode-play-nice-together.html
