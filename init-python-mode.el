@@ -9,6 +9,9 @@
       (cons '("python" . python-mode) interpreter-mode-alist))
 
 
+;; indent offset
+(setq python-indent-offset 4)
+
 ;;----------------------------------------------------------------------------
 ;; On-the-fly syntax checking via flymake
 ;;----------------------------------------------------------------------------
@@ -17,8 +20,11 @@
 
 (add-hook 'python-mode-hook '(lambda ()
                                (when *emacs24*
-                                 (anaconda-eldoc)
-                                 (add-to-list 'company-backends 'company-anaconda))
+                                 ;; (anaconda-eldoc)
+                                 (eldoc-mode)
+                                 (anaconda-mode)
+                                 ;; (add-to-list 'company-backends 'company-anaconda)
+                                 )
                                (flymake-python-pyflakes-load)))
 
 
