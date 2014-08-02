@@ -114,14 +114,8 @@
 (require 'init-cmake-mode)
 (require 'init-csharp-mode)
 (require 'init-linum-mode)
-<<<<<<< variant A
 ;(require 'init-delicious) ;make startup slow, I don't use delicious in w3m
 (require 'init-thing-edit)
->>>>>>> variant B
-####### Ancestor
-(require 'init-emacs-w3m)
-(require 'init-eim)
-======= end
 (require 'init-which-func)
 (require 'init-move-window-buffer)
 ;; (require 'init-gist)
@@ -137,15 +131,7 @@
 ;; (require 'init-gnus)
 (require 'init-weibo)
 (require 'init-lua-mode)
-<<<<<<< variant A
 ;;;;;; (require 'init-workgroups2)
->>>>>>> variant B
-(require 'init-workgroups2)
-####### Ancestor
-(require 'init-doxygen)
-(require 'init-workgroups2)
-(require 'init-move-window-buffer)
-======= end
 (require 'init-term-mode)
 (require 'init-web-mode)
 (require 'init-sr-speedbar)
@@ -157,6 +143,21 @@
   ;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
   )
 (require 'init-stripe-buffer)
+(require 'init-tramp)
+(require 'init-full-screen)
+(require 'init-chinese-calendar)
+(require 'init-eimp)
+(require 'init-screenshot)
+(require 'init-epa)
+(require 'ace-jump-buffer)
+(require 'init-asymptote)
+(require 'init-vcard)
+(require 'init-auctex)
+(require 'init-cdlatex)
+(require 'init-google-this)
+;;;;;; (require 'init-ibus)
+
+
 
 ;; color theme
 (require 'color-theme)
