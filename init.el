@@ -42,7 +42,7 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 ;;;;;; (require 'cl-lib) ;; I already use emacs version 24.3, I don't need forward compatibility provided by `cl-lib'
-(require 'init-compat)
+;; (require 'init-compat) ;; idle require
 (require 'init-utils)
 (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
 
@@ -65,8 +65,8 @@
 ;; any file use flyspell should be initialized after init-spelling.el
 ;; actually, I don't know which major-mode use flyspell.
 (require 'init-spelling)
-(require 'init-xterm)
-(require 'init-osx-keys)
+;; (require 'init-xterm) ;; idle require
+;; (require 'init-osx-keys) ;; I'm not using mac OS X
 (require 'init-gui-frames)
 (require 'init-ido)
 (require 'init-maxframe)
@@ -87,24 +87,24 @@
 (require 'init-editing-utils)
 (require 'init-git)
 (require 'init-crontab)
-(require 'init-textile)
+;; (require 'init-textile) ;; idle require
 (require 'init-markdown)
 (require 'init-csv)
 (require 'init-erlang)
-(require 'init-javascript)
+;; (require 'init-javascript) ;; idle require
 (require 'init-org)
 (require 'init-org-mime)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
-(require 'init-haskell)
-(require 'init-ruby-mode)
+;; (require 'init-haskell) ;; idle require
+;; (require 'init-ruby-mode) ;; idle require
 (require 'init-elisp)
 (require 'init-marmalade)
 
 ;; Finally set up themes, after most possibly-customised faces have been defined
 ;;;;;;(require 'init-themes) ; color-themes 6.6.1 has some problem
-(require 'init-org2blog)
+;; (require 'init-org2blog) ;; idle require
 (require 'init-yasnippet)
 ;; Use bookmark instead
 (require 'init-zencoding-mode)
@@ -112,9 +112,10 @@
 (require 'init-cc-mode)
 (require 'init-gud)
 (require 'init-cmake-mode)
-(require 'init-csharp-mode)
+;; (require 'init-csharp-mode) ;; idle require
 (require 'init-linum-mode)
 ;(require 'init-delicious) ;make startup slow, I don't use delicious in w3m
+(require 'init-emacs-w3m)
 (require 'init-thing-edit)
 (require 'init-which-func)
 (require 'init-move-window-buffer)
@@ -129,14 +130,14 @@
 (require 'init-sunrise-commander)
 (require 'init-bbdb)
 ;; (require 'init-gnus)
-(require 'init-weibo)
-(require 'init-lua-mode)
+;; (require 'init-weibo) ;; idle require
+;; (require 'init-lua-mode) ;; idle require
 ;;;;;; (require 'init-workgroups2)
 (require 'init-term-mode)
 (require 'init-web-mode)
 (require 'init-sr-speedbar)
 (require 'init-smartparens)
-(require 'init-slime)
+;; (require 'init-slime) ;; idle require
 (when *emacs24*
     (require 'init-company)
   ;; Choose either auto-complete or company-mode by commenting one of below two lines!
@@ -167,7 +168,8 @@
 (require 'init-misc)
 
 (setq idle-require-idle-delay 3)
-(setq idle-require-symbols '(init-lisp
+(setq idle-require-symbols '(init-compat
+                             init-lisp
                              init-eim
                              init-keyfreq
                              init-move-window-buffer
@@ -176,8 +178,17 @@
                              init-pomodoro
                              init-emacspeak
                              init-artbollocks-mode
-                             init-emacs-w3m
-                             init-semantic))
+                             init-semantic
+                             init-xterm
+                             init-textile
+                             init-javascript
+                             init-haskell
+                             init-ruby-mode
+                             init-org2blog
+                             init-csharp-mode
+                             init-web-mode
+                             init-lua-mode
+                             init-slime))
 (idle-require-mode 1) ;; starts loading
 
 ;;----------------------------------------------------------------------------
