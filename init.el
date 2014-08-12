@@ -108,7 +108,6 @@
 (require 'init-yasnippet)
 ;; Use bookmark instead
 (require 'init-zencoding-mode)
-(require 'init-yari)
 (require 'init-cc-mode)
 (require 'init-gud)
 (require 'init-cmake-mode)

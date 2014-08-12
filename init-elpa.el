@@ -101,7 +101,6 @@ re-downloaded in order to locate PACKAGE."
     wgrep
     robe
     inf-ruby
-    yari
     dsvn
     move-text
     findr
@@ -199,7 +198,6 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'ruby-mode)
 (require-package 'robe)
 (require-package 'inf-ruby '(2 3 0) nil)
-(require-package 'yari)
 (require-package 'yaml-mode)
 (require-package 'paredit)
 (require-package 'erlang '(20120612 0 0) nil)
