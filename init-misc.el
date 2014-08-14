@@ -7,6 +7,8 @@
 (add-to-list 'auto-mode-alist '("\\.meta\\'" . conf-mode))
 ;; }}
 
+;; makefile
+(add-to-list 'auto-mode-alist '("\\.ninja$" . makefile-gmake-mode))
 
 ;; {{ yasnippet
 (add-to-list 'auto-mode-alist '("\\.yasnippet\\'" . snippet-mode))
