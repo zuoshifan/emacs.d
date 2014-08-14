@@ -311,6 +311,7 @@ re-downloaded in order to locate PACKAGE."
 
 ;; (require-package 'command-frequency)
 (require-package 'cdlatex)
+(require-package 'ebib)
 ;; (require-package 'pymacs)
 (require-package 'eimp)
 (require-package 'vcard)
