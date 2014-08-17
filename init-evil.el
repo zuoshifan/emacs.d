@@ -78,6 +78,9 @@
         (newsticker-treeview-list-mode . emacs)
         (newsticker-treeview-item-mode . emacs)
         (apropos-mode . emacs)
+        (ebib-index-mode . emacs)
+        (ebib-entry-mode . emacs)
+        (reftex-select-label-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
