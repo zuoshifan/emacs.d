@@ -2,4 +2,4 @@
 # name: cont
 # key: cont
 # --
-# contributor: `user-full-name`
+# contributor: `user-full-name` <${1:user}@${2:email.com}>
