@@ -231,6 +231,7 @@ re-downloaded in order to locate PACKAGE."
 (if *emacs24* (require-package 'coffee-mode))
 (require-package 'crontab-mode)
 (require-package 'dsvn)
+(require-package 'git-timemachine)
 (require-package 'exec-path-from-shell)
 (require-package 'flymake-coffee)
 (require-package 'flymake-css)
