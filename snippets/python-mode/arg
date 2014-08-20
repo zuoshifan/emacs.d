@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Shifan Zuo <zuoshifan@163.com>
+# name: arg
+# key: arg
+# group: argparser
+# --
+parser.add_argument(${1:$2, }'--$3', $4help='$5')$0
