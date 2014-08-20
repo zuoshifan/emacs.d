@@ -4,9 +4,10 @@
 # group: environments
 # name : \begin{figure} ... \end{figure}
 # --
-\begin{figure}[htbp]
+\begin{figure}[${1:htbp}]
   \centering
-  $0
-  \caption{${1:caption}}
-  \label{${2:"waiting for reftex-label call..."$(unless yas/modified-p (reftex-label nil 'dont-insert))}}
+  ${2:\includegraphics${4:[${5:width=${6:0.8}\textwidth$7}]}{$3}}
+  \caption{${8:caption}}
+  \label{${9:"waiting for reftex-label call..."$(unless yas/modified-p (reftex-label nil 'dont-insert))}}
 \end{figure}
+$0
