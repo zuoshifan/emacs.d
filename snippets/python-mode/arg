@@ -4,4 +4,4 @@
 # key: arg
 # group: argparser
 # --
-parser.add_argument(${1:$2, }'--$3', $4help='$5')$0
+parser.add_argument(${1:'-$2', }'--$3', ${4:type=$5, }help='$6')$0

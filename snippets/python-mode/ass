@@ -3,4 +3,5 @@
 # key: ass
 # group: testing
 # --
-assert $0
+assert ${1:test-expr}${2:, '${3:message}'}
+$0
