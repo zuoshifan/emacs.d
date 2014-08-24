@@ -1,14 +1,10 @@
-# -*- mode: snippet -*-
-# key : arr
-# group: environments
-# name : \begin{array} ... \end{array}
-# expand-env: ((yas/indent-line 'fixed))
+# name : array evironment
+# key : array
+# group: evironment
+# contributor : Shifan Zuo <zuoshifan@163.com>
 # --
-\begin{array}{${1:cc}}$0
-${1:$
-(let ((row "") (allrows ""))
-  (dotimes (i (- (string-width yas/text) 1))
-    (setq row (concat row "& ")))
-  (dotimes (i (string-width yas/text) allrows)
-    (setq allrows (concat allrows row "\\\\\\\\\n"))))
-}\end{array}
+\begin{array}{${1:c|c}}
+  $2 & $3 \\\\${4:`(newline)`\hline}
+  $5 & $6
+\end{array}
+$0

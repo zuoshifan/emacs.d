@@ -1,0 +1,10 @@
+# name : \begin{multline} ... \end{multline}
+# key : mult
+# group: math
+# contributor : Shifan Zuo <zuoshifan@163.com>
+# --
+\begin{multline} \label{${1:"waiting for reftex-label call..."$(unless yas/modified-p (reftex-label nil 'dont-insert))}}
+  $2 \\\\
+  $3
+\end{multline}
+$0
