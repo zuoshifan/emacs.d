@@ -1,0 +1,6 @@
+# name : write hd5f file
+# key : wh5
+# contributor : Shifan Zuo <zuoshifan@163.com>
+# --
+with h5py.File(${1:file}, '${2:w}') as ${3:f}:
+    $0

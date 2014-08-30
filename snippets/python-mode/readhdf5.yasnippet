@@ -1,0 +1,6 @@
+# name : read hd5f file
+# key : rh5
+# contributor : Shifan Zuo <zuoshifan@163.com>
+# --
+with h5py.File(${1:file}, 'r') as ${2:f}:
+    $0
