@@ -316,6 +316,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'vcard)
 ;; (require-package 'google-this)
 (require-package 'google-translate)
+;; (require-package 'jedi)
 ;; (require-package 'predictive)
 
 (provide 'init-elpa)
