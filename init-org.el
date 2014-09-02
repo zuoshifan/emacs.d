@@ -298,4 +298,18 @@
                        (org-tags-match-list-sublevels nil))))
                nil))))
 
+
+
+;; Test it!!!
+;; See https://lists.gnu.org/archive/html/emacs-orgmode/2014-08/msg01000.html
+;; ;; give us some hint we are running
+;; (defadvice org-babel-execute-src-block (around progress nil activate)
+;;   (set-face-attribute
+;;    'org-block-background nil :background "LightSteelBlue")
+;;   (message "Running your code block")
+;;   ad-do-it
+;;   (set-face-attribute 'org-block-background nil :background "gray")
+;;   (message "Done with code block"))
+
+
 (provide 'init-org)
