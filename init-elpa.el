@@ -294,7 +294,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'sr-speedbar)
 (require-package 'smartparens)
 ;; company-mode drop emacs 23 support
-(if (and (>= emacs-major-version 24)) (require-package 'company '(0 8 0) nil))
+(if (>= emacs-major-version 24) (require-package 'company '(0 8 5) nil))
 (require-package 'legalese)
 (require-package 'string-edit)
 (require-package 'dired-details)
