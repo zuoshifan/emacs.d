@@ -272,7 +272,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'buffer-move)
 (require-package 'switch-window)
 (require-package 'maxframe)
-(require-package 'cpputils-cmake '(0 4 8) nil)
+(require-package 'cpputils-cmake '(0 4 17) nil)
 (require-package 'flyspell-lazy)
 (require-package 'bbdb '(20130421 1145 0) nil)
 (require-package 'iedit)
