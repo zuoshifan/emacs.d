@@ -81,7 +81,7 @@ re-downloaded in order to locate PACKAGE."
 
 ;; use packages from melpa only, even packages in elpa.gnu.org are ignored
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("melpa-stable" . "http://hiddencameras.milkbox.net/packages/")
+                         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
                          ))
 ;; well, melpa does not bother supporting emacs23 any more
 (if (not *emacs24*) (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
