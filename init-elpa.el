@@ -199,7 +199,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'yaml-mode)
 (require-package 'paredit)
 (require-package 'erlang '(20120612 0 0) nil)
-(require-package 'browse-kill-ring)
+(if *emacs24* (require-package 'browse-kill-ring))
 (require-package 'findr)
 (require-package 'jump '(2 3 0) nil)
 (require-package 'haml-mode)
@@ -277,7 +277,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'pomodoro '(20130114 1543 0) nil)
 (require-package 'flymake-lua)
 (require-package 'dropdown-list)
-(require-package 'yasnippet '(0 8 0) nil)
+(if *emacs24* (require-package 'yasnippet '(0 8 0) nil))
 ;; rvm-open-gem to get gem's code
 (require-package 'rvm)
 ;; C-x r l to list bookmarks
@@ -296,7 +296,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'legalese)
 (require-package 'string-edit)
 (require-package 'dired-details)
-(require-package 'git-gutter '(0 71) nil)
+(if *emacs24* (require-package 'git-gutter '(0 71) nil))
 (require-package 'fakir)
 (require-package 'f)
 (require-package 'elnode) ;; elnode dependent on f
