@@ -94,7 +94,6 @@
 
 (eval-after-load 'org
    '(progn
-      (require 'org-exp)
       (require 'org-clock)
       ; @see http://irreal.org/blog/?p=671
       (setq org-src-fontify-natively t)
