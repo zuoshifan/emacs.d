@@ -299,6 +299,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'legalese)
 (require-package 'string-edit)
 (require-package 'dired-details)
+(require-package 'ag)
 (if *emacs24* (require-package 'git-gutter '(0 71) nil))
 (require-package 'fakir)
 (require-package 'f)
