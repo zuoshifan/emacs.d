@@ -86,6 +86,10 @@
     candidate))
 
 
+;; magic-latex-buffer
+;; (require 'magic-latex-buffer)
+
+
 ;;;;;; (Try?) Uncomment the following to use xelatex as the default engine for latex-mode
 ;; (defun auc ()
 ;;   (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
