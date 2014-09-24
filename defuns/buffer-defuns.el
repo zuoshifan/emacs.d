@@ -3,7 +3,7 @@
 (require 'imenu)
 
 (defun create-scratch-buffer nil
-  "Create a new scratch buffer to work in. (Could be *scratch*, *scratch1* - *scratchN*)"
+  "Create a new scratch buffer to work in.  (Could be *scratch*, *scratch1* - *scratchN*)."
   (interactive)
   (let ((n 0)
         bufname)
@@ -14,8 +14,8 @@
              (setq n (1+ n))
              (get-buffer bufname)))
     (switch-to-buffer (get-buffer-create bufname))
-    (emacs-lisp-mode)
-    ))
+    ;; (emacs-lisp-mode)
+    (lisp-interaction-mode)))
 
 (defun toggle-window-split ()
   "Change windows split configuration for two windows. If the two windows was split horizontally, split them vertically, and vice versa. Only for two window."
