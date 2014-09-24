@@ -1,3 +1,10 @@
+(defmacro after-load (feature &rest body)
+  "After FEATURE is loaded, evaluate BODY."
+  (declare (indent defun))
+  `(eval-after-load ,feature
+     '(progn ,@body)))
+
+
 ;;----------------------------------------------------------------------------
 ;; Handier way to add modes to auto-mode-alist
 ;;----------------------------------------------------------------------------
@@ -10,7 +17,7 @@
 ;;----------------------------------------------------------------------------
 ;; String utilities missing from core emacs
 ;;----------------------------------------------------------------------------
-(defun string-all-matches (regex str &optional group)
+(defun sanityinc/string-all-matches (regex str &optional group)
   "Find all matches for `REGEX' within `STR', returning the full match string or group `GROUP'."
   (let ((result nil)
         (pos 0)
@@ -20,7 +27,7 @@
       (setq pos (match-end group)))
     result))
 
-(defun string-rtrim (str)
+(defun sanityinc/string-rtrim (str)
   "Remove trailing whitespace from `STR'."
   (replace-regexp-in-string "[ \t\n]*$" "" str))
 
@@ -29,7 +36,7 @@
 ;; Find the directory containing a given library
 ;;----------------------------------------------------------------------------
 (autoload 'find-library-name "find-func")
-(defun directory-of-library (library-name)
+(defun sanityinc/directory-of-library (library-name)
   "Return the directory in which the `LIBRARY-NAME' load file is found."
   (file-name-as-directory (file-name-directory (find-library-name library-name))))
 
@@ -60,10 +67,10 @@
     (if (get-buffer new-name)
         (message "A buffer named '%s' already exists!" new-name)
       (progn
-        (rename-file filename new-name 1)
+        (when (file-exists-p filename)
+         (rename-file filename new-name 1))
         (rename-buffer new-name)
-        (set-visited-file-name new-name)
-        (set-buffer-modified-p nil)))))
+        (set-visited-file-name new-name)))))
 
 ;;----------------------------------------------------------------------------
 ;; Browse current HTML file
@@ -71,7 +78,10 @@
 (defun browse-current-file ()
   "Open the current file as a URL using `browse-url'."
   (interactive)
-  (browse-url-generic (concat "file://" (buffer-file-name))))
+  (let ((file-name (buffer-file-name)))
+    (if (tramp-tramp-file-p file-name)
+        (error "Cannot open tramp file")
+      (browse-url (concat "file://" file-name)))))
 
 
 (require 'cl)
@@ -86,6 +96,5 @@
          (unwind-protect
              (progn ,@forms)
            (select-frame ,prev-frame))))))
-
 
 (provide 'init-utils)
