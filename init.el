@@ -8,7 +8,7 @@
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 
 
-(add-to-list 'load-path (expand-file-name user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'init-benchmarking) ;; Measure startup time
 (setq emacs-load-start-time (current-time))
 
