@@ -10,6 +10,19 @@
 (setq ebib-allow-identical-fields t)
 (setq ebib-file-associations '(("pdf" . "acroread") ("ps" . "gv")))
 
+;; multiline-edit buffer setup
+(eval-after-load 'ebib
+  '(progn
+     (setq ebib-multiline-major-mode 'latex-mode)
+     (define-key ebib-multiline-mode-map "\C-c\C-c" 'ebib-quit-multiline-edit-and-save)
+     (define-key ebib-multiline-mode-map "\C-c\C-q" 'ebib-cancel-multiline-edit)
+     (define-key ebib-multiline-mode-map "\C-c\C-s" 'ebib-save-from-multiline-edit)
+     (add-hook 'ebib-entry-mode-hook (lambda () (progn
+                                                  (set 'TeX-header-end "^[^%\n]*\\\\begin *{document}")
+                                                  (set 'TeX-trailer-start "^[^%\n]*\\\\end *{document}")
+                                                  (set 'TeX-master "~/Documents/preamble/preamble.tex")
+                                                  (cd "~/Documents/preamble/"))))))
+
 
 (setq ebib-entry-types 
       '((article
