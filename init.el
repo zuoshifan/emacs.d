@@ -154,6 +154,7 @@
   ;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
   )
 (require 'init-stripe-buffer)
+(require 'init-eim) ;;  cannot be idle-required
 (require 'init-tramp)
 (require 'init-full-screen)
 (require 'init-chinese-calendar)
@@ -187,7 +188,6 @@
 (setq idle-require-idle-delay 3)
 (setq idle-require-symbols '(init-compat
                              init-lisp
-                             init-eim
                              init-keyfreq
                              init-move-window-buffer
                              init-elnode
