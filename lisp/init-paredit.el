@@ -9,6 +9,7 @@
 (add-hook 'paredit-mode-hook 'maybe-map-paredit-newline)
 
 (defun paredit-newline-or-eval-print ()
+  (interactive)
   (if (memq major-mode '(lisp-interaction-mode))
       (eval-print-last-sexp)
     (paredit-newline)))
