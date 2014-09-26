@@ -1,3 +1,71 @@
+(require-package 'elisp-slime-nav)
+(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+  (add-hook hook 'elisp-slime-nav-mode))
+
+(require-package 'lively)
+
+(setq-default initial-scratch-message
+              (concat ";; Happy hacking " (or user-login-name "") "!\n\n"))
+
+
+
+;; Make C-x C-e run 'eval-region if the region is active
+
+(defun sanityinc/eval-last-sexp-or-region (prefix)
+  "Eval region from BEG to END if active, otherwise the last sexp."
+  (interactive "P")
+  (if (and (mark) (use-region-p))
+      (eval-region (min (point) (mark)) (max (point) (mark)))
+    (pp-eval-last-sexp prefix)))
+
+(global-set-key (kbd "M-:") 'pp-eval-expression)
+
+(after-load 'lisp-mode
+  (define-key emacs-lisp-mode-map (kbd "C-x C-e") 'sanityinc/eval-last-sexp-or-region))
+
+(require-package 'ipretty)
+(ipretty-mode 1)
+
+
+(defadvice pp-display-expression (after make-read-only (expression out-buffer-name) activate)
+  "Enable `view-mode' in the output buffer - if any - so it can be closed with `\"q\"."
+  (when (get-buffer out-buffer-name)
+    (with-current-buffer out-buffer-name
+      (view-mode 1))))
+
+
+
+;; Use C-c C-z to toggle between elisp files and an ielm session
+;; I might generalise this to ruby etc., or even just adopt the repl-toggle package.
+
+(defvar sanityinc/repl-original-buffer nil
+  "Buffer from which we jumped to this REPL.")
+(make-variable-buffer-local 'sanityinc/repl-original-buffer)
+
+(defvar sanityinc/repl-switch-function 'switch-to-buffer-other-window)
+
+(defun sanityinc/switch-to-ielm ()
+  (interactive)
+  (let ((orig-buffer (current-buffer)))
+    (if (get-buffer "*ielm*")
+        (funcall sanityinc/repl-switch-function "*ielm*")
+      (ielm))
+    (setq sanityinc/repl-original-buffer orig-buffer)))
+
+(defun sanityinc/repl-switch-back ()
+  "Switch back to the buffer from which we reached this REPL."
+  (interactive)
+  (if sanityinc/repl-original-buffer
+      (funcall sanityinc/repl-switch-function sanityinc/repl-original-buffer)
+    (error "No original buffer.")))
+
+(after-load 'lisp-mode
+  (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'sanityinc/switch-to-ielm))
+(after-load 'ielm
+  (define-key ielm-map (kbd "C-c C-z") 'sanityinc/repl-switch-back))
+
+
+
 (autoload 'turn-on-pretty-mode "pretty-mode")
 
 ;; ----------------------------------------------------------------------------
@@ -58,11 +126,34 @@
 ;; ----------------------------------------------------------------------------
 ;; Hippie-expand
 ;; ----------------------------------------------------------------------------
+
+(defun my/emacs-lisp-module-name ()
+  "Search the buffer for `provide' declaration."
+  (save-excursion
+    (goto-char (point-min))
+    (when (search-forward-regexp "^(provide '" nil t)
+      (symbol-name (symbol-at-point)))))
+
+;; Credit to Chris Done for this one.
+(defun my/try-complete-lisp-symbol-without-namespace (old)
+  "Hippie expand \"try\" function which expands \"-foo\" to \"modname-foo\" in elisp."
+  (unless old
+    (he-init-string (he-lisp-symbol-beg) (point))
+    (when (string-prefix-p "-" he-search-string)
+      (let ((mod-name (my/emacs-lisp-module-name)))
+        (when mod-name
+          (setq he-expand-list (list (concat mod-name he-search-string)))))))
+  (when he-expand-list
+    (he-substitute-string (car he-expand-list))
+    (setq he-expand-list nil)
+    t))
+
 (defun set-up-hippie-expand-for-elisp ()
   "Locally set `hippie-expand' completion functions for use with Emacs Lisp."
   (make-local-variable 'hippie-expand-try-functions-list)
   (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol t)
-  (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t))
+  (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t)
+  (add-to-list 'hippie-expand-try-functions-list 'my/try-complete-lisp-symbol-without-namespace t))
 
 
 
@@ -80,16 +171,24 @@
 ;; ----------------------------------------------------------------------------
 ;; Enable desired features for all lisp modes
 ;; ----------------------------------------------------------------------------
+(require-package 'rainbow-delimiters)
+(require-package 'redshank)
+(after-load 'redshank
+  (diminish 'redshank-mode))
+
+
 (defun sanityinc/lisp-setup ()
   "Enable features useful in any Lisp mode."
+  (rainbow-delimiters-mode t)
   (enable-paredit-mode)
-  (turn-on-eldoc-mode))
+  (turn-on-eldoc-mode)
+  (redshank-mode))
 
 (defun sanityinc/emacs-lisp-setup ()
   "Enable features useful when working with elisp."
-  (rainbow-delimiters-mode t)
+  (elisp-slime-nav-mode t)
   (set-up-hippie-expand-for-elisp)
-  ;; (ac-emacs-lisp-mode-setup)
+  (ac-emacs-lisp-mode-setup)
   (checkdoc-minor-mode))
 
 (let* ((elispy-hooks '(emacs-lisp-mode-hook
