@@ -1,9 +1,8 @@
-;;------------------------------------------------------------------------------
 ;; Find and load the correct package.el
-;;------------------------------------------------------------------------------
 
 ;; When switching between Emacs 23 and 24, we always use the bundled package.el in Emacs 24
-(let ((package-el-site-lisp-dir (expand-file-name "~/.emacs.d/site-lisp/package")))
+(let ((package-el-site-lisp-dir
+       (expand-file-name "site-lisp/package" user-emacs-directory)))
   (when (and (file-directory-p package-el-site-lisp-dir)
              (> emacs-major-version 23))
     (message "Removing local %s package.el from load-path to avoid shadowing bundled version" package-el-site-lisp-dir)
@@ -54,9 +53,8 @@ ARCHIVE is the string name of the package archive.")
           archive))
     ad-do-it))
 
-;;------------------------------------------------------------------------------
-;; On-demand installation of packages
-;;------------------------------------------------------------------------------
+
+;;; On-demand installation of packages
 
 (defun require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE, optionally requiring MIN-VERSION.
@@ -71,23 +69,42 @@ re-downloaded in order to locate PACKAGE."
         (require-package package min-version t)))))
 
 
-;;------------------------------------------------------------------------------
+
 ;; Standard package repositories
-;;------------------------------------------------------------------------------
 
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-;; We include the org repository for completeness, but don't use it.
+;; We include the org repository for completeness, but don't normally
+;; use it.
 ;; lock org-mode temporarily
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+
+(when (< emacs-major-version 24)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+
+;;; Also use Melpa for most packages
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+
+
+
+;; If gpg cannot be found, signature checking will fail, so we
+;; conditionally enable it according to whether gpg is available. We
+;; re-run this check once $PATH has been configured
+(defun sanityinc/package-maybe-enable-signatures ()
+  (setq package-check-signature (when (executable-find "gpg") 'allow-unsigned)))
+
+(sanityinc/package-maybe-enable-signatures)
+(after-load 'init-exec-path
+  (sanityinc/package-maybe-enable-signatures))
 
 
 ;; well, melpa does not bother supporting emacs23 any more, but cl-lib is still required
 ;; TODO: in half a year, I will remove gnu elpa because emacs 24.3 is the minimum version
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-                         ))
+;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+;;                          ("melpa" . "http://melpa.milkbox.net/packages/")
+;;                          ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
+;;                          ))
 
 ;; Un-comment below line if you download zip file from https://github.com/redguardtoo/myelpa/archive/master.zip and extract its content into ~/myelpa/
 ;; (setq package-archives '(("myelpa" . "~/myelpa")))
@@ -170,11 +187,17 @@ re-downloaded in order to locate PACKAGE."
 ;; un-comment below code if you prefer use all the package on melpa (unstable) without limitation
 ;; (setq package-filter-function nil)
 
-;;------------------------------------------------------------------------------
-;; Fire up package.el and ensure the following packages are installed.
-;;------------------------------------------------------------------------------
+
+;;; Fire up package.el and ensure the following packages are installed.
 
+(setq package-enable-at-startup nil)
 (package-initialize)
+
+
+
+;; (require-package 'fullframe)
+;; (fullframe list-packages quit-window)
+
 
 (require-package 'all)
 (require-package 'cl-lib '(0 0 5) nil)
