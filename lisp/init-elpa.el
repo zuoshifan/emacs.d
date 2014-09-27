@@ -172,7 +172,9 @@ re-downloaded in order to locate PACKAGE."
     w3m
     fakir
     erlang
-    fancy-narrow)
+    fancy-narrow
+    fullframe
+    guide-key)
   "Don't install any Melpa packages except these packages")
 
 ;; Don't take Melpa versions of certain packages

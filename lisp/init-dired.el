@@ -56,8 +56,12 @@ if no files marked, always operate on current line in dired-mode
      (define-key dired-mode-map "/" 'diredext-exec-git-command-in-shell)
 
      (require 'dired+)
+     (when (fboundp 'global-dired-hide-details-mode)
+       (global-dired-hide-details-mode -1))
      (setq dired-recursive-deletes 'top)
      (define-key dired-mode-map [mouse-2] 'dired-find-file)
+     (add-hook 'dired-mode-hook
+               (lambda () (guide-key/add-local-guide-key-sequence "%")))
      (dolist (file `(((if *unix* "zathura" "open") "pdf" "dvi" "pdf.gz" "ps" "eps")
                      ("unrar x" "rar")
                      ((if *unix* "mplayer -stop-xscreensaver" "mplayer")  "avi" "mpg" "rmvb" "rm" "flv" "wmv" "mkv" "mp4" "m4v" "webm")
