@@ -32,25 +32,23 @@
 (when (fboundp 'set-scroll-bar-mode)
   (set-scroll-bar-mode nil))
 
-(defun adjust-opacity (frame incr)
+(let ((no-border '(internal-border-width . 0)))
+  (add-to-list 'default-frame-alist no-border)
+  (add-to-list 'initial-frame-alist no-border))
+
+(defun sanityinc/adjust-opacity (frame incr)
   (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
          (newalpha (+ incr oldalpha)))
     (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
 
-(when (fboundp 'ns-toggle-fullscreen)
-  (defadvice ns-toggle-fullscreen (after mark-full-screen activate)
-    (set-frame-parameter nil
-                         'is-full-screen
-                         (not (frame-parameter nil 'is-full-screen))))
-
-
-
+(when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
   ;; Command-Option-f to toggle fullscreen mode
-  (global-set-key (kbd "M-ƒ") 'ns-toggle-fullscreen))
+  ;; Hint: Customize `ns-use-native-fullscreen'
+  (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
 
-(global-set-key (kbd "M-C-8") '(lambda () (interactive) (adjust-opacity nil -5)))
-(global-set-key (kbd "M-C-9") '(lambda () (interactive) (adjust-opacity nil 5)))
+(global-set-key (kbd "M-C-8") '(lambda () (interactive) (sanityinc/adjust-opacity nil -5)))
+(global-set-key (kbd "M-C-9") '(lambda () (interactive) (sanityinc/adjust-opacity nil 5)))
 (global-set-key (kbd "M-C-0") '(lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 
 (add-hook 'after-make-frame-functions
@@ -58,6 +56,17 @@
             (with-selected-frame frame
               (unless window-system
                 (set-frame-parameter nil 'menu-bar-lines 0)))))
+
+;; (setq frame-title-format
+;;       '((:eval (if (buffer-file-name)
+;;                    (abbreviate-file-name (buffer-file-name))
+;;                  "%b"))))
+
+;; Non-zero values for `line-spacing' can mess up ansi-term and co,
+;; so we zero it explicitly in those cases.
+(add-hook 'term-mode-hook
+          (lambda ()
+            (setq line-spacing 0)))
 
 
 (provide 'init-gui-frames)
