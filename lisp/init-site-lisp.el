@@ -1,31 +1,24 @@
-;;----------------------------------------------------------------------------
-;; Set load path
-;;----------------------------------------------------------------------------
+;;; Set load path
+
 (eval-when-compile (require 'cl))
-(if (fboundp 'normal-top-level-add-to-load-path)
-    (let* ((my-lisp-dir "~/.emacs.d/site-lisp/")
-           (default-directory my-lisp-dir))
-      (progn
-        (setq load-path
-              (append
-               (loop for dir in (directory-files my-lisp-dir)
-                     unless (string-match "^\\." dir)
-                     collecting (expand-file-name dir))
-               load-path)))))
+(defun sanityinc/add-subdirs-to-load-path (parent-dir)
+  "Adds every non-hidden subdir of PARENT-DIR to `load-path'."
+  (let* ((default-directory parent-dir))
+    (progn
+      (setq load-path
+            (append
+             (loop for dir in (directory-files parent-dir)
+                   unless (string-match "^\\." dir)
+                   collecting (expand-file-name dir))
+             load-path)))))
 
+(sanityinc/add-subdirs-to-load-path
+ (expand-file-name "site-lisp/" user-emacs-directory))
 
-;;----------------------------------------------------------------------------
-;; Ensure we're freshly byte-compiled
-;;----------------------------------------------------------------------------
-;(require 'bytecomp)
-;(byte-recompile-directory "~/.emacs.d/site-lisp" 0)
+;;; Utilities for grabbing upstream libs
 
-
-;;----------------------------------------------------------------------------
-;; Utilities for grabbing upstream libs
-;;----------------------------------------------------------------------------
 (defun site-lisp-dir-for (name)
-  (expand-file-name (format "~/.emacs.d/site-lisp/%s" name)))
+  (expand-file-name (format "site-lisp/%s" name) user-emacs-directory))
 
 (defun site-lisp-library-el-path (name)
   (expand-file-name (format "%s.el" name) (site-lisp-dir-for name)))
@@ -34,8 +27,8 @@
   (let ((dir (site-lisp-dir-for name)))
     (message "Downloading %s from %s" name url)
     (unless (file-directory-p dir)
-      (make-directory dir)
-      (add-to-list 'load-path dir))
+      (make-directory dir t))
+    (add-to-list 'load-path dir)
     (let ((el-file (site-lisp-library-el-path name)))
       (url-copy-file url el-file t nil)
       el-file)))
@@ -50,38 +43,14 @@ source file under ~/.emacs.d/site-lisp/name/"
   (let ((f (locate-library (symbol-name name))))
     (and f (string-prefix-p (file-name-as-directory (site-lisp-dir-for name)) f))))
 
-;;----------------------------------------------------------------------------
-;; Fix up some load paths for libs from git submodules
-;;----------------------------------------------------------------------------
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/session/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/org-mode/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/org-mode/contrib/lisp"))
 
-(defun refresh-site-lisp-submodules ()
-  (interactive)
-  (message "Updating site-lisp git submodules")
-  (shell-command "cd ~/.emacs.d && git submodule foreach 'git pull' &" "*site-lisp-submodules*"))
-
-;;----------------------------------------------------------------------------
+
 ;; Download these upstream libs
-;;----------------------------------------------------------------------------
 
-(defun remove-site-lisp-libs ()
-  (shell-command "cd ~/.emacs.d && grep -e '^site-lisp/' .gitignore|xargs rm -rf"))
+(unless (> emacs-major-version 23)
+  (ensure-lib-from-url
+   'package
+   "http://repo.or.cz/w/emacs.git/blob_plain/1a0a666f941c99882093d7bd08ced15033bc3f0c:/lisp/emacs-lisp/package.el"))
 
-(defun ensure-site-lisp-libs ()
-  (unless (> emacs-major-version 23)
-    (ensure-lib-from-url 'package "http://bit.ly/pkg-el23")))
-
-
-
-(defun refresh-site-lisp ()
-  (interactive)
-  (refresh-site-lisp-submodules)
-  (remove-site-lisp-libs)
-  (ensure-site-lisp-libs))
-
-
-(ensure-site-lisp-libs)
 
 (provide 'init-site-lisp)
