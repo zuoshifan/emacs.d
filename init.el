@@ -34,6 +34,10 @@
                        (*linux* nil)
                        (t nil)))
 
+;;----------------------------------------------------------------------------
+;; Bootstrap config
+;;----------------------------------------------------------------------------
+
 ;----------------------------------------------------------------------------
 ; Functions (load all files in defuns-dir)
 ; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
@@ -42,15 +46,11 @@
 (dolist (file (directory-files defuns-dir t "\\w+"))
   (when (file-regular-p file)
       (load file)))
-;----------------------------------------------------------------------------
-; Load configs for specific features and modes
-;----------------------------------------------------------------------------
+
+
 (require 'init-coding-system)
 (require 'init-modeline)
 
-;;----------------------------------------------------------------------------
-;; Load configs for specific features and modes
-;;----------------------------------------------------------------------------
 ;;;;;; (require 'cl-lib) ;; I already use emacs version 24.3, I don't need forward compatibility provided by `cl-lib'
 ;; (require 'init-compat) ;; idle require
 (require 'init-utils)
@@ -69,8 +69,24 @@
 
 (require 'idle-require)
 
-(require 'init-elpa)
+(require 'init-elpa)      ;; Machinery for installing required packages
 (require 'init-exec-path) ;; Set up $PATH
+
+;;----------------------------------------------------------------------------
+;; Allow users to provide an optional "init-preload-local.el"
+;;----------------------------------------------------------------------------
+(require 'init-preload-local nil t)
+
+;;----------------------------------------------------------------------------
+;; Load configs for specific features and modes
+;;----------------------------------------------------------------------------
+
+(require-package 'wgrep)
+(require-package 'project-local-variables)
+(require-package 'diminish)
+(require-package 'scratch)
+(require-package 'mwe-log-commands)
+
 (require 'init-frame-hooks)
 ;; any file use flyspell should be initialized after init-spelling.el
 ;; actually, I don't know which major-mode use flyspell.
