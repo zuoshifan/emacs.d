@@ -9,7 +9,7 @@
 ;; {{@see https://github.com/timcharper/evil-surround
 (require 'evil-surround)
 (global-evil-surround-mode 1)
-(evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
+;; (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute) ;; restore "s" for evil-surround-region
 ;; }}
 
 ;; Don't move back the cursor one position when exiting insert mode
