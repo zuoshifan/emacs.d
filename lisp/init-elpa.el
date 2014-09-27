@@ -197,8 +197,8 @@ re-downloaded in order to locate PACKAGE."
 
 
 
-;; (require-package 'fullframe)
-;; (fullframe list-packages quit-window)
+(require-package 'fullframe)
+(fullframe list-packages quit-window)
 
 
 (require-package 'all)
