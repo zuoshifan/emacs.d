@@ -174,7 +174,9 @@ re-downloaded in order to locate PACKAGE."
     erlang
     fancy-narrow
     fullframe
-    guide-key)
+    guide-key
+    ipretty
+    redshank)
   "Don't install any Melpa packages except these packages")
 
 ;; Don't take Melpa versions of certain packages
