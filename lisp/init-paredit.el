@@ -14,8 +14,6 @@
       (eval-print-last-sexp)
     (paredit-newline)))
 
-;; (define-key paredit-mode-map (kbd "C-j") 'paredit-newline-or-eval-print)
-
 (after-load 'paredit
   (diminish 'paredit-mode " Par")
   (define-key paredit-mode-map (kbd "C-j") 'paredit-newline-or-eval-print)
