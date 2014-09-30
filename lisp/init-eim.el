@@ -1,15 +1,18 @@
 ;; EIM Input Method. Use C-\ to toggle input method.
 (autoload 'eim-use-package "eim" "Another emacs input method")
-(setq eim-use-tooltip nil)              ; don't use tooltip
+;; (setq eim-use-tooltip nil)              ; don't use tooltip
 ;; (setq eim-punc-translate-p nil)         ; use English punctuation
-(setq eim-punc-translate-p t)
+(setq eim-use-tooltip t)              ; use tooltip
+(setq eim-punc-translate-p t)         ; use Chinese punctuation when Chinese input method is on
 (register-input-method
  "eim-py" "euc-cn" 'eim-use-package
  "pinyin" "EIM Chinese Pinyin Input Method" "py.txt"
  'my-eim-py-activate-function)
-(set-input-method "eim-py")             ; use Pinyin input method
-(setq activate-input-method t)          ; active input method
+(setq default-input-method "eim-py")
+;; (set-input-method "eim-py")             ; use Pinyin input method
+;; (setq activate-input-method t)          ; active input method
 ;; (toggle-input-method nil)               ; default is turn off
+;; (eim-inactivate)                           ; default inactivate eim
 (defun my-eim-py-activate-function ()
   (add-hook 'eim-active-hook
             (lambda ()
