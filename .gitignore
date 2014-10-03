@@ -51,6 +51,7 @@ recentf
 places
 macros
 .mc-lists.el
+.smex-items
 /url/
 games/
 org/
