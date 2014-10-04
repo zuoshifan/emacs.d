@@ -5,6 +5,8 @@
 		("SConscript\\'" . python-mode))
               auto-mode-alist))
 
+(require-package 'pip-requirements)
+
 (setq interpreter-mode-alist
       (cons '("python" . python-mode) interpreter-mode-alist))
 
