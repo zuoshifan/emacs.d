@@ -1,5 +1,3 @@
-;; -*- coding: utf-8 -*-
-
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
@@ -15,7 +13,7 @@
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
 ;;----------------------------------------------------------------------------
-(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
+(defconst *spell-check-support-enabled* t) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *macbook-pro-support-enabled* t)
 (defconst *is-carbon-emacs* (and *is-a-mac* (eq window-system 'mac)))
@@ -90,47 +88,66 @@
 (require 'init-frame-hooks)
 ;; any file use flyspell should be initialized after init-spelling.el
 ;; actually, I don't know which major-mode use flyspell.
-(require 'init-spelling)
+(when *spell-check-support-enabled*
+  (require 'init-spelling))
+
 ;; (require 'init-xterm) ;; idle require
+;; (require 'init-themes) ; color-themes 6.6.1 has some problem
 ;; (require 'init-osx-keys) ;; I'm not using mac OS X
 (require 'init-gui-frames)
-(require 'init-ido)
-(require 'init-maxframe)
 (require 'init-proxies)
+(require 'init-maxframe)
 (require 'init-dired)
 (require 'init-isearch)
+(require 'init-grep)
 (require 'init-uniquify)
 (require 'init-ibuffer)
-(require 'init-flymake)
+(require 'init-flycheck)
+;; (require 'init-flymake)
+
 (require 'init-recentf)
-(require 'init-smex)
-(require 'init-helm)
+(require 'init-ido)
 (require 'init-hippie-expand)
+;; (require 'init-auto-complete)
 (require 'init-windows)
 (require 'init-sessions)
 (require 'init-fonts)
-;(require 'init-growl)
+(require 'init-mmm)
+
 (require 'init-editing-utils)
+
+(require 'init-vc)
+;; (require 'init-darcs)
 (require 'init-git)
+(require 'init-github)
+
+(require 'init-smex)
+(require 'init-helm)
+
+;(require 'init-growl)
+(require 'init-compile)
 (require 'init-crontab)
 ;; (require 'init-textile) ;; idle require
 (require 'init-markdown)
 (require 'init-csv)
 (require 'init-erlang)
 ;; (require 'init-javascript) ;; idle require
+;; (require 'init-php)
 (require 'init-org)
 (require 'init-org-mime)
+(require 'init-nxml)
+;; (require 'init-html)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
 ;; (require 'init-haskell) ;; idle require
 ;; (require 'init-ruby-mode) ;; idle require
-;; (require 'init-paredit)
+;; (require 'init-rails) ;; idle require
+;; (require 'init-sql) ;; idle require
 (require 'init-elisp)
 (require 'init-marmalade)
 
-;; Finally set up themes, after most possibly-customised faces have been defined
-;;;;;;(require 'init-themes) ; color-themes 6.6.1 has some problem
+
 ;; (require 'init-org2blog) ;; idle require
 (require 'init-yasnippet)
 ;; Use bookmark instead
@@ -163,7 +180,15 @@
 (require 'init-web-mode)
 (require 'init-sr-speedbar)
 (require 'init-smartparens)
+
+(require 'init-paredit)
+(require 'init-lisp)
 ;; (require 'init-slime) ;; idle require
+;; (require 'init-clojure)
+;; (when (>= emacs-major-version 24)
+;;   (require 'init-clojure-cider))
+(require 'init-common-lisp)
+
 (when *emacs24*
     (require 'init-company)
   ;; Choose either auto-complete or company-mode by commenting one of below two lines!
@@ -184,6 +209,8 @@
 (require 'init-cdlatex)
 (require 'init-google-this)
 (require 'init-ebib)
+;; (require 'init-dash)
+;; (require 'init-ledger)
 ;;;;;; (require 'init-ibus)
 
 
@@ -203,7 +230,6 @@
 
 (setq idle-require-idle-delay 3)
 (setq idle-require-symbols '(init-compat
-                             init-lisp
                              init-keyfreq
                              init-move-window-buffer
                              init-elnode
@@ -217,6 +243,8 @@
                              init-javascript
                              init-haskell
                              init-ruby-mode
+                             init-rails
+                             init-sql
                              init-org2blog
                              init-csharp-mode
                              init-web-mode
@@ -224,12 +252,47 @@
                              init-slime))
 (idle-require-mode 1) ;; starts loading
 
+(require-package 'gnuplot)
+(require-package 'lua-mode)
+;; (require-package 'htmlize)
+(require-package 'dsvn)
+(when *is-a-mac*
+  (require-package 'osx-location))
+(require-package 'regex-tool)
+
+;;----------------------------------------------------------------------------
+;; Allow access from emacsclient
+;;----------------------------------------------------------------------------
+;; (require 'server)
+;; (unless (server-running-p)
+;;   (server-start))
+
+
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
-(if (file-readable-p (expand-file-name "~/.emacs.d/custom.el"))
-    (progn (setq custom-file "~/.emacs.d/custom.el")
-           (load-file (expand-file-name "~/.emacs.d/custom.el"))))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+;;----------------------------------------------------------------------------
+;; Allow users to provide an optional "init-local" containing personal settings
+;;----------------------------------------------------------------------------
+(when (file-exists-p (expand-file-name "init-local.el" user-emacs-directory))
+  (error "Please move init-local.el to ~/.emacs.d/lisp"))
+(require 'init-local nil t)
+
+
+;;----------------------------------------------------------------------------
+;; Locales (setting them earlier in this file doesn't work in X)
+;;----------------------------------------------------------------------------
+(require 'init-locales)
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "init completed in %.2fms"
+                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
+
 
 (when (require 'time-date nil t)
   (message "Emacs startup time: %d seconds."
@@ -237,7 +300,8 @@
   )
 
 
-;;; Local Variables:
-;;; no-byte-compile: t
-;;; End:
+;; Local Variables:
+;; coding: utf-8
+;; no-byte-compile: t
+;; End:
 (put 'erase-buffer 'disabled nil)
