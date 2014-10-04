@@ -28,6 +28,18 @@
 (add-auto-mode 'tcl-mode "Portfile\\'")
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(dolist (hook (if (fboundp 'prog-mode)
+                  '(prog-mode-hook ruby-mode-hook)
+                '(find-file-hooks)))
+  (add-hook hook 'goto-address-prog-mode))
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(setq goto-address-mail-face 'link)
+
+(setq-default regex-tool-backend 'perl)
+
+(add-auto-mode 'conf-mode "Procfile")
+
+
 (column-number-mode 1)
 
 ;; NO automatic new line when scrolling down at buffer bottom
@@ -177,7 +189,7 @@
 ;; effective emacs item 9
 (defalias 'qrr 'query-replace-regexp)
 
-(setq-default regex-tool-backend 'perl)
+;; (setq-default regex-tool-backend 'perl)
 
 ;; {{ work around color theme bug
 ;; @see https://plus.google.com/106672400078851000780/posts/KhTgscKE8PM
