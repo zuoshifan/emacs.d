@@ -17,6 +17,14 @@
 (after-load 'paredit
   (diminish 'paredit-mode " Par")
   (define-key paredit-mode-map (kbd "C-j") 'paredit-newline-or-eval-print)
+  ;; These are handy everywhere, not just in lisp modes
+  (global-set-key (kbd "M-(") 'paredit-wrap-round)
+  (global-set-key (kbd "M-[") 'paredit-wrap-square)
+  (global-set-key (kbd "M-{") 'paredit-wrap-curly)
+  (global-set-key (kbd "M-)") 'paredit-close-round-and-newline)
+  (global-set-key (kbd "M-]") 'paredit-close-square-and-newline)
+  (global-set-key (kbd "M-}") 'paredit-close-curly-and-newline)
+
   (dolist (binding (list (kbd "C-<left>") (kbd "C-<right>")
                          (kbd "C-M-<left>") (kbd "C-M-<right>")))
     (define-key paredit-mode-map binding nil))
