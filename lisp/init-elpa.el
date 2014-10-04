@@ -176,7 +176,21 @@ re-downloaded in order to locate PACKAGE."
     fullframe
     guide-key
     ipretty
-    redshank)
+    redshank
+    highlight-escape-sequences
+    git-blame
+    git-rebase-mode
+    github-browse-file
+    bug-reference-github
+    github-clone
+    alert
+    gntp
+    css-eldoc
+    hayoo
+    json
+    hi2
+    ghci-completion
+    sql-indent)
   "Don't install any Melpa packages except these packages")
 
 ;; Don't take Melpa versions of certain packages
