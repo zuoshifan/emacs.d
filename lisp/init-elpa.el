@@ -1,4 +1,4 @@
-;; Find and load the correct package.el
+;;; Find and load the correct package.el
 
 ;; When switching between Emacs 23 and 24, we always use the bundled package.el in Emacs 24
 (let ((package-el-site-lisp-dir
@@ -70,7 +70,7 @@ re-downloaded in order to locate PACKAGE."
 
 
 
-;; Standard package repositories
+;;; Standard package repositories
 
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
@@ -190,7 +190,8 @@ re-downloaded in order to locate PACKAGE."
     json
     hi2
     ghci-completion
-    sql-indent)
+    sql-indent
+    dired-sort)
   "Don't install any Melpa packages except these packages")
 
 ;; Don't take Melpa versions of certain packages
@@ -216,6 +217,24 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'fullframe)
 (fullframe list-packages quit-window)
 
+
+(require-package 'cl-lib)
+(require 'cl-lib)
+
+(defun sanityinc/set-tabulated-list-column-width (col-name width)
+  "Set any column with name COL-NAME to the given WIDTH."
+  (cl-loop for column across tabulated-list-format
+           when (string= col-name (car column))
+           do (setf (elt column 1) width)))
+
+(defun sanityinc/maybe-widen-package-menu-columns ()
+  "Widen some columns of the package menu table to avoid truncation."
+  (when (boundp 'tabulated-list-format)
+    (sanityinc/set-tabulated-list-column-width "Version" 13)
+    (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
+      (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
+
+(add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
 
 (require-package 'all)
 (require-package 'cl-lib '(0 0 5) nil)
