@@ -1,3 +1,6 @@
+(require-package 'dired+)
+(require-package 'dired-sort)
+
 (require 'dired-details)
 (dired-details-install)
 
@@ -44,7 +47,8 @@ if no files marked, always operate on current line in dired-mode
 ;; @see http://blog.twonegatives.com/post/19292622546/dired-dwim-target-is-j00-j00-magic
 ;; op open two new dired buffers side-by-side and give your new-found automagic power a whirl.
 ;; Now combine that with a nice window configuration stored in a register and you’ve got a pretty slick work flow.
-(setq dired-dwim-target t)
+(setq-default diredp-hide-details-initially-flag nil
+              dired-dwim-target t)
 
 (eval-after-load 'dired
   '(progn
@@ -56,6 +60,7 @@ if no files marked, always operate on current line in dired-mode
      (define-key dired-mode-map "/" 'diredext-exec-git-command-in-shell)
 
      (require 'dired+)
+     (require 'dired-sort)
      (when (fboundp 'global-dired-hide-details-mode)
        (global-dired-hide-details-mode -1))
      (setq dired-recursive-deletes 'top)
