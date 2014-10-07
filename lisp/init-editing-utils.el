@@ -3,8 +3,8 @@
 (require-package 'unfill)
 (require-package 'whole-line-or-region)
 
-(when (fboundp 'electric-pair-mode)
-  (electric-pair-mode))
+;; (when (fboundp 'electric-pair-mode)
+;;   (electric-pair-mode))
 
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
@@ -53,7 +53,7 @@
 
 ;; But don't show trailing whitespace in SQLi, inf-ruby etc.
 (dolist (hook '(special-mode-hook
-                eww-mode
+                eww-mode-hook
                 term-mode-hook
                 comint-mode-hook
                 compilation-mode-hook
