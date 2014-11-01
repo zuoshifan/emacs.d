@@ -95,9 +95,7 @@
     "Restore a minimized frame."
     (interactive)
     (w32-send-sys-command 61728)
-    (global-set-key (kbd "C-c z") 'w32-maximize-frame))
-
-  )
+    (global-set-key (kbd "C-c z") 'w32-maximize-frame)))
 
 ;; M-x ct ENTER
 (defun ct (dir-name)
