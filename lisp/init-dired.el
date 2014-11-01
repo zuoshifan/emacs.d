@@ -84,7 +84,8 @@ if no files marked, always operate on current line in dired-mode
 ;; Use adobe reader to open PDF file
 (eval-after-load 'dired+
   '(progn
-     (add-to-list 'dired-guess-shell-alist-user '("\\.pdf$" "acroread * &"))))
+     (add-to-list 'dired-guess-shell-alist-user '("\\.pdf$" "acroread * &"))
+     (add-to-list 'dired-guess-shell-alist-user '("\\.ps$" "evince * &"))))
 ;; Print PDF file using shell command
 ;; lpr -P HP-LaserJet-P2055d -o Quality=FromPrintoutMode -o PageSize=A4 -o PageRegion=A4 -o PrintoutMode=Normal -o inputSlot=Default -o Duplex=DuplexNoTumble "file.pdf"
 
