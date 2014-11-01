@@ -386,6 +386,7 @@ With arg N, insert N newlines."
 ;; mode (org-mode for example), this will make the exported document
 ;; ugly!
 ;; (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+(setq-default fill-column 68)
 (add-hook 'change-log-mode-hook 'turn-on-auto-fill)
 (add-hook 'cc-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
