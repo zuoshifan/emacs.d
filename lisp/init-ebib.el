@@ -17,6 +17,8 @@
      (define-key ebib-multiline-mode-map "\C-c\C-c" 'ebib-quit-multiline-edit-and-save)
      (define-key ebib-multiline-mode-map "\C-c\C-q" 'ebib-cancel-multiline-edit)
      (define-key ebib-multiline-mode-map "\C-c\C-s" 'ebib-save-from-multiline-edit)
+     (add-hook 'ebib-index-mode-hook (lambda () (setq-local show-trailing-whitespace nil)))
+     (add-hook 'ebib-entry-mode-hook (lambda () (setq-local show-trailing-whitespace nil)))
      (add-hook 'ebib-entry-mode-hook (lambda () (progn
                                                   (set 'TeX-header-end "^[^%\n]*\\\\begin *{document}")
                                                   (set 'TeX-trailer-start "^[^%\n]*\\\\end *{document}")
@@ -27,7 +29,7 @@
 (setq ebib-entry-types 
       '((article
          (author title journal year)
-         (volume number pages month note eprint eid adsurl adsnote archivePrefix primaryClass))
+         (volume number pages month note eprint eid adsurl adsnote archivePrefix primaryClass mynote))
         (book
          (author title publisher year)
          (editor volume number series address edition month note))
