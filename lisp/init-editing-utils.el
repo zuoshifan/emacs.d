@@ -4,6 +4,9 @@
 
 ;; (when (fboundp 'electric-pair-mode)
 ;;   (electric-pair-mode))
+(when (fboundp 'electric-indent-mode)
+  (electric-indent-mode))
+
 
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
@@ -65,16 +68,16 @@
 (global-whitespace-cleanup-mode t)
 
 
-;;; Newline behaviour
+;; ;;; Newline behaviour
 
-(define-key global-map (kbd "RET") 'newline-and-indent)
-(defun sanityinc/newline-at-end-of-line ()
-  "Move to end of line, enter a newline, and reindent."
-  (interactive)
-  (move-end-of-line 1)
-  (newline-and-indent))
+;; (define-key global-map (kbd "RET") 'newline-and-indent)
+;; (defun sanityinc/newline-at-end-of-line ()
+;;   "Move to end of line, enter a newline, and reindent."
+;;   (interactive)
+;;   (move-end-of-line 1)
+;;   (newline-and-indent))
 
-(global-set-key (kbd "S-<return>") 'sanityinc/newline-at-end-of-line)
+;; (global-set-key (kbd "S-<return>") 'sanityinc/newline-at-end-of-line)
 
 
 
