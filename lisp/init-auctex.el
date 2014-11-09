@@ -7,6 +7,7 @@
 ;; use pdflatex
 (setq TeX-PDF-mode t)
 
+;; NOTE: Use `LaTex-mode-hook' for aucTeX latex, not `latex-mode-hook'
 ;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 ;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode) ; conflict with cdlatex
@@ -84,6 +85,13 @@
     (if candidate
         (message "TeX master document: %s" (file-name-nondirectory candidate)))
     candidate))
+
+
+;; extra commands and keys for LaTeX-mode
+(require-package 'latex-extra)
+(add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+;; turn off auto-fill-mode, one can turn on it manually
+(add-hook 'latex-extra-mode-hook (lambda () (auto-fill-mode -1)) t)
 
 
 ;; magic-latex-buffer
