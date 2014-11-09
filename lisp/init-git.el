@@ -54,7 +54,8 @@
      (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
 
 (after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section))
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
+  (add-hook 'magit-mode-hook (lambda () (toggle-truncate-lines -1)) t))
 
 ;; (require-package 'fullframe)
 ;; (after-load 'magit
