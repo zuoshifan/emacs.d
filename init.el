@@ -8,7 +8,7 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'init-benchmarking) ;; Measure startup time
-(setq emacs-load-start-time (current-time))
+;; (setq emacs-load-start-time (current-time))
 
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
@@ -286,18 +286,18 @@
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
-(require 'init-locales)
+;; (require 'init-locales)
 
-(add-hook 'after-init-hook
-          (lambda ()
-            (message "init completed in %.2fms"
-                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
+;; (add-hook 'after-init-hook
+;;           (lambda ()
+;;             (message "init completed in %.2fms"
+;;                      (sanityinc/time-subtract-millis after-init-time before-init-time))))
 
 
-(when (require 'time-date nil t)
-  (message "Emacs startup time: %d seconds."
-           (time-to-seconds (time-since emacs-load-start-time)))
-  )
+;; (when (require 'time-date nil t)
+;;   (message "Emacs startup time: %d seconds."
+;;            (time-to-seconds (time-since emacs-load-start-time)))
+;;   )
 
 
 ;; Local Variables:
