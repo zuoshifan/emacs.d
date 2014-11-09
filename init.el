@@ -147,7 +147,7 @@
 ;; (require 'init-rails) ;; idle require
 ;; (require 'init-sql) ;; idle require
 (require 'init-elisp)
-(require 'init-marmalade)
+;; (require 'init-marmalade)
 
 
 ;; (require 'init-org2blog) ;; idle require
