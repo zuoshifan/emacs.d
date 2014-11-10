@@ -6,6 +6,15 @@
 ;;   (electric-pair-mode))
 (when (fboundp 'electric-indent-mode)
   (electric-indent-mode))
+;; Seem that electric-indent-mode doesn’t work properly with python-mode.
+;;; Indentation for python
+;; Ignoring electric indentation
+(defun electric-indent-ignore-python (char)
+  "Ignore electric indentation for python-mode"
+  (if (equal major-mode 'python-mode)
+      `no-indent'
+    nil))
+(add-hook 'electric-indent-functions 'electric-indent-ignore-python)
 
 
 ;;----------------------------------------------------------------------------
