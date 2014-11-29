@@ -19,7 +19,6 @@
             (flymake-ruby-load)))
 
 (after-load 'ruby-mode
-  (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
   (define-key ruby-mode-map (kbd "TAB") 'indent-for-tab-command)
 
   ;; Stupidly the non-bundled ruby-mode isn't a derived mode of
