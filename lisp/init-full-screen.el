@@ -34,6 +34,6 @@
 ;; display the org agenda when set up
 (add-hook 'window-setup-hook 'org-agenda-list t)
 ;; goagent proxy setup
-(add-hook 'window-setup-hook 'goagent-proxy-setup t)
+;; (add-hook 'window-setup-hook 'goagent-proxy-setup t)
 
 (provide 'init-full-screen)
