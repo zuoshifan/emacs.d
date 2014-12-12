@@ -393,6 +393,7 @@ locate PACKAGE."
 ;; (require-package 'google-this)
 (require-package 'google-translate)
 ;; (require-package 'jedi)
+(require-package 'cython-mode)
 ;; (require-package 'predictive)
 
 (provide 'init-elpa)
