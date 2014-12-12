@@ -65,7 +65,7 @@ been saved."
 
 ;; Interaction
 
-(after-load 'haskell-process
+(after-load 'haskell
   (diminish 'interactive-haskell-mode " IntHS"))
 
 (add-auto-mode 'haskell-mode "\\.ghci\\'")
