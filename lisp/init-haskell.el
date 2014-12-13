@@ -6,8 +6,6 @@
 
 ;; Completion
 
-(add-to-list 'completion-ignored-extensions ".hi")
-
 ;; Hook auto-complete into the completions provided by the inferior
 ;; haskell process, if any.
 
