@@ -44,6 +44,7 @@
 
 ;; Various preferences
 (setq org-log-done t
+      org-catch-invisible-edits 'smart
       org-completion-use-ido t
       org-edit-src-content-indentation 0
       org-edit-timestamp-down-means-later t
@@ -57,7 +58,7 @@
       ;; org-export-odt-preferred-output-format "doc"
       org-odt-preferred-output-format "doc"
       org-tags-column 80
-      ;org-startup-indented t
+      ;; org-startup-indented t
       )
 
 ;; ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
