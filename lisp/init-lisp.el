@@ -208,7 +208,8 @@
     (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
   (require-package 'eldoc-eval)
   (require 'eldoc-eval)
-  (eldoc-in-minibuffer-mode 1))
+  ;; (eldoc-in-minibuffer-mode 1)
+  )
 
 (add-to-list 'auto-mode-alist '("\\.emacs-project\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("archive-contents\\'" . emacs-lisp-mode))
