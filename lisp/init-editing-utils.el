@@ -146,6 +146,9 @@
 
 
 (require-package 'browse-kill-ring)
+(setq browse-kill-ring-separator "\f")
+(after-load 'page-break-lines
+  (push 'browse-kill-ring-mode page-break-lines-modes))
 
 
 ;;----------------------------------------------------------------------------
