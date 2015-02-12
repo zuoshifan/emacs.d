@@ -193,8 +193,9 @@ re-downloaded in order to locate PACKAGE."
     hi2
     ghci-completion
     sql-indent
-    dired-sort)
-  "Don't install any Melpa packages except these packages")
+    dired-sort
+    auto-yasnippet)
+  "Don't install any Melpa packages except these packages.")
 
 ;; Don't take Melpa versions of certain packages
 (setq package-filter-function
