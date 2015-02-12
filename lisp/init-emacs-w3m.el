@@ -119,6 +119,6 @@ This is the modified version of `brouse-url-interactive-arg' in `browse-url.el'.
     (w3m-search "j" keyword)
     ))
 
-(add-hook 'prog-mode-hook '( lambda () (local-set-key (kbd "C-c ; h") 'w3mext-hacker-search)))
+(add-hook 'prog-mode-hook '( lambda () (ignore-errors (local-set-key (kbd "C-c ; h") 'w3mext-hacker-search))))
 
 (provide 'init-emacs-w3m)
