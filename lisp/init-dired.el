@@ -93,4 +93,8 @@ if no files marked, always operate on current line in dired-mode
 ;; Print PDF file using shell command
 ;; lpr -P HP-LaserJet-P2055d -o Quality=FromPrintoutMode -o PageSize=A4 -o PageRegion=A4 -o PrintoutMode=Normal -o inputSlot=Default -o Duplex=DuplexNoTumble "file.pdf"
 
+(when (maybe-require-package 'diff-hl)
+  (after-load 'dired
+    (add-hook 'dired-mode-hook 'diff-hl-dired-mode)))
+
 (provide 'init-dired)
