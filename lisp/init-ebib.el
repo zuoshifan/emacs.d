@@ -2,7 +2,7 @@
 ;; keywords
 (setq ebib-keywords-file "~/Documents/literature/bibs/ebib-keywords.txt")
 (setq ebib-keywords-use-only-file t)
-(setq ebib-keywords-field-keep-sorted t)
+(setq ebib-keywords-field-keep-sorted nil)
 ;; layout
 (setq ebib-layout 'custom)
 (setq ebib-width 0.5)
