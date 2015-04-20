@@ -10,7 +10,8 @@
   :type 'symbol
   :group 'programming
   :options '(js2-mode js-mode))
-(defvar preferred-javascript-indent-level 2)
+
+(defconst preferred-javascript-indent-level 2)
 
 ;; looks nodejs is more popular, if you prefer rhino, change to "js"
 (setq inferior-js-program-command "node --interactive")
@@ -29,6 +30,10 @@
 
 
 ;; js2-mode
+
+;; Change some defaults: customize them to override
+(setq-default js2-basic-offset 2
+              js2-bounce-indent-p nil)
 (after-load 'js2-mode
   ;; Disable js2 mode's syntax error highlighting by default...
   (setq-default js2-mode-show-parse-errors nil
@@ -42,10 +47,6 @@
   (add-hook 'js2-mode-hook 'sanityinc/disable-js2-checks-if-flycheck-active)
 
   (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
-
-  (setq-default
-   js2-basic-offset preferred-javascript-indent-level
-   js2-bounce-indent-p nil)
 
   (after-load 'js2-mode
     (js2-imenu-extras-setup)))
