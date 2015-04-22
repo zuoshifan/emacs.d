@@ -4,9 +4,6 @@
       desktop-auto-save-timeout 600)
 (setq desktop-save 'if-exists)
 (desktop-save-mode 1)
-(defadvice desktop-read (around trace-desktop-errors activate)
-  (let ((debug-on-error t))
-    ad-do-it))
 
 (defadvice desktop-read (around time-restore activate)
     (let ((start-time (current-time)))
