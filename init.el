@@ -185,10 +185,10 @@
 
 (require 'init-paredit)
 (require 'init-lisp)
-;; (require 'init-slime) ;; idle require
-;; (require 'init-clojure)
-;; (when (>= emacs-major-version 24)
-;;   (require 'init-clojure-cider))
+(require 'init-slime)
+(when (>= emacs-major-version 24)
+  (require 'init-clojure)
+  (require 'init-clojure-cider))
 (require 'init-common-lisp)
 
 (when *emacs24*
