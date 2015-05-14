@@ -23,7 +23,7 @@
 
 (when (executable-find "ghci-ng")
   (setq-default haskell-process-args-cabal-repl
-                e '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng")))
+                '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng")))
 
 
 
