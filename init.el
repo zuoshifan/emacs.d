@@ -37,10 +37,10 @@
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
 
-;----------------------------------------------------------------------------
-; Functions (load all files in defuns-dir)
-; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
-;----------------------------------------------------------------------------
+                                        ;----------------------------------------------------------------------------
+                                        ; Functions (load all files in defuns-dir)
+                                        ; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
+                                        ;----------------------------------------------------------------------------
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
 (dolist (file (directory-files defuns-dir t "\\w+"))
   (when (file-regular-p file)
