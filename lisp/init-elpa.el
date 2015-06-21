@@ -194,7 +194,9 @@ re-downloaded in order to locate PACKAGE."
     ghci-completion
     sql-indent
     dired-sort
-    auto-yasnippet)
+    auto-yasnippet
+    org-mac-link
+    goto-chg)
   "Don't install any Melpa packages except these packages.")
 
 ;; Don't take Melpa versions of certain packages
@@ -267,6 +269,7 @@ locate PACKAGE."
 (require-package 'haskell-mode '(13 7 0) nil)
 (require-package 'magit '(1 2 0) nil)
 (require-package 'git-commit-mode)
+(require-package 'git-rebase-mode)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 (require-package 'wgrep)
