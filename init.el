@@ -1,12 +1,11 @@
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
-(let ((minver 23.3))
+(let ((minver "23.3"))
   (when (version<= emacs-version "23.1")
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 (when (version<= emacs-version "24")
   (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
-
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'init-benchmarking) ;; Measure startup time
@@ -95,7 +94,7 @@
 
 ;; (require 'init-xterm) ;; idle require
 ;; (require 'init-themes) ; color-themes 6.6.1 has some problem
-;; (require 'init-osx-keys) ;; I'm not using mac OS X
+(require 'init-osx-keys)
 (require 'init-gui-frames)
 (require 'init-proxies)
 (require 'init-maxframe)
@@ -159,7 +158,7 @@
 (require 'init-cmake-mode)
 ;; (require 'init-csharp-mode) ;; idle require
 (require 'init-linum-mode)
-;(require 'init-delicious) ;make startup slow, I don't use delicious in w3m
+;; (require 'init-delicious) ;make startup slow, I don't use delicious in w3m
 (require 'init-emacs-w3m)
 (require 'init-thing-edit)
 (require 'init-which-func)
@@ -192,7 +191,7 @@
 (require 'init-common-lisp)
 
 (when *emacs24*
-    (require 'init-company)
+  (require 'init-company)
   ;; Choose either auto-complete or company-mode by commenting one of below two lines!
   ;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
   )
