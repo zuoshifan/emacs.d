@@ -1,4 +1,9 @@
 ;; AUCTeX configuration
+(setenv "PATH" (concat "/usr/texbin:/usr/local/bin:" (getenv "PATH")))
+(setq exec-path (append '("/usr/texbin" "/usr/local/bin") exec-path))
+(load "auctex.el" nil t t)
+(load "preview.el" nil t t)
+
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 ;; (setq TeX-save-query nil)
