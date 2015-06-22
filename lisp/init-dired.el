@@ -5,6 +5,10 @@
 (dired-details-install)
 
 ;; Sort Directories First
+;; mac `ls' has some problems, see http://stackoverflow.com/questions/4076360/error-in-dired-sorting-on-os-x
+;; installed coreutils through Homebrew, then use `gls' instead
+(when *is-a-mac*
+  (setq insert-directory-program "/usr/local/bin/gls"))
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
 (defun dired-nautilus ()
