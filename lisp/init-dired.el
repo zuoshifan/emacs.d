@@ -8,7 +8,8 @@
 ;; mac `ls' has some problems, see http://stackoverflow.com/questions/4076360/error-in-dired-sorting-on-os-x
 ;; installed coreutils through Homebrew, then use `gls' instead
 (when *is-a-mac*
-  (setq insert-directory-program "/usr/local/bin/gls"))
+  (let ((gls (executable-find "gls")))
+    (when gls (setq insert-directory-program gls))))
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
 (defun dired-nautilus ()
@@ -92,10 +93,6 @@ if no files marked, always operate on current line in dired-mode
      (add-to-list 'dired-guess-shell-alist-user '("\\.ps$" "evince * &"))))
 ;; Print PDF file using shell command
 ;; lpr -P HP-LaserJet-P2055d -o Quality=FromPrintoutMode -o PageSize=A4 -o PageRegion=A4 -o PrintoutMode=Normal -o inputSlot=Default -o Duplex=DuplexNoTumble "file.pdf"
-
-;; Prefer g-prefixed coreutils version of standard utilities when available
-(let ((gls (executable-find "gls")))
-  (when gls (setq insert-directory-program gls)))
 
 (after-load 'dired
   (require 'dired+)
