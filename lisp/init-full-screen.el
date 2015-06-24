@@ -1,10 +1,14 @@
 ;; toggle fullscreen
 (defun my-fullscreen ()
   (interactive)
-  (x-send-client-message
-   nil 0 nil "_NET_WM_STATE" 32
-   '(2 "_NET_WM_STATE_FULLSCREEN" 0))
-)
+  (cond
+   ((eq 'x (window-system))
+    (x-send-client-message
+     nil 0 nil "_NET_WM_STATE" 32
+     '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+   (t
+    (message "Full-screen not supported by window system %s."
+             (symbol-name (window-system))))))
 ;; shortcut for toggle fullscreen
 (global-set-key [f11] 'my-fullscreen)
 
