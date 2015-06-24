@@ -244,8 +244,10 @@
    (t (git-gutter:previous-hunk arg))
    ))
 
+;; prevent warning message
+(setq magit-last-seen-setup-instructions "1.4.0")
 ;; turn off the overlay, I do NOT want to lose original syntax highlight!
-(setq magit-highlight-overlay t)
+;; (setq magit-highlight-overlay t)
 ;; }}
 (provide 'init-git)
 
