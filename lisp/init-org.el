@@ -58,7 +58,11 @@
       org-odt-preferred-output-format "doc"
       org-tags-column 80
       ;; org-startup-indented t
-      )
+      org-export-backends '(ascii beamer html icalendar latex odt org)
+      org-export-copy-to-kill-ring t
+      org-export-date-timestamp-format "%Y-%m-%d"
+      org-export-with-drawers nil
+      org-export-with-tags (quote not-in-toc))
 
 ;; ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 ;; (setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
