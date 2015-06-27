@@ -1,6 +1,3 @@
-(setq haskell-font-lock-symbols t)
-
-
 (require-package 'haskell-mode)
 
 
