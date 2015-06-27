@@ -9,11 +9,7 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'init-benchmarking) ;; Measure startup time
-;; (setq emacs-load-start-time (current-time))
 
-;;----------------------------------------------------------------------------
-;; Which functionality to enable (use t or nil for true and false)
-;;----------------------------------------------------------------------------
 (defconst *spell-check-support-enabled* t) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *macbook-pro-support-enabled* t)
@@ -36,41 +32,10 @@
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
-
-                                        ;----------------------------------------------------------------------------
-                                        ; Functions (load all files in defuns-dir)
-                                        ; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
-                                        ;----------------------------------------------------------------------------
-(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
-(dolist (file (directory-files defuns-dir t "\\w+"))
-  (when (file-regular-p file)
-      (load file)))
-
-
-(require 'init-coding-system)
-(require 'init-modeline)
-
-;;;;;; (require 'cl-lib) ;; I already use emacs version 24.3, I don't need forward compatibility provided by `cl-lib'
-;; (require 'init-compat) ;; idle require
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-compat)
 (require 'init-utils)
 (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
-
-;; win32 auto configuration, assuming that cygwin is installed at "c:/cygwin"
-(condition-case nil
-    (when *win32*
-      (setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
-      (require 'setup-cygwin)
-      ;; better to set HOME env in GUI
-      ;; (setenv "HOME" "c:/cygwin/home/someuser")
-      )
-  (error
-   (message "setup-cygwin failed, continue anyway")))
-
-(require 'idle-require)
-
 ;; Calls (package-initialize)
 (require 'init-elpa)      ;; Machinery for installing required packages
 (require 'init-exec-path) ;; Set up $PATH
@@ -91,24 +56,17 @@
 (require-package 'mwe-log-commands)
 
 (require 'init-frame-hooks)
-;; any file use flyspell should be initialized after init-spelling.el
-;; actually, I don't know which major-mode use flyspell.
-(when *spell-check-support-enabled*
-  (require 'init-spelling))
-
-;; (require 'init-xterm) ;; idle require
-;; (require 'init-themes) ; color-themes 6.6.1 has some problem
+(require 'init-xterm)
+(require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
 (require 'init-proxies)
-(require 'init-maxframe)
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flycheck)
-(require 'init-flymake)
 
 (require 'init-recentf)
 (require 'init-ido)
@@ -126,65 +84,24 @@
 (require 'init-git)
 (require 'init-github)
 
-(require 'init-smex)
-(require 'init-helm)
-
-;(require 'init-growl)
 (require 'init-compile)
 (require 'init-crontab)
-;; (require 'init-textile) ;; idle require
+(require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
 (require 'init-erlang)
-;; (require 'init-javascript) ;; idle require
+(require 'init-javascript)
 ;; (require 'init-php)
 (require 'init-org)
-(require 'init-org-mime)
 (require 'init-nxml)
-;; (require 'init-html)
+(require 'init-html)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
-;; (require 'init-haskell) ;; idle require
-;; (require 'init-ruby-mode) ;; idle require
-;; (require 'init-rails) ;; idle require
-;; (require 'init-sql) ;; idle require
-(require 'init-elisp)
-;; (require 'init-marmalade)
-
-
-;; (require 'init-org2blog) ;; idle require
-(require 'init-yasnippet)
-;; Use bookmark instead
-(require 'init-zencoding-mode)
-(require 'init-cc-mode)
-(require 'init-gud)
-(require 'init-cmake-mode)
-;; (require 'init-csharp-mode) ;; idle require
-(require 'init-linum-mode)
-;; (require 'init-delicious) ;make startup slow, I don't use delicious in w3m
-(require 'init-emacs-w3m)
-(require 'init-thing-edit)
-(require 'init-which-func)
-(require 'init-move-window-buffer)
-;; (require 'init-gist)
-(require 'init-moz)
-(require 'init-gtags)
-;; use evil mode (vi key binding)
-(require 'init-evil)
-(require 'init-sh)
-(require 'init-ctags)
-(require 'init-ace-jump-mode)
-(require 'init-sunrise-commander)
-(require 'init-bbdb)
-;; (require 'init-gnus)
-;; (require 'init-weibo) ;; idle require
-;; (require 'init-lua-mode) ;; idle require
-;;;;;; (require 'init-workgroups2)
-(require 'init-term-mode)
-(require 'init-web-mode)
-(require 'init-sr-speedbar)
-(require 'init-smartparens)
+;; (require 'init-haskell)
+(require 'init-ruby-mode)
+(require 'init-rails)
+(require 'init-sql)
 
 (require 'init-paredit)
 (require 'init-lisp)
@@ -194,13 +111,96 @@
   (require 'init-clojure-cider))
 (require 'init-common-lisp)
 
-(when *emacs24*
-  (require 'init-company)
-  ;; Choose either auto-complete or company-mode by commenting one of below two lines!
-  ;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
-  )
+(when *spell-check-support-enabled*
+  (require 'init-spelling))
+
+(require 'init-misc)
+
+(require 'init-dash)
+(require 'init-ledger)
+;; Extra packages which don't require any configuration
+
+(require-package 'gnuplot)
+(require-package 'lua-mode)
+(require-package 'htmlize)
+(require-package 'dsvn)
+(when *is-a-mac*
+  (require-package 'osx-location))
+(require-package 'regex-tool)
+
+
+;;----------------------------------------------------------------------------
+;; Functions (load all files in defuns-dir)
+;; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
+;;----------------------------------------------------------------------------
+(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
+
+
+;; win32 auto configuration, assuming that cygwin is installed at "c:/cygwin"
+(condition-case nil
+    (when *win32*
+      (setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
+      (require 'setup-cygwin)
+      ;; better to set HOME env in GUI
+      ;; (setenv "HOME" "c:/cygwin/home/someuser")
+      )
+  (error
+   (message "setup-cygwin failed, continue anyway")))
+
+
+;; (require 'cl-lib) ;; I already use emacs version 24.3, I don't need forward compatibility provided by `cl-lib'
+
+(require 'init-coding-system)
+(require 'init-modeline)
+
+(require 'init-org2blog)
+(require 'init-yasnippet)
+;; Use bookmark instead
+(require 'init-smex)
+(require 'init-helm)
+;; (require 'init-growl)
+(require 'init-zencoding-mode)
+(require 'init-cc-mode)
+(require 'init-gud)
+(require 'init-cmake-mode)
+(require 'init-csharp-mode)
+(require 'init-linum-mode)
+;; (require 'init-delicious) ;make startup slow, I don't use delicious in w3m
+(require 'init-emacs-w3m)
+(require 'init-thing-edit)
+(require 'init-which-func)
+(require 'init-move-window-buffer)
+;; (require 'init-gist)
+(require 'init-moz)
+(require 'init-gtags)
+(require 'init-evil)
+(require 'init-sh)
+(require 'init-ctags)
+(require 'init-ace-jump-mode)
+(require 'init-sunrise-commander)
+(require 'init-bbdb)
+(require 'init-weibo)
+(require 'init-lua-mode)
+;; (require 'init-workgroups2)
+(require 'init-term-mode)
+(require 'init-web-mode)
+(require 'init-sr-speedbar)
+(require 'init-smartparens)
+(require 'init-company)
+;; Choose either auto-complete or company-mode by commenting one of below two lines!
+;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
+(require 'init-keyfreq)
+(require 'init-elnode)
+(require 'init-doxygen)
+(require 'init-pomodoro)
+(require 'init-emacspeak)
+(require 'init-artbollocks-mode)
+(require 'init-semantic)
 (require 'init-stripe-buffer)
-(require 'init-eim) ;;  cannot be idle-required
+(require 'init-eim)
 (require 'init-tramp)
 (require 'init-full-screen)
 (require 'init-chinese-calendar)
@@ -214,56 +214,9 @@
 (require 'init-cdlatex)
 (require 'init-google-this)
 (require 'init-ebib)
-;; (require 'init-dash)
-;; (require 'init-ledger)
-;;;;;; (require 'init-ibus)
-
-
-
-(require 'color-theme)
-;; (require 'color-theme-molokai)
-;; color theme
-;; (if (daemonp) ;; if run from daemon
-;;   (add-hook 'after-make-frame-functions
-;;             (lambda (frame)
-;;               (select-frame frame)
-;;               (color-theme-molokai)))
-;;   (color-theme-molokai))
-
-;; misc has some crucial tools I need immediately
-(require 'init-misc)
-
-(setq idle-require-idle-delay 3)
-(setq idle-require-symbols '(init-compat
-                             init-keyfreq
-                             init-move-window-buffer
-                             init-elnode
-                             init-doxygen
-                             init-pomodoro
-                             init-emacspeak
-                             init-artbollocks-mode
-                             init-semantic
-                             init-xterm
-                             init-textile
-                             init-javascript
-                             init-haskell
-                             init-ruby-mode
-                             init-rails
-                             init-sql
-                             init-org2blog
-                             init-csharp-mode
-                             init-web-mode
-                             init-lua-mode
-                             init-slime))
-(idle-require-mode 1) ;; starts loading
-
-(require-package 'gnuplot)
-(require-package 'lua-mode)
-;; (require-package 'htmlize)
-(require-package 'dsvn)
-(when *is-a-mac*
-  (require-package 'osx-location))
-(require-package 'regex-tool)
+(require 'init-maxframe)
+(require 'init-flymake)
+(require 'init-org-mime)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
@@ -279,6 +232,7 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-local" containing personal settings
 ;;----------------------------------------------------------------------------
@@ -290,19 +244,15 @@
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
-;; (require 'init-locales)
+(require 'init-locales)
 
-;; (add-hook 'after-init-hook
-;;           (lambda ()
-;;             (message "init completed in %.2fms"
-;;                      (sanityinc/time-subtract-millis after-init-time before-init-time))))
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "init completed in %.2fms"
+                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
 
 
-;; (when (require 'time-date nil t)
-;;   (message "Emacs startup time: %d seconds."
-;;            (time-to-seconds (time-since emacs-load-start-time)))
-;;   )
-
+(provide 'init)
 
 ;; Local Variables:
 ;; coding: utf-8
