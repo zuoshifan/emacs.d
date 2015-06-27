@@ -45,7 +45,8 @@ ignored: use `custom-enabled-themes' instead."
 ;;------------------------------------------------------------------------------
 
 ;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(sanityinc-solarized-light))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
+(setq-default custom-safe-themes '("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -53,7 +54,9 @@ ignored: use `custom-enabled-themes' instead."
   (dolist (theme custom-enabled-themes)
     (unless (custom-theme-p theme)
       (load-theme theme)))
-  (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
+  (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes)))
+  (custom-set-variables `(custom-safe-themes (quote ,custom-safe-themes)))
+  (set-foreground-color "SpringGreen"))
 
 (add-hook 'after-init-hook 'reapply-themes)
 

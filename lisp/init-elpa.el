@@ -259,7 +259,7 @@ locate PACKAGE."
 (require-package 'kv '(0 0 19) nil)
 (require-package 'dash '(2 5 0) nil)
 ; color-theme 6.6.1 in elpa is buggy
-(require-package 'color-theme)
+;; (require-package 'color-theme)
 ;;;;;; (require-package 'color-theme-molokai)
 (require-package 'auto-compile)
 (require-package 'ace-jump-mode)
