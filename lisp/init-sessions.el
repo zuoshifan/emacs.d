@@ -34,6 +34,7 @@
 
 (setq session-save-file (expand-file-name ".session" user-emacs-directory))
 (add-hook 'after-init-hook 'session-initialize)
+;; (setq session-use-package t)
 
 ;; save a bunch of variables to the desktop file
 ;; for lists specify the len of the maximal saved data also
