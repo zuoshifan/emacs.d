@@ -1,5 +1,5 @@
 (when (maybe-require-package 'flycheck)
-  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
 
   ;; Override default flycheck triggers
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
