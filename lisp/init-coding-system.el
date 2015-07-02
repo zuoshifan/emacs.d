@@ -3,6 +3,7 @@
 (prefer-coding-system 'utf-8)
 
 ;; Chinese font set
-(set-fontset-font t 'han (font-spec :family "WenQuanYi Micro Hei Mono"))
+(cond (*linux* (set-fontset-font t 'han (font-spec :family "WenQuanYi Micro Hei Mono")))
+      (*is-a-mac* (set-fontset-font "fontset-default" 'han '("STHeiti"))))
 
 (provide 'init-coding-system)
