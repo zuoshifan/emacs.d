@@ -174,7 +174,8 @@
 (require 'init-which-func)
 (require 'init-move-window-buffer)
 ;; (require 'init-gist)
-(require 'init-moz)
+(when *linux*
+  (require 'init-moz))
 (require 'init-gtags)
 (require 'init-evil)
 (require 'init-sh)
