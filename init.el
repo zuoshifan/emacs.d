@@ -217,6 +217,7 @@
 (require 'init-maxframe)
 (require 'init-flymake)
 (require 'init-org-mime)
+(require 'init-org-octopress)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
