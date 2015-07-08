@@ -314,7 +314,7 @@
 ;; }}
 
 ;; change-inner and change-outer
-(require 'change-inner)
+(require-package 'change-inner)
 (global-set-key (kbd "M-i") 'change-inner)
 (global-set-key (kbd "M-o") 'change-outer)
 
@@ -512,6 +512,7 @@ version control automatically"
 ;; }}
 
 ;; edit confluence wiki
+(require-package 'confluence-edit)
 (autoload 'confluence-edit-mode "confluence-edit" "enable confluence-edit-mode" t)
 (add-to-list 'auto-mode-alist '("\\.wiki\\'" . confluence-edit-mode))
 
@@ -784,7 +785,7 @@ The full path into relative path insert it as a local file link in org-mode"
 (autoload 'vr/mc-mark "visual-regexp")
 
 ;; {{go-mode
-(require 'go-mode-load)
+(require 'go-mode-autoloads)
 ;; }}
 
 (provide 'init-misc)

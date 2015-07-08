@@ -208,7 +208,7 @@
 (require 'init-eimp)
 (require 'init-screenshot)
 (require 'init-epa)
-(require 'ace-jump-buffer)
+;; (require 'ace-jump-buffer)
 (require 'init-asymptote)
 (require 'init-vcard)
 (require 'init-auctex)

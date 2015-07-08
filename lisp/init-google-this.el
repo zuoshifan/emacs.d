@@ -1,5 +1,5 @@
 (setq google-this-keybind (kbd "C-x g"))
-(require 'google-this)
+(require-package 'google-this)
 (google-this-mode 1)
 (setq google-base-url "http://ipv6.google.")
 (setq google-location-suffix "com.hk")

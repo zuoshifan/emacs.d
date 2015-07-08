@@ -1,4 +1,4 @@
-(require 'artbollocks-mode)
+(require-package 'artbollocks-mode)
 ;; Avoid these phrases
 (setq weasel-words-regex
       (concat "\\b" (regexp-opt
@@ -29,7 +29,7 @@
            "Match in a case-insensitive way."
            (let ((case-fold-search t))
              ad-do-it))
-(add-hook 'text-mode-hook 'turn-on-artbollocks-mode)
-(add-hook 'org-mode-hook 'turn-on-artbollocks-mode)
+(add-hook 'text-mode-hook 'artbollocks-mode)
+(add-hook 'org-mode-hook 'artbollocks-mode)
 
 (provide 'init-artbollocks-mode)
