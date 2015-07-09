@@ -98,6 +98,16 @@
 ;; turn off auto-fill-mode, one can turn on it manually
 (add-hook 'latex-extra-mode-hook (lambda () (auto-fill-mode -1)) t)
 
+;; Completion for for math unicode symbols and latex tags using company-mode
+(require-package 'company-math)
+(after-load 'company-mode
+  ;; global activation of the unicode symbol completion
+  (add-to-list 'company-backends 'company-math-symbols-unicode)
+  ;; allin symbols to the right
+  (setq company-tooltip-align-annotations t))
+
+;; preview inline latex in any mode
+(require-package 'px)
 
 ;; magic-latex-buffer
 ;; (require 'magic-latex-buffer)
