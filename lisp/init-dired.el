@@ -54,6 +54,8 @@ if no files marked, always operate on current line in dired-mode
 ;; Now combine that with a nice window configuration stored in a register and you’ve got a pretty slick work flow.
 (setq-default diredp-hide-details-initially-flag nil
               dired-dwim-target t)
+;; deletes recursively
+(setq dired-recursive-deletes 'always)
 
 (eval-after-load 'dired
   '(progn
@@ -107,5 +109,43 @@ if no files marked, always operate on current line in dired-mode
 (when (maybe-require-package 'diff-hl)
   (after-load 'dired
     (add-hook 'dired-mode-hook 'diff-hl-dired-mode)))
+
+;; Open files in dired mode using 'open' in Mac OS X
+(when *is-a-mac*
+  (eval-after-load "dired"
+    '(progn
+       (define-key dired-mode-map (kbd "z")
+         (lambda () (interactive)
+           (let ((fn (dired-get-file-for-visit)))
+             (start-process "default-app" nil "open" fn)))))))
+
+(require-package 'dired-rainbow)
+(require 'dired-rainbow)
+
+;; 定义几种文件扩展名
+(defvar text-file-name-extensions
+  (purecopy '("txt" "md" "org")))
+(defvar doc-file-name-extensions
+  (purecopy '("pdf" "doc" "docx" "xls" "xlsx" "ppt" "xml" "htm" "html")))
+(defvar code-file-name-extensions
+  (purecopy '("h" "c" "cxx" "cpp" "el" "pl" "py" "pm")))
+(defvar audio-file-name-extensions
+  (purecopy '("mp3" "ogg" "wav" "wma" "flac" "aac" "ape" "aif")))
+(defvar video-file-name-extensions
+  (purecopy '("mp4" "mov" "mkv" "avi" "rmvb" "rm" "wmv" "3gp" "vob"
+              "mpg" "mpeg" "divx" "ogm" "ogv" "asf" "flv" "webm")))
+
+;; 使用dired-rainbow定义dired的颜色
+(dired-rainbow-define text "cyan1"
+                      text-file-name-extensions)
+(dired-rainbow-define doc "green2"
+                      doc-file-name-extensions)
+(dired-rainbow-define code "tomato"
+                      code-file-name-extensions)
+(dired-rainbow-define audio "blue2"
+                      audio-file-name-extensions)
+(dired-rainbow-define video "gold"
+                      video-file-name-extensions)
+
 
 (provide 'init-dired)
