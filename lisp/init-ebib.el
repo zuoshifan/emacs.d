@@ -67,4 +67,8 @@
          (month year))))
 
 
+;; retrieve BibTeX entries from NASA ADS
+(require-package 'bibslurp)
+
+
 (provide 'init-ebib)

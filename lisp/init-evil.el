@@ -81,6 +81,7 @@
         (apropos-mode . emacs)
         (ebib-index-mode . emacs)
         (ebib-entry-mode . emacs)
+        (bibslurp-mode . emacs)
         (reftex-select-label-mode . emacs)
         )
       do (evil-set-initial-state mode state))
