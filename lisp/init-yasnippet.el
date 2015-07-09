@@ -42,4 +42,8 @@
              ad-do-it))
 ;; @see http://stackoverflow.com/questions/7619640/emacs-latex-yasnippet-why-are-newlines-inserted-after-a-snippet
 (setq-default mode-require-final-newline nil)
+
+;; auto-yasnippet, create the snippet on the go
+(require-package 'auto-yasnippet)
+
 (provide 'init-yasnippet)
