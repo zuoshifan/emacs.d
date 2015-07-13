@@ -114,7 +114,7 @@ if no files marked, always operate on current line in dired-mode
 (when *is-a-mac*
   (eval-after-load "dired"
     '(progn
-       (define-key dired-mode-map (kbd "z")
+       (define-key dired-mode-map (kbd "e")
          (lambda () (interactive)
            (let ((fn (dired-get-file-for-visit)))
              (start-process "default-app" nil "open" fn)))))))
