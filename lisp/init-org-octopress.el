@@ -5,6 +5,6 @@
 (setq org-octopress-directory-org-top   "~/Programing/octopress/source")
 (setq org-octopress-directory-org-posts "~/Programing/octopress/source/blog")
 ;; copy setupfile-sample.ort in https:////github.com/yoshinari-nomura/org-octopress to setupfile.org
-(setq org-octopress-setup-file          "~/Programing/org-sty/setupfile.org")
+(setq org-octopress-setup-file          "~/org_sty/setupfile.org")
 
 (provide 'init-org-octopress)

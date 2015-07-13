@@ -83,6 +83,7 @@
         (ebib-entry-mode . emacs)
         (bibslurp-mode . emacs)
         (reftex-select-label-mode . emacs)
+        (org-octopress-summary-mode . emacs)
         )
       do (evil-set-initial-state mode state))
 
