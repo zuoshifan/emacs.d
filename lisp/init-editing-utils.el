@@ -42,6 +42,7 @@
  tooltip-delay 1.5
  truncate-lines nil
  truncate-partial-width-windows nil
+ undo-outer-limit 120000000
  ;; no annoying beep on errors
  visible-bell t)
 
