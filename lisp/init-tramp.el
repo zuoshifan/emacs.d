@@ -13,6 +13,8 @@
 ;; Running remote programs that shall connect to the local X11 server
 (add-to-list 'tramp-remote-process-environment
              (format "DISPLAY=%s" (getenv "DISPLAY")))
+;; Also to include PATH variable on the remote machine
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 
 (provide 'init-tramp)
