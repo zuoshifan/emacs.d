@@ -29,11 +29,11 @@
 (setq TeX-view-program-selection
       '((output-dvi "DVI Viewer")
         (output-pdf "PDF Viewer")
-        (output-html "Firefox")))
+        (output-html "Safari")))
 (setq TeX-view-program-list
-      '(("DVI Viewer" "evince %o")
-        ("PDF Viewer" "evince %o")
-        ("Firefox" "firefox %o")))
+      '(("DVI Viewer" "open %o")
+        ("PDF Viewer" "open %o")
+        ("Safari" "open %o")))
 
 
 ;; Enables Emacs to check the syntax of TeX file on-the-fly
@@ -95,6 +95,10 @@
 ;; extra commands and keys for LaTeX-mode
 (require-package 'latex-extra)
 (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+;; Start view-command at end of `latex/compile-commands-until-done'
+(setq latex/view-after-compile nil)
+;; ask for confirmation on the "VIEW" command
+;; (setq latex/view-skip-confirmation nil)
 ;; turn off auto-fill-mode, one can turn on it manually
 (add-hook 'latex-extra-mode-hook (lambda () (auto-fill-mode -1)) t)
 
