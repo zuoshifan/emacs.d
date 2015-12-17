@@ -1,0 +1,11 @@
+# name : pyplot plot
+# key : pl
+# contributor : Shifan Zuo <zuoshifan@163.com>
+# --
+plt.figure()
+plt.plot(${1:x}, ${2:y}, ${3:label='${4:y}'})
+plt.xlabel('${5:x}')
+plt.ylabel('${6:y}')
+plt.legend()
+plt.savefig(${7:'${8:figure.png}'})
+$0
