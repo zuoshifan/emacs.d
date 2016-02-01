@@ -1,6 +1,9 @@
-;; Chinese GBK coding support, solve Cheese coding error
+;; Chinese GBK coding support, solve Chinese coding error
 (prefer-coding-system 'chinese-gbk)
 (prefer-coding-system 'utf-8)
+
+;; make correct display of Chinese in shell mode
+(setenv "LANG" "zh_CN.UTF-8")
 
 ;; Chinese font set
 (cond (*linux* (set-fontset-font t 'han (font-spec :family "WenQuanYi Micro Hei Mono")))
