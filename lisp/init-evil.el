@@ -57,6 +57,7 @@
         (shell-mode . emacs)
         ;;(message-mode . emacs)
         (fundamental-mode . emacs)
+        (special-mode . emacs)
         (weibo-timeline-mode . emacs)
         (weibo-post-mode . emacs)
         (sr-mode . emacs)
