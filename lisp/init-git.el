@@ -4,10 +4,7 @@
 
 ;; TODO: link commits from vc-log to magit-show-commit
 ;; TODO: smerge-mode
-(require-package 'magit)
-(require-package 'git-blame)
-(require-package 'git-commit-mode)
-(require-package 'git-rebase-mode)
+(require-package 'git-blamed)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 (require-package 'git-messenger) ;; Though see also vc-annotate's "n" & "p" bindings
@@ -67,13 +64,6 @@
     (add-to-list 'session-mode-disable-list 'git-commit-mode)))
 
 
-;;; When we start working on git-backed files, use git-wip if available
-
-(after-load 'magit
-  (when (executable-find magit-git-executable)
-    (global-magit-wip-save-mode)
-    (diminish 'magit-wip-save-mode)))
-
 ;; (after-load 'magit
 ;;   (diminish 'magit-auto-revert-mode))
 
@@ -91,12 +81,12 @@
 
 ;;; git-svn support
 
-(require-package 'magit-svn)
-(autoload 'magit-svn-enabled "magit-svn")
-(defun sanityinc/maybe-enable-magit-svn-mode ()
-  (when (magit-svn-enabled)
-    (magit-svn-mode)))
-(add-hook 'magit-status-mode-hook #'sanityinc/maybe-enable-magit-svn-mode)
+;; (require-package 'magit-svn)
+;; (autoload 'magit-svn-enabled "magit-svn")
+;; (defun sanityinc/maybe-enable-magit-svn-mode ()
+;;   (when (magit-svn-enabled)
+;;     (magit-svn-mode)))
+;; (add-hook 'magit-status-mode-hook #'sanityinc/maybe-enable-magit-svn-mode)
 
 (after-load 'compile
   (dolist (defn (list '(git-svn-updated "^\t[A-Z]\t\\(.*\\)$" 1 nil nil 0 1)
@@ -123,36 +113,6 @@
 
 (require-package 'git-messenger)
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
-
-
-(eval-after-load 'magit
-  '(progn
-     (require 'magit-key-mode)
-     ))
-
-;; {{ git-gutter
-(when *emacs24*
-  (require 'git-gutter)
-
-  ; If you enable global minor mode
-  (global-git-gutter-mode t)
-
-  (git-gutter:linum-setup)
-
-  (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
-  (global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
-
-  ;; Jump to next/previous hunk
-  (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-  (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
-
-  ;; Stage current hunk
-  (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
-
-  ;; Revert current hunk
-  (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
-  )
-;; }}
 
 
 (defun git-reset-current-file ()
