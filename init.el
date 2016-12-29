@@ -171,7 +171,7 @@
 ;; (require 'init-delicious) ;make startup slow, I don't use delicious in w3m
 (require 'init-emacs-w3m)
 (require 'init-thing-edit)
-(require 'init-which-func)
+;; (require 'init-which-func)
 (require 'init-move-window-buffer)
 ;; (require 'init-gist)
 (when *linux*
