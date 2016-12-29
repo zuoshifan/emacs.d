@@ -785,7 +785,7 @@ The full path into relative path insert it as a local file link in org-mode"
 (autoload 'vr/mc-mark "visual-regexp")
 
 ;; {{go-mode
-(require 'go-mode-autoloads)
+;; (require 'go-mode-autoloads)
 ;; }}
 
 (provide 'init-misc)
