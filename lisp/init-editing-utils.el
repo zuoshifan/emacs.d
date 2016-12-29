@@ -44,7 +44,8 @@
  truncate-partial-width-windows nil
  undo-outer-limit 120000000
  ;; no annoying beep on errors
- visible-bell t)
+ visible-bell nil
+ ring-bell-functiion 'ignore)
 
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
