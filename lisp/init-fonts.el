@@ -18,6 +18,12 @@
 (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
 (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
 
+set highlight-symbol-face
+(face-spec-set 'highlight-symbol-face
+               '((((class color) (background dark))
+                  (:background "DodgerBlue"))
+                 (((class color) (background light))
+                  (:background "DodgerBlue"))))
 
 
 (provide 'init-fonts)
